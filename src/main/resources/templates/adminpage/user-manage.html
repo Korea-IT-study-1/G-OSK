@@ -27,19 +27,34 @@
         </header>
         <!-- section -->
         <section class="admin-container">
+            <table class="th-table">
+                <colgroup>
+                    <col width="20%">
+                    <col width="">
+                    <col width="15%">
+                    <col width="15%">
+                </colgroup>
+                <tr>
+                    <th>회원 이름</th>
+                    <th>전화번호</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+            </table>
             <div class="table-container">
                 <table class="user-table">
-                    <tr>
-                        <th>회원 이름</th>
-                        <th>회원 전화번호</th>
-                        <th>회원 정보 수정</th>
-                        <th>회원 정보 삭제</th>
-                    </tr>
+                    <colgroup>
+                        <col width="20%">
+                        <col width="">
+                        <col width="15%">
+                        <col width="15%">
+                    </colgroup>
+                    <!-- update-btn, dlt-btn css는 admin.css에 있음 -->
                     <tr>
                         <td>홍길동</td>
                         <td>010-1234-5678</td>
-                        <td><button class="btn orange-btn update-btn">수정</button></td>
-                        <td><button class="btn mint-btn dlt-btn">삭제</button></td>
+                        <td><button class="btn update-btn">수정</button></td>
+                        <td><button class="btn dlt-btn">삭제</button></td>
                     </tr>
                 </table>
             </div>

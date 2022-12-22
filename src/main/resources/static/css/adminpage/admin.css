@@ -77,6 +77,10 @@ td {
 
 }
 
+.th-table {
+    margin-top: 170px;
+}
+
 .admin-footer {
     width: 100%;
     position: absolute;
@@ -107,12 +111,8 @@ td {
 }
 
 
-
-
-
-
-
-/* sales-manage */
-.total-price {
-    float: right;
+/* user-manage */
+.update-btn,
+.dlt-btn {
+    width: 130px;
 }
