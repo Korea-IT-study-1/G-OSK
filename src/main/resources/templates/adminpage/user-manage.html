@@ -10,9 +10,11 @@
 <link rel="stylesheet" href="/static/css/adminpage/admin.css">
 <link rel="stylesheet" href="/static/css/adminpage/user-mange.css">
 <title>G-OSK 프로젝트</title>
+
 <body>
     <main class="container">
 <!-- header -->
+        <!-- header -->
         <header class="main-header">
             <p>G-OSK</p>
             <div class="header-bot">
@@ -31,31 +33,45 @@
                 <button class="product-inquiry">매출조회</button>
             </div>
         </header>
-<!-- section -->
-        <section class="main-container">
+        <!-- section -->
+        <section class="admin-container">
+            <table class="th-table">
+                <colgroup>
+                    <col width="20%">
+                    <col width="">
+                    <col width="15%">
+                    <col width="15%">
+                </colgroup>
+                <tr>
+                    <th>회원 이름</th>
+                    <th>전화번호</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+            </table>
             <div class="table-container">
                 <table class="user-table">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="">
+                        <col width="15%">
+                        <col width="15%">
+                    </colgroup>
+                    <!-- update-btn, dlt-btn css는 admin.css에 있음 -->
                     <tr>
-                        <th>회원 이름</th>
-                        <th>회원 전화번호</th>
-                        <th>회원 정보 수정</th>
-                        <th>회원 정보 삭제</th>
-                    </tr>
-                    <tr>
-                        <td>홍길동</td>
                         <td>010-1234-5678</td>
-                        <td><button class="btn orange-btn update-btn">수정</button></td>
-                        <td><button class="btn mint-btn dlt-btn">삭제</button></td>
+                        <td><button class="btn update-btn">수정</button></td>
+                        <td><button class="btn dlt-btn">삭제</button></td>
                     </tr>
                 </table>
             </div>
         </section>
-<!-- footer -->
+        <!-- footer -->
         <footer class="main-footer">
         </footer>
     </main>
-    <script src="/static/js/main.js"></script>
     <script src="/static/js/adminpage/user-mange.js"></script>
     <script src="/static/js/adminpage/admin.js"></script>
 </body>
+
 </html>

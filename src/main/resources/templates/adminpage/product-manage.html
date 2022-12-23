@@ -6,68 +6,94 @@
 <script src="https://kit.fontawesome.com/44bcb903a4.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="/static/css/reset.css">
-
 <link rel="stylesheet" href="/static/css/adminpage/product-manage.css">
 <title>G-OSK 프로젝트</title>
+
 <body>
     <main class="container">
-<!-- header -->
+        <!-- header -->
         <header class="main-header">
-            <p>G-OSK</p>
-            <div class="header-bot">
-                <ul>
-                    <li>그레이즈 스터디카페</li>
-                    <li>
-                        <i class="fa-solid fa-user"></i>
-                        <span>운영시간: 10:00 - 20:00</span>
-                    </li>
-                </ul>
+
+            <!-- header -->
+            <div class="popup-back invisible">
+                <div class="popup">
+                    <select name="" id="">
+                        <option value="">일반석</option>
+                        <option value="">지정석</option>
+                    </select>
+                    <select name="" id="">
+                        <option value="">원데이</option>
+                        <option value="">시간권</option>
+                        <option value="">기간권</option>
+                    </select>
+                    <input type="text" placeholder="상품이름" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='상품이름'">
+                    <input type="text" placeholder="가격" onfocus="this.placeholder=''" onblur="this.placeholder='가격'">
+
+                    <div class="popup-btns">
+                        <button class="btn gray-btn popup-register-btn">등록</button>
+                        <button class="btn org-btn close-btn">닫기</button>
+                    </div>
+                </div>
             </div>
-            <div class="main-category">
-                <button class="product-inquiry">상품관리</button>
-                <button class="product-inquiry">회원관리</button>
-                <button class="product-inquiry">좌석관리</button>
-                <button class="product-inquiry">매출조회</button>
-            </div>
-        </header>
-<!-- section -->
-        <section class="main-container">
-            <div class="product-category">
-                <ul>
-                    <li class="category-name">지정석</li>
-                    <li>기간권</li>
-                </ul>
-                <ul>
-                    <li class="category-name">일반석</li>
-                    <li>원데이</li>
-                    <li>시간권</li>
-                    <li>기간권</li>
-                </ul>
-            </div>
-            <div class="table-container">
-                <table class="prouct-table">
-                    <tr>
-                        <th>상품 이름</th>
-                        <th>상품 가격</th>
-                        <th>상품 수정</th>
-                        <th>상품 삭제</th>
-                    </tr>
-                    <tr>
-                        <td>1시간</td>
-                        <td><span>1000</span>원</td>
-                        <td><button class="btn update-btn">수정</button></td>
-                        <td><button class="btn dlt-btn">삭제</button></td>
-                    </tr>
-                </table>
-            </div>
-            <button class="btn orange-btn">상품 등록</button>
-        </section>
-<!-- footer -->
-        <footer class="main-footer">
-        </footer>
+
+            <header class="admin-header">
+                >>>>>>> adminpage
+                <p>G-OSK</p>
+                <div class="header-bot">
+                    <ul>
+                        <li>그레이즈 스터디카페</li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <span>운영시간: 10:00 - 20:00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-category">
+                    <button class="product-inquiry">상품관리</button>
+                    <button class="product-inquiry">회원관리</button>
+                    <button class="product-inquiry">좌석관리</button>
+                    <button class="product-inquiry">매출조회</button>
+                </div>
+            </header>
+            <!-- section -->
+            <section class="main-container">
+                <div class="product-category">
+                    <ul>
+                        <li class="category-name">지정석</li>
+                        <li>기간권</li>
+                    </ul>
+                    <ul>
+                        <li class="category-name">일반석</li>
+                        <li>원데이</li>
+                        <li>시간권</li>
+                        <li>기간권</li>
+                    </ul>
+                </div>
+                <div class="table-container">
+                    <table class="prouct-table">
+                        <tr>
+                            <th>상품 이름</th>
+                            <th>상품 가격</th>
+                            <th>상품 수정</th>
+                            <th>상품 삭제</th>
+                        </tr>
+                        <tr>
+                            <td>1시간</td>
+                            <td><span>1000</span>원</td>
+                            <td><button class="btn update-btn">수정</button></td>
+                            <td><button class="btn dlt-btn">삭제</button></td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="btn orange-btn">상품 등록</button>
+            </section>
+            <!-- footer -->
+            <footer class="main-footer">
+            </footer>
     </main>
-    
     <script src="/static/js/adminpage/product-manage.js"></script>
     <script src="/static/js/adminpage/admin.js"></script>
 </body>
+
 </html>
