@@ -13,6 +13,27 @@
 <body>
     <main class="container">
         <!-- header -->
+        <div class="popup-back invisible">
+            <div class="popup">
+                <select name="" id="">
+                    <option value="">일반석</option>
+                    <option value="">지정석</option>
+                </select>
+                <select name="" id="">
+                    <option value="">원데이</option>
+                    <option value="">시간권</option>
+                    <option value="">기간권</option>
+                </select>
+                <input type="text" placeholder="상품이름" onfocus="this.placeholder=''" onblur="this.placeholder='상품이름'">
+                <input type="text" placeholder="가격" onfocus="this.placeholder=''" onblur="this.placeholder='가격'">
+
+                <div class="popup-btns">
+                    <button class="btn gray-btn popup-register-btn">등록</button>
+                    <button class="btn org-btn close-btn">닫기</button>
+                </div>
+            </div>
+        </div>
+
         <header class="admin-header">
             <p>G-OSK</p>
             <div class="header-bot">
@@ -96,7 +117,6 @@
             </div>
         </footer>
     </main>
-    <script src="/static/js/main.js"></script>
     <script src="/static/js/adminpage/product-manage.js"></script>
     <script src="/static/js/adminpage/admin.js"></script>
 </body>

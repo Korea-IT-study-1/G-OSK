@@ -25,6 +25,10 @@
     margin: 0px 10px;
 }
 
+.search-btn {
+    height: 80px;
+}
+
 .sales-th-table {
     margin: 30px 0;
 }
