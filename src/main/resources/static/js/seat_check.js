@@ -20,7 +20,10 @@ basic.onclick =() => {
 $(".seat-content button").click(function(){
     if($(this).hasClass('sky-btn') == true){
         $(this).removeClass('sky-btn');
+        $(".locker-select-name").attr('value',"");
     }else{
         $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
+        $('.locker-select-name').attr('value',$(this).text());
     }
 })
+
