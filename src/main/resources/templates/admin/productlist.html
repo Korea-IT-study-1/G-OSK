@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/44bcb903a4.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="/static/css/reset.css">
+<link rel="stylesheet" href="/static/css/adminpage/admin.css">
+<link rel="stylesheet" href="/static/css/adminpage/product-manage.css">
+<title>G-OSK 프로젝트</title>
+
+<body>
+    <main class="container">
+        <!-- header -->
+        <div class="popup-back invisible">
+            <div class="popup">
+                <select name="" id="">
+                    <option value="">일반석</option>
+                    <option value="">지정석</option>
+                </select>
+                <select name="" id="">
+                    <option value="">원데이</option>
+                    <option value="">시간권</option>
+                    <option value="">기간권</option>
+                </select>
+                <input type="text" placeholder="상품이름" onfocus="this.placeholder=''" onblur="this.placeholder='상품이름'">
+                <input type="text" placeholder="가격" onfocus="this.placeholder=''" onblur="this.placeholder='가격'">
+
+                <div class="popup-btns">
+                    <button class="btn gray-btn popup-register-btn">등록</button>
+                    <button class="btn org-btn close-btn">닫기</button>
+                </div>
+            </div>
+        </div>
+        <div class="popup-back2 invisible">
+            <div class="popup2">
+                <select name="" id="">
+                    <option value="">수정상품 자리</option>
+                    <option value="">일반석</option>
+                    <option value="">지정석</option>
+                </select>
+                <select name="" id="">
+                    <option value="">수정상품 시간</option>
+                    <option value="">원데이</option>
+                    <option value="">시간권</option>
+                    <option value="">기간권</option>
+                </select>
+                <input type="text" placeholder="수정상품 이름" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='수정상품이름'">
+                <input type="text" placeholder="수정상품 가격" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='수정상품가격'">
+
+                <div class="popup2-btns">
+                    <button class="btn gray-btn popup2-update-btn">수정</button>
+                    <button class="btn org-btn popup2-close-btn">닫기</button>
+                </div>
+            </div>
+        </div>
+
+        <header class="admin-header">
+            <p>G-OSK</p>
+            <div class="header-bot">
+                <ul>
+                    <li>그레이즈 스터디카페</li>
+                    <li>
+                        <i class="fa-solid fa-user"></i>
+                        <span>운영시간: 10:00 - 20:00</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="main-category">
+                <button class="btn black-btn product-inquiry">상품관리</button>
+                <button class="btn black-btn product-inquiry">회원관리</button>
+                <button class="btn black-btn product-inquiry">좌석관리</button>
+                <button class="btn black-btn product-inquiry">매출조회</button>
+            </div> -->
+        </header>
+        <!-- section -->
+        <section class="admin-container">
+            <div class="product-category">
+                <ul>
+                    <li class="reserved">지정석</li>
+                    <li class="nomal">일반석</li>
+                </ul>
+            </div>
+            <table>
+                <colgroup>
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                </colgroup>
+                <tr>
+                    <th>카테고리</th>
+                    <th>상품이름</th>
+                    <th>상품가격</th>
+                    <th>상품수정</th>
+                    <th>상품삭제</th>
+                </tr>
+            </table>
+            <div class="table-container">
+                <table class="prouct-table">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                    </colgroup>
+                    <tr>
+                        <td>지정석</td>
+                        <td>시간권
+                            <br>1시간
+                        </td>
+                        <td><span>1000</span>원</td>
+                        <td><button class="btn update-btn">수정</button></td>
+                        <td><button class="btn dlt-btn">삭제</button></td>
+                    </tr>
+                    <tr>
+                        <td>지정석</td>
+                        <td>시간권
+                            <br>1시간
+                        </td>
+                        <td><span>1000</span>원</td>
+                        <td><button class="btn update-btn">수정</button></td>
+                        <td><button class="btn dlt-btn">삭제</button></td>
+                    </tr>
+                </table>
+            </div>
+            <button class="btn org-btn register-btn">상품 등록</button>
+        </section>
+        <!-- footer -->
+        <footer class="admin-footer">
+            <div class="main-category">
+                <button class="btn black-btn product-inquiry">상 품<br>관 리</button>
+                <button class="btn black-btn product-inquiry">회 원<br>관 리</button>
+                <button class="btn black-btn product-inquiry">좌 석<br>관 리</button>
+                <button class="btn black-btn product-inquiry">매 출<br>조 회</button>
+            </div>
+        </footer>
+    </main>
+    <script src="/static/js/adminpage/product-manage.js"></script>
+    <script src="/static/js/adminpage/admin.js"></script>
+</body>
+
+</html>
