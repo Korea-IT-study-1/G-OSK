@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/44bcb903a4.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="/static/css/reset.css">
+<link rel="stylesheet" href="/static/css/adminpage/admin.css">
+<link rel="stylesheet" href="/static/css/adminpage/user-mange.css">
+<title>G-OSK 프로젝트</title>
+
+<body>
+    <main class="container">
+        <div class="popup-back invisible">
+            <div class="popup">
+                <p>수정 전 정보</p>
+                <input type="text" value="수정 전 회원 번호" readonly>
+                <input type="text" value="수정 전 회원 비번" readonly>
+                <p>수정 할 정보</p>
+                <input type="text" placeholder="수정 할 회원 번호" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='수정 할 회원 번호'">
+                <input type="text" placeholder="수정 할 회원 비번" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='수정 할 회원 비번'">
+
+                <div class="popup-btns">
+                    <button class="btn gray-btn popup-update-btn">수정</button>
+                    <button class="btn org-btn popup-close-btn">닫기</button>
+                </div>
+            </div>
+        </div>
+        <!-- header -->
+        <header class="admin-header">
+            <p>G-OSK</p>
+            <div class="header-bot">
+                <ul>
+                    <li>그레이즈 스터디카페</li>
+                    <li>
+                        <i class="fa-solid fa-user"></i>
+                        <span>운영시간: 10:00 - 20:00</span>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <!-- section -->
+        <section class="admin-container">
+            <table class="th-table">
+                <colgroup>
+                    <col width="">
+                    <col width="20%">
+                    <col width="15%">
+                    <col width="15%">
+                </colgroup>
+                <tr>
+                    <th>전화번호</th>
+                    <th>비밀번호</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+            </table>
+            <div class="table-container">
+                <table class="user-table">
+                    <colgroup>
+                        <col width="">
+                        <col width="20%">
+                        <col width="15%">
+                        <col width="15%">
+                    </colgroup>
+                    <!-- update-btn, dlt-btn css는 admin.css에 있음 -->
+                    <tr>
+                        <td>010-1234-5678</td>
+                        <td>1234</td>
+                        <td><button class="btn update-btn">수정</button></td>
+                        <td><button class="btn dlt-btn">삭제</button></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        <!-- footer -->
+        <footer class="admin-footer">
+            <div class="main-category">
+                <button class="btn black-btn product-inquiry">상 품<br>관 리</button>
+                <button class="btn black-btn product-inquiry">회 원<br>관 리</button>
+                <button class="btn black-btn product-inquiry">좌 석<br>관 리</button>
+                <button class="btn black-btn product-inquiry">매 출<br>조 회</button>
+            </div>
+        </footer>
+    </main>
+    <script src="/static/js/adminpage/user-mange.js"></script>
+    <script src="/static/js/adminpage/admin.js"></script>
+</body>
+
+</html>
