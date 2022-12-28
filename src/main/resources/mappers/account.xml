@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.AccountRepository">
+
+    <insert id="save" parameterType="com.Gosk.GoskProject20221221.domain.User">
+
+    </insert>
+
+    <select id="findUserByPhone" resultType="com.Gosk.GoskProject20221221.domain.User">
+
+    </select>
+</mapper>
