@@ -1,10 +1,10 @@
-//홈으로 버튼 이벤트
+//홈 버튼 이벤트
 $('.home-btn').click(function(){
     localStorage.clear();
     location.replace("/index");
 });
 
-//정액권 이용권 선택
+//사물함 이용권 선택
 $('.time-content li').click(function(){
     localStorage.setItem("paytime", $(this).find('span').text());
     localStorage.setItem("pay", $(this).children('div').text());

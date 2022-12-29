@@ -1,5 +1,4 @@
-
-
+//키패드 입력 시 휴대폰 번호가 11자리일 때 자동으로 -표시 및 비밀번호 칸으로 넘어가기
 $('.join-keybord > button').click(function () {
     var phoneIdInput = $(".phone-id").val();
     var phonePwInput = $(".phone-pw").val();
@@ -54,15 +53,16 @@ function phoneFormat(phoneNumber) {
         // 남은 마지막 모든 숫자
         value.slice(value.length - 4),
     ].join('-');
-}
+  }
 
+  //가입취소 버튼 이벤트
+  $('.account-cancel').click(function(){
+    location.replace("/index");
+  });
 
 const phoneId = document.querySelector(".phone-id");
 const phonePw = document.querySelector(".phone-pw");
-
 const registerBtn = document.querySelector(".register-btn");
-
-
 
 registerBtn.onclick = () => {
 

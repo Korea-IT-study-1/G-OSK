@@ -4,7 +4,7 @@ const basic = document.querySelector(".basic");
 const special = document.querySelector(".special");
 
 //선택한 좌석 클릭 시 버튼색깔 변경 및 좌석 이름 표시
-$(".seat-content button").click(function(){
+$('.seat-content button').click(function(){
     if($(this).hasClass('org-btn') == false){
         if($(this).hasClass('sky-btn') == true){
             $(this).removeClass('sky-btn');
@@ -19,9 +19,36 @@ $(".seat-content button").click(function(){
     }
 })
 
-//일반석, 지정석 종류 버튼 히든
+//홈으로 버튼 이벤트
+$('.home-btn').click(function(){
+    localStorage.clear();
+    location.replace("/index");
+});
+
+//다음단계 버튼 이벤트
+$('.next-btn').click(function(){
+    if($('.seat-select-name').val() != ""){
+        switch(localStorage.getItem("time")){
+            case "seatmove":
+                localStorage.setItem("seatnum", $('.seat-select-name').val());
+                break;
+            case "in":
+                localStorage.setItem("seatnum", $('.seat-select-name').val());
+                location.href ="/inout";
+                break;
+            default:
+                localStorage.setItem("seatnum", $('.seat-select-name').val());
+                var time = localStorage.getItem("time");
+                location.href = "/time/" + time;
+        }
+    }
+});
+
+//일반석, 지정석 종류 버튼 히든 이벤트
 function hidden_btn(time){
-    if(time == "oneday" || time == "commuter" || time == "inout"){
+    if(time == "oneday" ||
+     time == "commuter" ||
+     time == "in"){
         $('.basic').show();
         $('.special').hide();
         seatbasic.classList.remove("invisible");
