@@ -47,7 +47,7 @@ $(".locker-management-content button").click(function(){
     $.ajax({
       async: false,
       type: "put",
-      url: "/api/locker/check" + id,
+      url: "/api/locker/check/update/" + id,
       contentType: "json",
       data: userData,
       dataType: "json",
