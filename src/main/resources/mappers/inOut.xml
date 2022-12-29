@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.InOutRepository">
+
+    <select id="inOut" parameterType="integer" resultType="com.Gosk.GoskProject20221221.domain.User">
+        SELECT
+            um.user_id,
+            um.user_time,
+            um.user_date,
+            um.seat_num,
+            um.reserved_num,
+            um.user_update_date,
+
+            rm.receipt_time,
+            rm.receipt_day,
+            rm.receipt_start_date,
+            rm.receipt_end_date
+        FROM
+            user_mst um
+            left outer join receipt_mst rm on(rm.user_id = um.user_id)
+        WHERE
+            um.user_id = #{user_id};
+    </select>
+</mapper>

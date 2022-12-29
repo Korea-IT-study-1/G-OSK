@@ -37,37 +37,39 @@ $(".locker-management-content button").click(function(){
   
     const lockerInput = document.querySelector(".locker-select-name");
     const inoutButton = document.querySelector(".junho");
-    const id = localStorage.id;
-    console.log(id)
+    const user_id = localStorage.id;
+    console.log(user_id)
     let userData = {}
 
     userData=lockerInput.value
     console.log(userData)
     inoutButton.onclick =()=> {
-    $.ajax({
-      async: false,
-      type: "put",
-      url: "/api/locker/check/update/" + id,
-      contentType: "json",
-      data: userData,
-      dataType: "json",
-      success: (response) => {
-        alert("입실완료");
-      //   history.back();        
       console.log(userData)
-
-      },
-      error: (error) => {
-        alert("입실 실패");
-        console.log(error);
-        console.log(userData)
-      }
-    });
+      $.ajax({
+        async: false,
+        type: "put",
+        url: "/api/locker/check/update/" + user_id,
+        contentType: "application/json",
+        data: JSON.stringify(userData),
+        dataType: "json",
+        success: (response) => {
+          alert("입실완료");
+          location.href = "/inout";
+          // alert(JSON.stringify(response));
+          // // history.back();        
+          // // console.log(response.data);
+          // console.log("1"+response);
+          // console.log("2"+response.data);
+        },
+        error: (error) => {
+          alert("입실 실패");
+          console.log(error);
+          console.log(userData)
+        }
+      });
       // localStorage.setItem("userData", JSON.stringify(userData));
-
       // location.href = "/inout";
     }
-
 })
 
 

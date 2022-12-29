@@ -6,13 +6,13 @@
 <mapper namespace="com.Gosk.GoskProject20221221.repository.LockerRepository">
 
 
-    <update id="updateLocker" parameterType="com.Gosk.GoskProject20221221.domain.User">
+    <update id="updateLocker"  parameterType="com.Gosk.GoskProject20221221.domain.User">
         update
             user_mst
         set
-            <if test='locker_num != null'>locker_num = #{locker_num},</if>
-            update_date = now()
-        where
-            id = #{id}
+            locker_num = #{locker_num},
+            user_update_date=now()
+        WHERE
+            user_id = #{user_id};
     </update>
 </mapper>

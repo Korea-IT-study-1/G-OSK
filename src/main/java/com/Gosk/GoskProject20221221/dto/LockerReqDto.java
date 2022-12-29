@@ -9,14 +9,13 @@ import lombok.Data;
 @Builder
 @Data
 public class LockerReqDto {
-    private int user_id;
-    private String loker_num;
+    private String locker_num;
 
 
-    public User toLockerEntity(int id) {
+    public User toLockerEntity(int user_id) {
         return User.builder()
-                .user_id(id)
-                .locker_num(loker_num)
+                .user_id(user_id)
+                .locker_num(locker_num)
                 .build();
     }
 }
