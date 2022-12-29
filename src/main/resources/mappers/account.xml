@@ -6,10 +6,25 @@
 <mapper namespace="com.Gosk.GoskProject20221221.repository.AccountRepository">
 
     <insert id="save" parameterType="com.Gosk.GoskProject20221221.domain.User">
-
+        insert into
+            user_mst
+        values(
+            0,
+            2,
+            "0",
+            "0",
+            "0",
+            #{user_phone},
+            #{user_pw},
+            0,
+            0,
+            0,
+            now(),
+            now()
+        );
     </insert>
 
-    <select id="findUserByPhone" resultType="com.Gosk.GoskProject20221221.domain.User">
-
-    </select>
+<!--    <select id="findUserByPhone" resultType="com.Gosk.GoskProject20221221.domain.User">-->
+<!--        -->
+<!--    </select>-->
 </mapper>

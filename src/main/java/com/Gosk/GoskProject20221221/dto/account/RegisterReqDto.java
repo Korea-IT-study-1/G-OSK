@@ -3,6 +3,7 @@ package com.Gosk.GoskProject20221221.dto.account;
 import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.validation.ValidationGroups;
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -29,8 +30,7 @@ public class RegisterReqDto {
     public User toUserEntity(){
         return User.builder()
                 .user_phone(userPhone)
-                .user_pw(userPw)
-                .role_id(2)
+                .user_pw(new BCryptPasswordEncoder().encode(userPw))
                 .build();
     }
 }
