@@ -20,6 +20,7 @@ public class User {
     private String locker_num;
     private String user_phone;
     private String user_pw;
+    private String role;
     private LocalTime user_time;
     private LocalTime user_date;
     private LocalTime user_locker_date;
