@@ -1,5 +1,6 @@
 package com.Gosk.GoskProject20221221.config;
 
+import com.Gosk.GoskProject20221221.handler.auth.AuthFailureHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().disable();
         http.authorizeRequests()
                 .antMatchers("**")
-                .permitAll();
+                .permitAll()
+
+                .and()
+                .formLogin()
+                .usernameParameter("user_phone")
+                .passwordParameter("user_pw")
+                .loginPage("/account/login")
+                .loginProcessingUrl("/account/login")
+                .failureHandler(new AuthFailureHandler());
     }
 
 }

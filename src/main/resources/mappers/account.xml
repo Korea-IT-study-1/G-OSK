@@ -23,8 +23,25 @@
             now()
         );
     </insert>
+    <select id="findUserByPhone" resultType="com.Gosk.GoskProject20221221.domain.User">
+        SELECT
+            um.user_id,
+            um.user_phone,
+            um.user_pw,
+            um.role_id,
 
-<!--    <select id="findUserByPhone" resultType="com.Gosk.GoskProject20221221.domain.User">-->
-<!--        -->
-<!--    </select>-->
+            rm.role,
+
+            um.user_create_date,
+            um.user_update_date
+
+        FROM
+            user_mst um
+            left outer join role_mst rm on (rm.role_id = um.role_id)
+
+        WHERE
+            user_phone = #{user_phone};
+    </select>
+
+
 </mapper>
