@@ -86,9 +86,25 @@ registerBtn.onclick = () => {
         error: (error) => {
             console.log(error);
             console.log(joinInfo);
-
         }
 
     })
 }
 
+// 에러메시지
+function validationError(error) {
+    const accountErrors = document.querySelector(".account-errors");
+    const accountErrorList = accountErrors.querySelector(".errorUl");
+
+    const errorValues = Object.values(error);
+
+    accountErrorList.innerHTML = "";
+
+    errorValues.forEach((value) => {
+        accountErrorList.innerHTML += `
+            <li>${value}</li>
+        `;
+    });
+
+    accountErrors.classList.remove("errors-invisible");
+}

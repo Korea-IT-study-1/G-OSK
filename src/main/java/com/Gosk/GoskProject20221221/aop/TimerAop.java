@@ -12,24 +12,24 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Component
 public class TimerAop {
+//
+//    @Pointcut("execution(* com.Gosk.GoskProject20221221.controller..*.*(..))")
+//    private void executionPointCut(){}
 
-    @Pointcut("execution(* com.Gosk.GoskProject20221221.controller..*.*(..))")
-    private void executionPointCut(){}
+//    @Around("executionPointCut()")
+//    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+//        StopWatch stopWatch = new StopWatch();
+//        stopWatch.start();
+//
+//        Object result = joinPoint.proceed();
+//
+//        stopWatch.stop();
+//        log.info("class: {}, method: {} >>> {}",
+//                joinPoint.getSignature().getDeclaringTypeName(),
+//                joinPoint.getSignature().getName(),
+//                stopWatch.getTotalTimeSeconds());
+//        return null;
 
-    @Around("executionPointCut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-
-        Object result = joinPoint.proceed();
-
-        stopWatch.stop();
-        log.info("class: {}, method: {} >>> {}",
-                joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName(),
-                stopWatch.getTotalTimeSeconds());
-        return result;
-
-    }
+//    }
 
 }

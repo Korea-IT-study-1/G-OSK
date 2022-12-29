@@ -17,19 +17,19 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
 
-//    @Override
-//    public boolean checkDuplicatePhone(String user_phone) {
-//
-//        User user = accountRepository.findUserByPhone(user_phone);
-//
-//        if(user != null) {
-//            Map<String, String> errorMap = new HashMap<String, String>();
-//            errorMap.put("duplicateFlag", "이미 가입된 휴대폰 번호입니다.");
-//            throw new CustomValidationException("DuplicatePhone Error", errorMap);
-//        }
-//
-//        return true;
-//    }
+    @Override
+    public boolean checkDuplicatePhone(String user_phone) {
+
+        User user = accountRepository.findUserByPhone(user_phone);
+
+        if(user != null) {
+            Map<String, String> errorMap = new HashMap<String, String>();
+            errorMap.put("duplicateFlag", "이미 가입된 휴대폰 번호입니다.");
+            throw new CustomValidationException("DuplicatePhone Error", errorMap);
+        }
+
+        return true;
+    }
 
     @Override
     public boolean register(RegisterReqDto registerReqDto) throws Exception {

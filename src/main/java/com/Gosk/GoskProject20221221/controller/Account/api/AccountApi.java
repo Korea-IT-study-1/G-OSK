@@ -26,11 +26,10 @@ public class AccountApi {
     private final AccountService accountService;
 
     @LogAspect
-    @ValidAspect
     @PostMapping("/join")
-    public ResponseEntity<?> register(@Validated(ValidationSequence.class) @RequestBody RegisterReqDto registerReqDto, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<?> register(@RequestBody RegisterReqDto registerReqDto, BindingResult bindingResult) throws Exception {
 
-//        accountService.checkDuplicatePhone(registerReqDto.getUserPhone());
+        accountService.checkDuplicatePhone(registerReqDto.getUserPhone());
         accountService.register(registerReqDto);
 
         return ResponseEntity.ok().body(new CMRespDto<>(1, "success", registerReqDto));
