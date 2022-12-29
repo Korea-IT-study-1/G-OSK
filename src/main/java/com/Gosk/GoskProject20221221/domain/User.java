@@ -17,6 +17,7 @@ public class User {
     private int role_id;
     private int seat_num;
     private int reserved_num;
+    private String locker_num;
     private String user_phone;
     private String user_pw;
     private LocalTime user_time;

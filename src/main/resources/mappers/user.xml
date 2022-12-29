@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.LockerRepository">
+
+
+    <update id="updateLocker" parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            user_mst
+        set
+            <if test='locker_num != null'>locker_num = #{locker_num},</if>
+            update_date = now()
+        where
+            id = #{id}
+    </update>
+</mapper>
