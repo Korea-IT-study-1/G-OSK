@@ -25,6 +25,4 @@ public class TimeApi {
 ////        log.info("{}", bagService.getBagList(user.getId()));
 ////        return ResponseEntity.ok().body(new CMRespDto<>(1, "Successfully", bagService.getBagList(user.getId())));
 //    }
-
-
 }

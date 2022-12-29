@@ -55,3 +55,9 @@ function phoneFormat(phoneNumber) {
         value.slice(value.length - 4),
     ].join('-');
 }
+
+//홈 버튼 이벤트
+$('.home-btn').click(function(){
+    localStorage.clear();
+    location.replace("/index");
+});

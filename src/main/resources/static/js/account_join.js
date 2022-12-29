@@ -82,6 +82,7 @@ registerBtn.onclick = () => {
             console.log(response);
             console.log(joinInfo);
             alert("성공");
+            location.replace("/index");
         },
         error: (error) => {
             console.log(error);
