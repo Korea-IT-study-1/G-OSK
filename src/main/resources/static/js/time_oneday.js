@@ -4,7 +4,7 @@ $('.home-btn').click(function(){
     location.replace("/index");
 });
 
-//정액권 이용권 선택
+//원데이 이용권 선택
 $('.time-content li').click(function(){
     localStorage.setItem("paytime", $(this).find('span').text());
     localStorage.setItem("pay", $(this).children('div').text());

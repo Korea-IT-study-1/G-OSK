@@ -55,3 +55,8 @@ function phoneFormat(phoneNumber) {
       value.slice(value.length - 4),
     ].join('-');
   }
+
+  //가입취소 버튼 이벤트
+  $('.account-cancel').click(function(){
+    location.replace("/index");
+  });

@@ -11,3 +11,18 @@ $(".locker-management-content button").click(function(){
         }
     }
 })
+
+//홈 버튼 이벤트
+$('.home-btn').click(function(){
+    localStorage.clear();
+    location.replace("/index");
+});
+
+//다음단계 버튼 이벤트
+$('.next-btn').click(function(){
+    if($('.locker-select-name').val() != ""){
+        localStorage.setItem("seatnum", $('.locker-select-name').val());
+        var time = localStorage.getItem("time");
+        location.href = "/" + time + "/time";
+    }
+});
