@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class RegisterReqDto {
 
     @NotBlank(message= "아이디를 비워 둘 수 없습니다.", groups = ValidationGroups.NotBlankGroup.class)
-    @Size(min = 11, max = 11, message = "휴대폰 번호는 11자리만 가능", groups = ValidationGroups.SizeCheckGroup.class)
+    @Size(min = 13, max = 13, message = "휴대폰 번호는 13자리만 가능(-포함)", groups = ValidationGroups.SizeCheckGroup.class)
     @Pattern(regexp = "^([0-9])*$",
             message = "휴대폰 번호는 숫자만 가능합니다.",
             groups = ValidationGroups.PatternCheckGroup.class)

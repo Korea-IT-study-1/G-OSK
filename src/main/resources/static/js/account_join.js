@@ -67,7 +67,7 @@ const registerBtn = document.querySelector(".register-btn");
 registerBtn.onclick = () => {
 
     let joinInfo = {
-        userPhone: phoneId.value.replace(/-/g, ""),
+        userPhone: phoneId.value,
         userPw: phonePw.value
     }
 
