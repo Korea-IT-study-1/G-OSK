@@ -21,6 +21,7 @@ public class User {
     private String user_pw;
     private LocalTime user_time;
     private LocalTime user_date;
+    private LocalTime user_locker_date;
     private LocalDateTime user_create_date;
     private LocalDateTime user_update_date;
 }

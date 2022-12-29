@@ -65,11 +65,9 @@ const registerBtn = document.querySelector(".register-btn");
 
 
 registerBtn.onclick = () => {
-    console.log(phoneId.value);
-    console.log(phonePw.value);
 
     let joinInfo = {
-        userPhone: phoneId.value,
+        userPhone: phoneId.value.replace(/-/g, ""),
         userPw: phonePw.value
     }
 
@@ -78,16 +76,19 @@ registerBtn.onclick = () => {
         type: "post",
         url: "/api/account/join",
         contentType: "application/json",
-        data: joinInfo,
+        data: JSON.stringify(joinInfo),
         dataType: "json",
         success: (response) => {
             console.log(response);
             console.log(joinInfo);
+            alert("성공");
         },
         error: (error) => {
             console.log(error);
             console.log(joinInfo);
+
         }
 
     })
 }
+
