@@ -34,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("user_pw")
                 .loginPage("/account/login")
                 .loginProcessingUrl("/account/login")
-                .failureHandler(new AuthFailureHandler());
+                .failureHandler(new AuthFailureHandler())
+                .defaultSuccessUrl("/index")
+        ;
     }
 
 }
