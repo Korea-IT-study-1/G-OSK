@@ -19,7 +19,7 @@ $('.locker-btn').click(function(){
 //입실 버튼 이벤트
 $('.in-btn').click(function(){
     localStorage.setItem("time", $(this).val());
-    location.href = "/seat";
+    location.href = "/locker/check";
 });
 
 //퇴실 버튼 이벤트

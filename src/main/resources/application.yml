@@ -12,7 +12,7 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: web-study.cq7w8v7xxjsd.ap-northeast-2.rds.amazonaws.com:3306/G-OSK
+    url: jdbc:mariadb://web-study.cq7w8v7xxjsd.ap-northeast-2.rds.amazonaws.com:3306/G-OSK?allowMultiQueries=true
     username: admin
     password: 1q2w3e4r
 
