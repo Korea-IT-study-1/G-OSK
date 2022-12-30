@@ -17,7 +17,8 @@ $('.seat-content button').click(function(){
         $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
         $(".seat-select-name").attr('value',"");
     }
-    const seatInput = document.querySelector(".seat-select-name");
+    if(localStorage.getItem("time") == "in"){
+        const seatInput = document.querySelector(".seat-select-name");
     const inoutButton = document.querySelector(".junho");
     const user_id = localStorage.id;
     console.log(user_id)
@@ -49,6 +50,8 @@ $('.seat-content button').click(function(){
           console.log(userData)
         }
       });
+    }
+    
       // localStorage.setItem("userData", JSON.stringify(userData));
       // location.href = "/inout";
     }

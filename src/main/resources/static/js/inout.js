@@ -15,7 +15,7 @@
             // console.log(JSON.stringify(responseData[]));
         },
         error: (error) => {
-            alert("배송지 리스트 불러오기 실패");
+            alert("퇴실 실패");
             console.log(error);
         },
         });
