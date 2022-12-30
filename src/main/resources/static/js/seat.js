@@ -20,8 +20,8 @@ $('.seat-content button').click(function(){
     if(localStorage.getItem("time") == "in"){
         const seatInput = document.querySelector(".seat-select-name");
     const inoutButton = document.querySelector(".junho");
-    const user_id = localStorage.id;
-    console.log(user_id)
+    // const user_id = localStorage.id;
+    // console.log(user_id)
     let userData = {}
 
     userData=seatInput.value
@@ -31,7 +31,7 @@ $('.seat-content button').click(function(){
       $.ajax({
         async: false,
         type: "put",
-        url: "/api/seat/update/" + user_id,
+        url: "/api/seat/update",
         contentType: "application/json",
         data: JSON.stringify(userData),
         dataType: "json",

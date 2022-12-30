@@ -17,4 +17,9 @@ public class InOutServcieImpl implements InOutService{
     public List<User> inOut(int user_id) throws Exception {
         return inOutRepository.inOut(user_id);
     }
+
+    @Override
+    public List<User> out(int user_id) throws Exception {
+        return inOutRepository.inOut(user_id);
+    }
 }
