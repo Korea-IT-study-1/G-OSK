@@ -3,14 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.Gosk.GoskProject20221221.repository.LockerRepository">
+<mapper namespace="com.Gosk.GoskProject20221221.repository.SeatRepository">
 
 
-    <update id="updateLocker"  parameterType="com.Gosk.GoskProject20221221.domain.User">
+    <update id="inoutUser"  parameterType="com.Gosk.GoskProject20221221.domain.User">
         update
             user_mst
         set
-            locker_num = #{locker_num},
+            seat_num = #{seat_num},
             user_update_date=now()
         WHERE
             user_id = #{user_id};
