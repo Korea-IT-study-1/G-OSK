@@ -55,3 +55,10 @@ function phoneFormat(phoneNumber) {
         value.slice(value.length - 4),
     ].join('-');
 }
+
+const logOutBtn = document.querySelector(".logout-btn");
+
+logOutBtn.onclick = () => {
+    console.log("로그아웃")
+    location.replace("/logout");
+}

@@ -53,12 +53,12 @@ function phoneFormat(phoneNumber) {
         // 남은 마지막 모든 숫자
         value.slice(value.length - 4),
     ].join('-');
-  }
+}
 
-  //가입취소 버튼 이벤트
-  $('.account-cancel').click(function(){
+//가입취소 버튼 이벤트
+$('.account-cancel').click(function () {
     location.replace("/index");
-  });
+});
 
 const phoneId = document.querySelector(".phone-id");
 const phonePw = document.querySelector(".phone-pw");
@@ -82,6 +82,7 @@ registerBtn.onclick = () => {
             console.log(response);
             console.log(joinInfo);
             alert("성공");
+            location.replace("/logout");
         },
         error: (error) => {
             console.log(error);
@@ -89,6 +90,13 @@ registerBtn.onclick = () => {
         }
 
     })
+}
+
+const logOutBtn = document.querySelector(".logout-btn");
+
+logOutBtn.onclick = () => {
+    console.log("로그아웃")
+    location.replace("/logout");
 }
 
 // 에러메시지

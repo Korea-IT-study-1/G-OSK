@@ -1,16 +1,16 @@
-    function inoutList() {
-        const user_id = localStorage.id;
-        console.log(user_id)
-        $.ajax({
+function inoutList() {
+    const user_id = localStorage.id;
+    console.log(user_id)
+    $.ajax({
         async: false,
         type: "get",
-        url: "/api/inout/"+ user_id,
+        url: "/api/inout/" + user_id,
         dataType: "json",
         success: (response) => {
             responseData = response.data;
             console.log(responseData);
             loadList(responseData);
-    
+
             // responseData를 JSON 형식으로 보여주기
             // console.log(JSON.stringify(responseData[]));
         },
@@ -18,15 +18,15 @@
             alert("퇴실 실패");
             console.log(error);
         },
-        });
-    }
-    function loadList(responseData) {
-        const inoutBody = document.querySelector(".inout-content");
-        
-        inoutBody.innerHTML=""
-        responseData.forEach((inout, index) =>{
-            if(inout.user_time != null){
-                inoutBody.innerHTML+=`
+    });
+}
+function loadList(responseData) {
+    const inoutBody = document.querySelector(".inout-content");
+
+    inoutBody.innerHTML = ""
+    responseData.forEach((inout, index) => {
+        if (inout.user_time != null) {
+            inoutBody.innerHTML += `
                 <ul>
                     <li>
                         <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
@@ -46,8 +46,8 @@
                     </li>
                 </ul>
                 `
-            }else if(inout.user_date != null) {
-                inoutBody.innerHTML+=`
+        } else if (inout.user_date != null) {
+            inoutBody.innerHTML += `
                 <ul>
                     <li>
                         <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
@@ -67,17 +67,18 @@
                     </li>
                 </ul>
                 `
-            }
-        })
-    }
+        }
+    })
+}
 
-    window.onload = () => {
-        inoutList();
-        // console.log(localStorage.getItem("address"))
-    };
+window.onload = () => {
+    inoutList();
+    // console.log(localStorage.getItem("address"))
+};
 
-    //홈으로 버튼 이벤트
-    $('.home-btn').click(function(){
-        localStorage.clear();
-        location.replace("/index");
-    });
+const logOutBtn = document.querySelector(".logout-btn");
+
+logOutBtn.onclick = () => {
+    console.log("로그아웃")
+    location.replace("/logout");
+}
