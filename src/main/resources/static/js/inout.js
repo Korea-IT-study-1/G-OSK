@@ -2,31 +2,31 @@ function inList() {
     // const user_id = localStorage.id;
     // console.log(user_id)
     $.ajax({
-    async: false,
-    type: "get",
-    url: "/api/inout",
-    dataType: "json",
-    success: (response) => {
-        responseData = response.data;
-        console.log(responseData);
-        loadList(responseData);
+        async: false,
+        type: "get",
+        url: "/api/inout",
+        dataType: "json",
+        success: (response) => {
+            responseData = response.data;
+            console.log(responseData);
+            loadList(responseData);
 
-        // responseData를 JSON 형식으로 보여주기
-        // console.log(JSON.stringify(responseData[]));
-    },
-    error: (error) => {
-        alert("퇴실 실패");
-        console.log(error);
-    },
+            // responseData를 JSON 형식으로 보여주기
+            // console.log(JSON.stringify(responseData[]));
+        },
+        error: (error) => {
+            alert("퇴실 실패");
+            console.log(error);
+        },
     });
 }
 function loadList(responseData) {
     const inoutBody = document.querySelector(".inout-content");
-    
-    inoutBody.innerHTML=""
-    responseData.forEach((inout, index) =>{
-        if(inout.user_time != null){
-            inoutBody.innerHTML+=`
+
+    inoutBody.innerHTML = ""
+    responseData.forEach((inout, index) => {
+        if (inout.user_time != null) {
+            inoutBody.innerHTML += `
             <ul>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
@@ -46,8 +46,8 @@ function loadList(responseData) {
                 </li>
             </ul>
             `
-        }else if(inout.user_date != null) {
-            inoutBody.innerHTML+=`
+        } else if (inout.user_date != null) {
+            inoutBody.innerHTML += `
             <ul>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
@@ -71,7 +71,7 @@ function loadList(responseData) {
     })
 }
 
-function outList(){
+function outList() {
     // const user_id = localStorage.id;
     // console.log(user_id)
     $.ajax({
@@ -95,11 +95,12 @@ function outList(){
 }
 function loadList(responseData) {
     const inoutBody = document.querySelector(".inout-content");
-    
-    inoutBody.innerHTML=""
-    responseData.forEach((inout, index) =>{
-        if(inout.user_time != null){
-            inoutBody.innerHTML+=`
+<<<<<<< HEAD
+
+    inoutBody.innerHTML = ""
+    responseData.forEach((inout, index) => {
+        if (inout.user_time != null) {
+            inoutBody.innerHTML += `
             <ul>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
@@ -119,8 +120,8 @@ function loadList(responseData) {
                 </li>
             </ul>
             `
-        }else if(inout.user_date != null) {
-            inoutBody.innerHTML+=`
+        } else if (inout.user_date != null) {
+            inoutBody.innerHTML += `
             <ul>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
@@ -140,22 +141,82 @@ function loadList(responseData) {
                 </li>
             </ul>
             `
+=======
+
+    inoutBody.innerHTML = ""
+    responseData.forEach((inout, index) => {
+        if (inout.user_time != null) {
+            inoutBody.innerHTML += `
+                <ul>
+                    <li>
+                        <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
+                        <span>${inout.user_update_date}</span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-hourglass-half"></i>총 잔여</p>
+                        <span>${inout.user_time}</span>
+                    </li>
+                    <li class="close">
+                        <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
+                        <span>${inout.receipt_end_date}<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-chair"></i>입석좌석</p>
+                        <div>${inout.seat_num}</div>
+                    </li>
+                </ul>
+                `
+        } else if (inout.user_date != null) {
+            inoutBody.innerHTML += `
+                <ul>
+                    <li>
+                        <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
+                        <span>${inout.user_update_date}</span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-hourglass-half"></i>총 잔여</p>
+                        <span>${inout.user_date}</span>
+                    </li>
+                    <li class="close">
+                        <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
+                        <span>${inout.receipt_end_date}<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-chair"></i>입석좌석</p>
+                        <div>${inout.seat_num}</div>
+                    </li>
+                </ul>
+                `
+>>>>>>> changbae2
         }
     })
 }
 
 window.onload = () => {
-    if(localStorage.getItem("time") == "in"){
+<<<<<<< HEAD
+    if (localStorage.getItem("time") == "in") {
         inList();
-    }else if(localStorage.getItem("time") == "out"){
+    } else if (localStorage.getItem("time") == "out") {
         outList();
     }
-    
+
     // console.log(localStorage.getItem("address"))
 };
 
 //홈으로 버튼 이벤트
-$('.home-btn').click(function(){
+$('.home-btn').click(function () {
     localStorage.clear();
     location.replace("/index");
 });
+=======
+    inoutList();
+    // console.log(localStorage.getItem("address"))
+};
+
+const logOutBtn = document.querySelector(".logout-btn");
+
+logOutBtn.onclick = () => {
+    console.log("로그아웃")
+    location.replace("/logout");
+}
+>>>>>>> changbae2
