@@ -95,7 +95,6 @@ function outList() {
 }
 function loadList(responseData) {
     const inoutBody = document.querySelector(".inout-content");
-<<<<<<< HEAD
 
     inoutBody.innerHTML = ""
     responseData.forEach((inout, index) => {
@@ -141,59 +140,11 @@ function loadList(responseData) {
                 </li>
             </ul>
             `
-=======
-
-    inoutBody.innerHTML = ""
-    responseData.forEach((inout, index) => {
-        if (inout.user_time != null) {
-            inoutBody.innerHTML += `
-                <ul>
-                    <li>
-                        <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
-                        <span>${inout.user_update_date}</span>
-                    </li>
-                    <li>
-                        <p><i class="fa-solid fa-hourglass-half"></i>총 잔여</p>
-                        <span>${inout.user_time}</span>
-                    </li>
-                    <li class="close">
-                        <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                        <span>${inout.receipt_end_date}<span>
-                    </li>
-                    <li>
-                        <p><i class="fa-solid fa-chair"></i>입석좌석</p>
-                        <div>${inout.seat_num}</div>
-                    </li>
-                </ul>
-                `
-        } else if (inout.user_date != null) {
-            inoutBody.innerHTML += `
-                <ul>
-                    <li>
-                        <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
-                        <span>${inout.user_update_date}</span>
-                    </li>
-                    <li>
-                        <p><i class="fa-solid fa-hourglass-half"></i>총 잔여</p>
-                        <span>${inout.user_date}</span>
-                    </li>
-                    <li class="close">
-                        <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                        <span>${inout.receipt_end_date}<span>
-                    </li>
-                    <li>
-                        <p><i class="fa-solid fa-chair"></i>입석좌석</p>
-                        <div>${inout.seat_num}</div>
-                    </li>
-                </ul>
-                `
->>>>>>> changbae2
         }
     })
 }
 
 window.onload = () => {
-<<<<<<< HEAD
     if (localStorage.getItem("time") == "in") {
         inList();
     } else if (localStorage.getItem("time") == "out") {
@@ -208,15 +159,3 @@ $('.home-btn').click(function () {
     localStorage.clear();
     location.replace("/index");
 });
-=======
-    inoutList();
-    // console.log(localStorage.getItem("address"))
-};
-
-const logOutBtn = document.querySelector(".logout-btn");
-
-logOutBtn.onclick = () => {
-    console.log("로그아웃")
-    location.replace("/logout");
-}
->>>>>>> changbae2
