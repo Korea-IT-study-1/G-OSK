@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.TimeRepository">
+
+    <resultMap id="Time" type="com.Gosk.GoskProject20221221.domain.Time">
+        <result property="time" column="oneday_time"></result>
+        <result property="price" column="oneday_price"></result>
+    </resultMap>
+
+    <select id="getTimeList" resultMap="Time">
+
+        SELECT
+            oneday_time, CAST(format(oneday_price,0) as char(10)) as oneday_price
+        FROM
+            oneday_price_mst
+        ORDER BY oneday_time
+
+    </select>
+
+</mapper>

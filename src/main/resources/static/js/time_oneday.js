@@ -1,3 +1,4 @@
+
 //홈으로 버튼 이벤트
 $('.home-btn').click(function(){
     localStorage.clear();
@@ -13,10 +14,21 @@ $('.time-content li').click(function(){
 
 //페이지 실행 시 원데이이용권 리스트 불러오기
 class OnedayService{
-    // #responseData = null;
+
+    static #instance = null;
+
+    static getInstance() {
+        if(this.#instance == null){
+            this.#instance = new OnedayService();
+        }
+
+        return this.#instance;
+    }
+
+    #responseData = null;
 
     loadOnedayList(){
-        this.responseData = OnedayApi.getOneday();
+        this.responseData = OnedayApi.getInstance().getOneday();
         console.log(this.responseData);
         this.getOnedayList(this.responseData);
     }
@@ -31,9 +43,9 @@ class OnedayService{
             <li>
                 <p>
                     <i class="fa-solid fa-ticket"></i>&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <span>"${border.oneday_time}"시간</span>
+                    <span>${border.time}시간</span>
                 </p>
-                <div>"${border.oneday_price}"원</div>
+                <div>${border.price}원</div>
             </li>
             `;
 
@@ -42,6 +54,15 @@ class OnedayService{
 }
 
 class OnedayApi{
+    static #instance = null;
+
+    static getInstance(){
+        if(this.#instance == null) {
+            this.#instance = new OnedayApi();
+        }
+        return this.#instance;
+    }
+
     getOneday(){
 
         let responseData = null;
@@ -49,7 +70,7 @@ class OnedayApi{
         $.ajax({
             async: false,
             type: "get",
-            url: "/api/api/time/list",
+            url: "/api/time/list",
             dataType: "json",
             success: (response) => {
                 responseData = response.data;
@@ -64,5 +85,6 @@ class OnedayApi{
 }
 
 window.onload = () => {
-    OnedayService.loadOnedayList();
+    OnedayService.getInstance().loadOnedayList();
 }
+

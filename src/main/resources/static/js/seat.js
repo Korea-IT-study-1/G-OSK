@@ -17,40 +17,43 @@ $('.seat-content button').click(function(){
         $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
         $(".seat-select-name").attr('value',"");
     }
-    const seatInput = document.querySelector(".seat-select-name");
-    const inoutButton = document.querySelector(".junho");
-    const user_id = localStorage.id;
-    console.log(user_id)
-    let userData = {}
 
-    userData=seatInput.value
-    console.log(userData)
-    inoutButton.onclick =()=> {
-      console.log(userData)
-      $.ajax({
-        async: false,
-        type: "put",
-        url: "/api/seat/update/" + user_id,
-        contentType: "application/json",
-        data: JSON.stringify(userData),
-        dataType: "json",
-        success: (response) => {
-          alert("입실완료");
-        //   location.href = "/inout";
-          // alert(JSON.stringify(response));
-          // // history.back();        
-          // // console.log(response.data);
-          // console.log("1"+response);
-          // console.log("2"+response.data);
-        },
-        error: (error) => {
-          alert("입실 실패");
-          console.log(error);
+    if(localStorage.getItem("time") == "in"){
+        const seatInput = document.querySelector(".seat-select-name");
+        const inoutButton = document.querySelector(".junho");
+        const user_id = localStorage.id;
+        console.log(user_id)
+        let userData = {}
+    
+        userData=seatInput.value
+        console.log(userData)
+        inoutButton.onclick =()=> {
           console.log(userData)
+          $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/seat/update/" + user_id,
+            contentType: "application/json",
+            data: JSON.stringify(userData),
+            dataType: "json",
+            success: (response) => {
+              alert("입실완료");
+            //   location.href = "/inout";
+              // alert(JSON.stringify(response));
+              // // history.back();        
+              // // console.log(response.data);
+              // console.log("1"+response);
+              // console.log("2"+response.data);
+            },
+            error: (error) => {
+              alert("입실 실패");
+              console.log(error);
+              console.log(userData)
+            }
+          });
+          // localStorage.setItem("userData", JSON.stringify(userData));
+          // location.href = "/inout";
         }
-      });
-      // localStorage.setItem("userData", JSON.stringify(userData));
-      // location.href = "/inout";
     }
 })
     
