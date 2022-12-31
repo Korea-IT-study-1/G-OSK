@@ -10,5 +10,5 @@ public interface InOutService {
 
     public List<User> inOut(int user_id) throws Exception;
 
-    public List<User> out(int user_id) throws Exception;
+    public boolean out(int user_id) throws Exception;
 }

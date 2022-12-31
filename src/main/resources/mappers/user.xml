@@ -8,11 +8,11 @@
 
     <update id="inoutUser"  parameterType="com.Gosk.GoskProject20221221.domain.User">
         update
-            user_mst
+            seat_mst
         set
-            seat_num = #{seat_num},
-            user_update_date=now()
+            user_id=#{user_id},
+            seat_start_time=now()
         WHERE
-            user_id = #{user_id};
+            seat_id = #{seat_id};
     </update>
 </mapper>

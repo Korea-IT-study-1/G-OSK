@@ -10,13 +10,13 @@ import lombok.Data;
 @Data
 public class InOutReqDto {
 
-    private String seat_num;
+    private String seat_id;
 
 
     public User toSeatEntity(PrincipalDetails principalDetails) {
         return User.builder()
                 .user_id(principalDetails.getUser().getUser_id())
-                .seat_num(seat_num)
+                .seat_id(seat_id)
                 .build();
     }
 }

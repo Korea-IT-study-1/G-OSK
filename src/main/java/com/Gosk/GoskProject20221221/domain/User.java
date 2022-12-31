@@ -15,6 +15,7 @@ import java.time.LocalTime;
 public class User {
     private int user_id;
     private int role_id;
+    private String seat_id;
     private String seat_num;
     private String reserved_num;
     private String locker_num;
@@ -24,6 +25,7 @@ public class User {
     private LocalTime user_time;
     private LocalTime user_date;
     private LocalTime user_locker_date;
+    private LocalDateTime seat_start_time;
     private LocalDateTime user_create_date;
     private LocalDateTime user_update_date;
     private LocalDateTime receipt_start_date;

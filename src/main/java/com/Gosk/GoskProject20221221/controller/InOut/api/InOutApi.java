@@ -24,9 +24,9 @@ public class InOutApi {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.inOut(principalDetails.getUser().getUser_id())));
     }
 
-    @PutMapping("/api/out")
+    @PutMapping("/api/inout")
     public ResponseEntity<?> out(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
-        return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.inOut(principalDetails.getUser().getUser_id())));
+        return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.out(principalDetails.getUser().getUser_id())));
     }
 
 }

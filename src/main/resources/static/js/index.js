@@ -24,6 +24,7 @@ $('.in-btn').click(function () {
 
 //퇴실 버튼 이벤트
 $('.out-btn').click(function () {
+    localStorage.setItem("time", $(this).val());
     location.replace("/inout");
 });
 
