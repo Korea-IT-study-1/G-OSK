@@ -17,6 +17,7 @@ public class InOutReqDto {
         return User.builder()
                 .user_id(principalDetails.getUser().getUser_id())
                 .seat_id(seat_id)
+                .user_out(seat_id)
                 .build();
     }
 }
