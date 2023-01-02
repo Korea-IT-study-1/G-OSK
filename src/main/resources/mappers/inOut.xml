@@ -28,10 +28,12 @@
             um.user_create_date,
             um.user_time,
             um.user_date,
+            um.user_out,
 
             rm.receipt_time,
             rm.receipt_day,
             rm.receipt_start_date,
+            rm.receipt_kinds,
 
             sm.seat_id,
             sm.seat_start_time
@@ -40,6 +42,6 @@
             left outer join receipt_mst rm on(rm.user_id = um.user_id)
             left outer join seat_mst sm on(sm.user_id = um.user_id)
         WHERE
-            um.user_id = #{user_id};
+            um.user_id = #{user_id}
     </select>
 </mapper>

@@ -14,5 +14,11 @@
             seat_start_time=now()
         WHERE
             seat_id = #{seat_id};
+        update
+            user_mst
+        set
+            user_out=#{user_out}
+        WHERE
+            user_id = #{user_id};
     </update>
 </mapper>
