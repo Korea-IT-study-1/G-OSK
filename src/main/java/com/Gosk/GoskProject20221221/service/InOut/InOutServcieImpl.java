@@ -2,7 +2,10 @@ package com.Gosk.GoskProject20221221.service.InOut;
 
 
 import com.Gosk.GoskProject20221221.domain.User;
+import com.Gosk.GoskProject20221221.dto.DayReqDto;
+import com.Gosk.GoskProject20221221.dto.InOutReqDto;
 import com.Gosk.GoskProject20221221.repository.InOutRepository;
+import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +34,17 @@ public class InOutServcieImpl implements InOutService{
     public boolean out(int user_id) throws Exception {
 
         return inOutRepository.out(user_id) > 0;
+    }
+    @Override
+    public boolean day(DayReqDto dayReqDto, int user_id)throws Exception{
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
+
+        LocalDateTime result = now
+                .plusHours(dayReqDto.getTimehour())
+                .plusMinutes(dayReqDto.getTimeminute())
+                .plusSeconds(dayReqDto.getTimesecond());
+        System.out.println(result);
+        return inOutRepository.day(dayReqDto.todayEntity()) > 0;
     }
 }

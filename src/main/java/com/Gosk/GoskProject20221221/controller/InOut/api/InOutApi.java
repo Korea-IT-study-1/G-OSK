@@ -2,6 +2,7 @@ package com.Gosk.GoskProject20221221.controller.InOut.api;
 
 
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
+import com.Gosk.GoskProject20221221.dto.DayReqDto;
 import com.Gosk.GoskProject20221221.dto.InOutReqDto;
 import com.Gosk.GoskProject20221221.service.InOut.InOutService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
@@ -27,6 +28,12 @@ public class InOutApi {
     @PutMapping("/api/inout")
     public ResponseEntity<?> out(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.out(principalDetails.getUser().getUser_id())));
+    }
+    @PostMapping("/api/inout/day")
+    public ResponseEntity<?> day(@RequestBody DayReqDto dayReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
+        int user_id = principalDetails.getUser().getUser_id();
+
+        return ResponseEntity.ok(new CMRespDto<>(1,"success",inOutService.day(dayReqDto, user_id)));
     }
 
 }

@@ -13,6 +13,9 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    private int timehour;
+    private int timeminute;
+    private int timesecond;
     private int user_id;
     private int role_id;
     private int receipt_time;

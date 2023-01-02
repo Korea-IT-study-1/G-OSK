@@ -18,9 +18,7 @@ public class SeatServiceImpl implements SeatService{
     @Override
     public boolean inoutUser(InOutReqDto inOutReqDto, PrincipalDetails principalDetails)throws Exception{
         log.info("실패햇어요!!!!!!!!!!!!!!! : {}, {} ", inOutReqDto,principalDetails);
-//        if()
-//        LocalDateTime now = LocalDateTime.now();
-//        LocalDateTime finalTime = now.plusWeeks();
+
 
         return seatRepository.inoutUser(inOutReqDto.toSeatEntity(principalDetails)) > 0;
     }

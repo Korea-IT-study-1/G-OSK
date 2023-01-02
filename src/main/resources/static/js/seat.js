@@ -3,6 +3,8 @@ const seatspecial = document.querySelector(".seat-special");
 const basic = document.querySelector(".basic");
 const special = document.querySelector(".special");
 
+
+
 //선택한 좌석 클릭 시 버튼색깔 변경 및 좌석 이름 표시
 $('.seat-content button').click(function () {
     if ($(this).hasClass('org-btn') == false) {
@@ -26,6 +28,7 @@ $('.seat-content button').click(function () {
 
         userData = seatInput.value
         console.log(userData)
+
         inoutButton.onclick = () => {
             console.log(userData)
             $.ajax({
@@ -37,12 +40,8 @@ $('.seat-content button').click(function () {
                 dataType: "json",
                 success: (response) => {
                     alert("입실완료");
-                    //   location.href = "/inout";
-                    // alert(JSON.stringify(response));
-                    // // history.back();        
-                    // // console.log(response.data);
-                    // console.log("1"+response);
-                    // console.log("2"+response.data);
+                    console.log(userData)
+
                 },
                 error: (error) => {
                     alert("입실 실패");
@@ -59,10 +58,10 @@ $('.seat-content button').click(function () {
 
 
 //홈으로 버튼 이벤트
-// $('.home-btn').click(function () {
-// localStorage.clear();
-// location.replace("/index");
-// });
+$('.home-btn').click(function () {
+localStorage.clear();
+location.replace("/index");
+});
 
 //다음단계 버튼 이벤트
 $('.next-btn').click(function () {

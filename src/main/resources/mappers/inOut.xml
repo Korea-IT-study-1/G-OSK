@@ -20,15 +20,25 @@
         WHERE
             user_id = #{user_id};
     </update>
+    <update id="day" parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            user_mst
+        set
+            user_create_date=#{result}
+        WHERE
+            user_id = #{user_id};
+    </update>
 
 
     <select id="inOut" parameterType="integer" resultType="com.Gosk.GoskProject20221221.domain.User">
         SELECT
             um.user_id,
             um.user_create_date,
+            um.user_update_date,
             um.user_time,
             um.user_date,
             um.user_out,
+
 
             rm.receipt_time,
             rm.receipt_day,
