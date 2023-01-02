@@ -6,6 +6,7 @@ import com.Gosk.GoskProject20221221.repository.TimeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,15 @@ public class TimeServicelmpl implements TimeService {
         List<TimeReqDto> timeList = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
 
-        if(listname == "원데이"){
+        if(listname == "oneday"){
+            timeRepository.getOnedayList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        } else if(listname == "reserved") {
+            timeRepository.getReservedList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        } else {
             timeRepository.getOnedayList(map).forEach(Time -> {
                 timeList.add(Time.toRespDto());
             });

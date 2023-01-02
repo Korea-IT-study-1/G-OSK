@@ -5,18 +5,33 @@
 
 <mapper namespace="com.Gosk.GoskProject20221221.repository.TimeRepository">
 
-    <resultMap id="Time" type="com.Gosk.GoskProject20221221.domain.Time">
+    <resultMap id="Time2" type="com.Gosk.GoskProject20221221.domain.Time">
         <result property="time" column="oneday_time"></result>
         <result property="price" column="oneday_price"></result>
     </resultMap>
 
-    <select id="getOnedayList" resultMap="Time">
+    <select id="getOnedayList" resultMap="Time2">
 
         SELECT
             oneday_time, CAST(format(oneday_price,0) as char(10)) as oneday_price
         FROM
             oneday_price_mst
         ORDER BY oneday_time
+
+    </select>
+
+    <resultMap id="Time" type="com.Gosk.GoskProject20221221.domain.Time">
+        <result property="time" column="reserved_time"></result>
+        <result property="price" column="reserved_price"></result>
+    </resultMap>
+
+    <select id="getReservedList" resultMap="Time">
+
+        SELECT
+        reserved_time, CAST(format(reserved_price,0) as char(10)) as reserved_price
+        FROM
+        reserved_price_mst
+        ORDER BY reserved_time
 
     </select>
 
