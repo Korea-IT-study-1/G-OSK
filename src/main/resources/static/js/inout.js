@@ -31,9 +31,9 @@ function inList() {
     });
 }
 function inload(responseData) {
-    console.log( responseData);
+    console.log(responseData);
     const inoutBody = document.querySelector(".junho11");
-        inoutBody.innerHTML += `
+    inoutBody.innerHTML += `
         <header class="inout-header">
         <i class="fa-solid fa-check"></i>
         <p>입실처리 완료</p>
@@ -60,15 +60,15 @@ function inload(responseData) {
                 </li>
             </ul>
         </section>
-            ` 
+            `
 }
 
 function outload(responseData) {
-    console.log( responseData);
+    console.log(responseData);
     const inoutBody = document.querySelector(".junho11");
 
-        if (responseData.receipt_time == 0) {
-                inoutBody.innerHTML += `
+    if (responseData.receipt_time == 0) {
+        inoutBody.innerHTML += `
             <header class="inout-header">
             <i class="fa-solid fa-check"></i>
             <p>퇴실처리 완료</p>
@@ -98,8 +98,8 @@ function outload(responseData) {
             </ul>
         </section>
             `
-        }else if(responseData.receipt_time != 0) {
-                inoutBody.innerHTML += `
+    } else if (responseData.receipt_time != 0) {
+        inoutBody.innerHTML += `
                 <header class="inout-header">
                 <i class="fa-solid fa-check"></i>
                 <p>퇴실처리 완료</p>
@@ -129,9 +129,9 @@ function outload(responseData) {
                 </ul>
             </section>
                 `
-            }
-            
-        }
+    }
+
+}
 
 function outList() {
 
@@ -171,5 +171,5 @@ logOutBtn.onclick = () => {
     localStorage.clear()
     console.log("로그아웃")
     location.replace("/logout");
-    
+
 }
