@@ -5,6 +5,6 @@ import com.Gosk.GoskProject20221221.dto.TimeReqDto;
 import java.util.List;
 
 public interface TimeService {
-    public List<TimeReqDto> getTimeList() throws Exception;
+    public List<TimeReqDto> getTimeList(String listname) throws Exception;
 
 }

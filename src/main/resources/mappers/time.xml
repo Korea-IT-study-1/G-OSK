@@ -10,7 +10,7 @@
         <result property="price" column="oneday_price"></result>
     </resultMap>
 
-    <select id="getTimeList" resultMap="Time">
+    <select id="getOnedayList" resultMap="Time">
 
         SELECT
             oneday_time, CAST(format(oneday_price,0) as char(10)) as oneday_price

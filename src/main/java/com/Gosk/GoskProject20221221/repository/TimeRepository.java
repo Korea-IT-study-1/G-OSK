@@ -9,6 +9,6 @@ import java.util.Map;
 @Mapper
 public interface TimeRepository {
 
-    public List<Time> getTimeList(Map<String, Object> map) throws Exception;
+    public List<Time> getOnedayList(Map<String, Object> map) throws Exception;
 
 }

@@ -20,15 +20,16 @@ public class TimeServicelmpl implements TimeService {
     private final TimeRepository timeRepository;
 
     @Override
-    public List<TimeReqDto> getTimeList() throws Exception{
-//        log.info("{}", user_id);
+    public List<TimeReqDto> getTimeList(String listname) throws Exception{
         List<TimeReqDto> timeList = new ArrayList<>();
-
         Map<String, Object> map = new HashMap<>();
 
-        timeRepository.getTimeList(map).forEach(Time -> {
-            timeList.add(Time.toRespDto());
-        });
+        if(listname == "원데이"){
+            timeRepository.getOnedayList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        }
+
         return timeList;
     }
 
