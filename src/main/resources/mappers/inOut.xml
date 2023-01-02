@@ -8,7 +8,7 @@
         update
             user_mst
         set
-            user_create_date=now()
+            user_update_date=now()
         WHERE
             user_id = #{user_id};
 
