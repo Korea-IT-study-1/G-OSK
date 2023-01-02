@@ -17,6 +17,7 @@
         update
             user_mst
         set
+            user_update_date=now(),
             user_out=#{user_out}
         WHERE
             user_id = #{user_id};
