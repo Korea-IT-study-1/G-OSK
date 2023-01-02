@@ -5,11 +5,13 @@ import com.Gosk.GoskProject20221221.dto.account.RegisterReqDto;
 import com.Gosk.GoskProject20221221.exception.CustomValidationException;
 import com.Gosk.GoskProject20221221.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -35,6 +37,13 @@ public class AccountServiceImpl implements AccountService {
     public boolean register(RegisterReqDto registerReqDto) throws Exception {
         User userEntity = registerReqDto.toUserEntity();
         int result = accountRepository.save(userEntity);
+//
+//        if(result ==0) {
+//            log.info("test");
+//        }else if(userEntity.getUser_pw().length() != 4){
+//            log.info("비밀번호가 4자리가 아님");
+//        }
+
 
         return result != 0;
     }
