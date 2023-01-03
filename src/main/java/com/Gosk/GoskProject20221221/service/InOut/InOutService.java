@@ -13,5 +13,5 @@ public interface InOutService {
 
     public boolean out(int user_id) throws Exception;
 
-    public boolean day(DayReqDto dayReqDto, int user_id) throws  Exception;
+    public Object day(DayReqDto dayReqDto, int user_id) throws  Exception;
 }

@@ -29,6 +29,7 @@ public class User {
     private String user_pw;
     private String role;
     private String user_out;
+    private LocalDateTime result;
     private LocalTime user_time;
     private LocalDateTime user_date;
     private LocalTime user_locker_date;
@@ -37,4 +38,6 @@ public class User {
     private LocalDateTime user_update_date;
     private LocalDateTime receipt_start_date;
     private LocalDateTime receipt_end_date;
+
+    private String user_endtime;
 }

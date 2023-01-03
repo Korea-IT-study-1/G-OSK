@@ -12,6 +12,6 @@ public interface InOutRepository {
 
     public int out(int user_id) throws Exception;
 
-    public int day(User user) throws Exception;
+//    public Object day(User user) throws Exception;
 }
 

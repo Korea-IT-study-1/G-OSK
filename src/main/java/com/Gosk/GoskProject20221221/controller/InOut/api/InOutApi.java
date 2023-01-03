@@ -29,10 +29,12 @@ public class InOutApi {
     public ResponseEntity<?> out(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.out(principalDetails.getUser().getUser_id())));
     }
-    @PostMapping("/api/inout/day")
+    @PutMapping("/api/inout/day")
     public ResponseEntity<?> day(@RequestBody DayReqDto dayReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
-        int user_id = principalDetails.getUser().getUser_id();
+        log.info("문창배 >>>>>>>");
 
+        int user_id = principalDetails.getUser().getUser_id();
+        log.info("문창배 >>>>>>>>>>>>>>>>>>>{}" ,dayReqDto, user_id);
         return ResponseEntity.ok(new CMRespDto<>(1,"success",inOutService.day(dayReqDto, user_id)));
     }
 

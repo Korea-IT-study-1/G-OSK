@@ -1,6 +1,4 @@
 function inList() {
-    // const user_id = localStorage.id;
-    // console.log(user_id)
     $.ajax({
         async: false,
         type: "get",
@@ -12,7 +10,7 @@ function inList() {
                 responseData1 = response.data;
                 responseData = responseData1[responseData1.length - 1];
                 console.log(responseData);
-                inload(responseData);
+                ininList(responseData);
             } else if (localStorage.getItem("time") == "out") {
                 alert("퇴실성공");
                 responseData1 = response.data;
@@ -30,7 +28,29 @@ function inList() {
         },
     });
 }
-function inload(responseData) {
+function outList() {
+
+    $.ajax({
+        async: false,
+        type: "put",
+        url: "/api/inout",
+        dataType: "json",
+        success: (response) => {
+            // alert("퇴실퇴실 성공");
+            responseData = response.data;
+            console.log(responseData);
+            inList();
+
+            // responseData를 JSON 형식으로 보여주기
+            // console.log(JSON.stringify(responseData[]));
+        },
+        error: (error) => {
+            alert("퇴실 실패");
+            console.log(error);
+        },
+    });
+}
+function ininList() {
     console.log(responseData);
     junho = responseData.user_update_date.split(/[-T:]/);
     junho1 = parseInt(junho[0]);
@@ -57,9 +77,78 @@ function inload(responseData) {
     console.log(time3);
     timehour = junho4 + time1;
     timeminute = junho5 + time2;
-    timesecond = junho6 + time3;
+    timesecond = junho6 +  time3;
+    console.log(timehour);
+    console.log(timeminute);
+    console.log(timesecond);
+    let goodtime ={
+        timehour : time1,
+        timeminute : time2,
+        timesecond : time3,
+    };
+    console.log(goodtime);
+    junholist(goodtime);
 
+}
+function junholist(goodtime) {
+    console.log(goodtime);
+    $.ajax({
+        async: false,
+        type: "put",
+        url: "/api/inout/day",
+        contentType: 'application/json',
+        dataType: "json",
+        data: JSON.stringify(goodtime),
+        success: (response) => {
+            alert("시간 보내기 성공");
+            // responseData2 = response.data;
+            responseData2 = response.data.replace(/T/g, ' ');
+            responseData2 = responseData2.split(/[.]/,1);
+            // responseData2 = responseData2[0]+responseData2[1];
+            // end_time = responseData2.substring(0, responseData2.lastIndexOf("."));
+            console.log(responseData2);
+            // inload(responseData1);
+            inininList();
 
+            // responseData를 JSON 형식으로 보여주기
+            // console.log(JSON.stringify(responseData[]));
+        },
+        error: (error) => {
+            alert("시간 보내기 실패");
+            console.log(error);
+            console.log(responseData);
+        },
+    });
+}
+function inininList() {
+
+    $.ajax({
+        async: false,
+        type: "get",
+        url: "/api/inout",
+        dataType: "json",
+        success: (response) => {
+            alert("완전 보내기 성공");
+            responseData1 = response.data;
+            responseData = responseData1[responseData1.length - 1];
+            console.log(responseData);
+            inload(responseData);
+
+            // responseData를 JSON 형식으로 보여주기
+            // console.log(JSON.stringify(responseData[]));
+        },
+        error: (error) => {
+            alert("완전 보내기 실패");
+            console.log(error);
+        },
+        // responseData를 JSON 형식으로 보여주기
+        // console.log(JSON.stringify(responseData[]));
+    });
+}
+
+function inload(responseData) {
+    timetime =responseData.user_update_date.replace(/T/g, ' ');
+    timetime = timetime.split(/[.]/,1);
     const inoutBody = document.querySelector(".junho11");
     inoutBody.innerHTML += `
         <header class="inout-header">
@@ -72,7 +161,7 @@ function inload(responseData) {
             <ul>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>입실(현재)시간</p>
-                    <span>${responseData.user_update_date}</span>
+                    <span>${timetime}</span>
                 </li>
                 <li>
                     <p><i class="fa-solid fa-hourglass-half"></i>총 잔여</p>
@@ -80,7 +169,7 @@ function inload(responseData) {
                 </li>
                 <li class="close">
                     <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                    <span>${responseData.receipt_start_date}<span>
+                    <span>${responseData2}<span>
                 </li>
                 <li>
                     <p><i class="fa-solid fa-chair"></i>입석좌석</p>
@@ -112,7 +201,7 @@ function outload(responseData) {
                 </li>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
-                    <span>${responseData.user_create_date}</span>
+                    <span>${responseData.user_update_date}</span>
                 </li>
                 <li class="close">
                     <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
@@ -143,7 +232,7 @@ function outload(responseData) {
                     </li>
                     <li>
                         <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
-                        <span>${responseData.user_create_date}</span>
+                        <span>${responseData.user_update_date}</span>
                     </li>
                     <li class="close">
                         <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
@@ -161,106 +250,14 @@ function outload(responseData) {
 
 }
 
-function outList() {
 
-    $.ajax({
-        async: false,
-        type: "put",
-        url: "/api/inout",
-        dataType: "json",
-        success: (response) => {
-            // alert("퇴실퇴실 성공");
-            responseData = response.data;
-            console.log(responseData);
-            inList();
-
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
-        },
-        error: (error) => {
-            alert("퇴실 실패");
-            console.log(error);
-        },
-    });
-}
-// ********************************************************************************
-function dayList() {
-    $.ajax({
-        async: false,
-        type: "get",
-        url: "/api/inout",
-        dataType: "json",
-        success: (response) => {
-            alert("유저 정보가져오기 성공");
-            responseData1 = response.data;
-            responseData = responseData1[responseData1.length - 1];
-            console.log(responseData);
-            hourload(responseData);
-        },
-        error: (error) => {
-            alert("퇴실 실패");
-            console.log(error);
-        },
-    });
-}
-function hourload() {
-    console.log(responseData);
-    junho = responseData.user_update_date.split(/[-T:]/);
-    junho1 = parseInt(junho[0]);
-    junho2 = parseInt(junho[1]);
-    junho3 = parseInt(junho[2]);
-    junho4 = parseInt(junho[3]);
-    junho5 = parseInt(junho[4]);
-    junho6 = parseInt(junho[5]);
-
-    time0 = responseData.user_time.split(/[:]/);
-    time1 = parseInt(time0[0]);
-    time2 = parseInt(time0[1]);
-    time3 = parseInt(time0[2]);
-
-    timehour = junho4 + time1;
-    timeminute = junho5 + time2;
-    timesecond = junho6 + time3;
-    let goodtime = {
-        timehour: time1,
-        timeminute: time2,
-        timesecond: time3,
-    };
-    addtime(goodtime);
-};
-function addtime(goodtime) {
-    $.ajax({
-        async: false,
-        type: "post",
-        url: "/api/inout/day",
-
-        data: goodtime,
-        dataType: "json",
-        success: (response) => {
-            // alert("퇴실퇴실 성공");
-            responseData = response.data;
-            console.log(responseData);
-            returnload();
-
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
-        },
-        error: (error) => {
-            alert("퇴실 실패");
-            console.log(error);
-        },
-    });
-}
-function returnload() {
+window.onload = () => {
     if (localStorage.getItem("time") == "in") {
         inList();
     } else if (localStorage.getItem("time") == "out") {
         outList();
     }
-}
 
-window.onload = () => {
-    dayList();
 };
 
 // window.onload = () => {
@@ -271,7 +268,6 @@ window.onload = () => {
 //     }
 
 // };
-
 
 const logOutBtn = document.querySelector(".logout-btn");
 
