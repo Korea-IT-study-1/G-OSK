@@ -29,6 +29,8 @@ public class InOutApi {
     public ResponseEntity<?> out(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.out(principalDetails.getUser().getUser_id())));
     }
+
+
     @PutMapping("/api/inout/day")
     public ResponseEntity<?> day(@RequestBody DayReqDto dayReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
         log.info("문창배 >>>>>>>");
