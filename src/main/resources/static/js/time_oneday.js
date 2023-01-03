@@ -29,8 +29,8 @@ class OnedayService {
 
     #responseData = null;
 
-    loadOnedayList() {
-        this.responseData = OnedayApi.getInstance().getOneday();
+    loadTimeList() {
+        this.responseData = OnedayApi.getInstance().getOnedayList();
         console.log(this.responseData);
         this.getOneday(this.responseData);
     }
@@ -74,7 +74,7 @@ class OnedayApi {
         return this.#instance;
     }
 
-    getOneday() {
+    getOnedayList() {
 
         let responseData = null;
         let time = localStorage.getItem("time");
