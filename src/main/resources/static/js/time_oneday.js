@@ -1,9 +1,11 @@
 
 //홈으로 버튼 이벤트
-$('.home-btn').click(function () {
-    localStorage.clear();
-    location.replace("/index");
-});
+const logOutBtn = document.querySelector(".logout-btn");
+
+logOutBtn.onclick = () => {
+    console.log("로그아웃")
+    location.replace("/logout");
+}
 
 //원데이 이용권 선택
 $('.time-content li').click(function () {
@@ -13,12 +15,12 @@ $('.time-content li').click(function () {
 });
 
 //페이지 실행 시 원데이이용권 리스트 불러오기
-class OnedayService{
+class OnedayService {
 
     static #instance = null;
 
     static getInstance() {
-        if(this.#instance == null){
+        if (this.#instance == null) {
             this.#instance = new OnedayService();
         }
 
@@ -27,7 +29,7 @@ class OnedayService{
 
     #responseData = null;
 
-    loadOnedayList(){
+    loadOnedayList() {
         this.responseData = OnedayApi.getInstance().getOneday();
         console.log(this.responseData);
         this.getOnedayList(this.responseData);
@@ -53,17 +55,17 @@ class OnedayService{
     }
 }
 
-class OnedayApi{
+class OnedayApi {
     static #instance = null;
 
-    static getInstance(){
-        if(this.#instance == null) {
+    static getInstance() {
+        if (this.#instance == null) {
             this.#instance = new OnedayApi();
         }
         return this.#instance;
     }
 
-    getOneday(){
+    getOneday() {
 
         let responseData = null;
 

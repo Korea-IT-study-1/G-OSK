@@ -59,8 +59,8 @@ $('.seat-content button').click(function () {
 
 //홈으로 버튼 이벤트
 $('.home-btn').click(function () {
-localStorage.clear();
-location.replace("/index");
+    localStorage.clear();
+    location.replace("/index");
 });
 
 //다음단계 버튼 이벤트
