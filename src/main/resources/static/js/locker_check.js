@@ -92,3 +92,13 @@ inoutButton.onclick = () => {
 // window.onload = () => {
 //     load();
 // };
+
+
+const logOutBtn = document.querySelector(".logout-btn");
+
+logOutBtn.onclick = () => {
+  localStorage.clear()
+  console.log("로그아웃")
+  location.replace("/logout");
+
+}

@@ -71,25 +71,35 @@ registerBtn.onclick = () => {
         userPw: phonePw.value
     }
 
-    $.ajax({
-        async: false,
-        type: "post",
-        url: "/api/account/join",
-        contentType: "application/json",
-        data: JSON.stringify(joinInfo),
-        dataType: "json",
-        success: (response) => {
-            console.log(response);
-            console.log(joinInfo);
-            alert("성공");
-            location.replace("/logout");
-        },
-        error: (error) => {
-            console.log(error);
-            console.log(joinInfo);
-        }
+    if (phoneId.value.length == 13) {
+        if (phonePw.value.length == 4) {
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/api/account/join",
+                contentType: "application/json",
+                data: JSON.stringify(joinInfo),
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                    console.log(joinInfo);
+                    alert("성공");
+                    location.replace("/logout");
+                },
+                error: (error) => {
+                    console.log(error);
+                    console.log(joinInfo);
+                }
 
-    })
+            })
+        } else {
+            alert("비밀번호가 4자리가 아님");
+        }
+    } else {
+        alert("휴대폰 번호가 13자리가 아님(-포함)");
+    }
+
+
 }
 
 const logOutBtn = document.querySelector(".logout-btn");

@@ -8,31 +8,50 @@
         update
             user_mst
         set
-            seat_num = null,
             user_update_date=now()
         WHERE
-        user_id = #{user_id};
+            user_id = #{user_id};
 
+        update
+            seat_mst
+        set
+            user_id = 0,
+            seat_start_time=now()
+        WHERE
+            user_id = #{user_id};
     </update>
+<!--    <update id="day" parameterType="com.Gosk.GoskProject20221221.domain.User">-->
+<!--        update-->
+<!--            user_mst-->
+<!--        set-->
+<!--            user_create_date=#{result}-->
+<!--        WHERE-->
+<!--            user_id = #{user_id};-->
+<!--    </update>-->
 
 
     <select id="inOut" parameterType="integer" resultType="com.Gosk.GoskProject20221221.domain.User">
         SELECT
             um.user_id,
+            um.user_create_date,
+            um.user_update_date,
             um.user_time,
             um.user_date,
-            um.seat_num,
-            um.reserved_num,
-            um.user_update_date,
+            um.user_out,
+
 
             rm.receipt_time,
             rm.receipt_day,
             rm.receipt_start_date,
-            rm.receipt_end_date
+            rm.receipt_kinds,
+
+            sm.seat_id,
+            sm.seat_start_time
         FROM
             user_mst um
             left outer join receipt_mst rm on(rm.user_id = um.user_id)
+            left outer join seat_mst sm on(sm.user_id = um.user_id)
         WHERE
-            um.user_id = #{user_id};
+            um.user_id = #{user_id}
     </select>
 </mapper>

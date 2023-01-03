@@ -24,6 +24,7 @@ $('.in-btn').click(function () {
 
 //퇴실 버튼 이벤트
 $('.out-btn').click(function () {
+    localStorage.setItem("time", $(this).val());
     location.replace("/inout");
 });
 
@@ -61,3 +62,7 @@ dateToStr = (date) => {
 
     return year + '년 ' + month + '월 ' + day + '일 ' + dayName + '요일 ' + localTime;
 }
+
+$(".go-admin-btn").dblclick(function () {
+    location.replace("/admin/productlist");
+});

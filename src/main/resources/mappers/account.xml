@@ -11,13 +11,10 @@
         values(
             0,
             2,
-            "0",
-            "0",
-            "0",
             #{user_phone},
             #{user_pw},
             0,
-            0,
+            null,
             0,
             now(),
             now()

@@ -15,17 +15,19 @@
         <!-- header -->
         <div class="popup-back invisible">
             <div class="popup">
-                <select name="" id="">
-                    <option value="">일반석</option>
-                    <option value="">지정석</option>
+                <select name="seat-select" id="seat-select">
+                    <option value="normal">일반석</option>
+                    <option value="reserved">지정석</option>
                 </select>
-                <select name="" id="">
-                    <option value="">원데이</option>
-                    <option value="">시간권</option>
-                    <option value="">기간권</option>
+                <select name="time-select" id="time-select">
+                    <option value="oneday">원데이</option>
+                    <option value="time">시간권</option>
+                    <option value="day">기간권</option>
                 </select>
-                <input type="text" placeholder="상품이름" onfocus="this.placeholder=''" onblur="this.placeholder='상품이름'">
-                <input type="text" placeholder="가격" onfocus="this.placeholder=''" onblur="this.placeholder='가격'">
+                <input type="text" id="product-name" placeholder="상품이름" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='상품이름'">
+                <input type="text" id="product-price" placeholder="가격" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='가격'">
 
                 <div class="popup-btns">
                     <button class="btn gray-btn popup-register-btn">등록</button>
@@ -59,7 +61,7 @@
         </div>
 
         <header class="admin-header">
-            <p>G-OSK</p>
+            <p class="go-index-btn">G-OSK</p>
             <div class="header-bot">
                 <ul>
                     <li>그레이즈 스터디카페</li>

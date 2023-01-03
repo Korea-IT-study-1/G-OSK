@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -14,15 +16,10 @@ public class SeatServiceImpl implements SeatService{
     private final SeatRepository seatRepository;
     //  -------------------입실/퇴실---------------------------
     @Override
-    public boolean inoutUser(InOutReqDto seatReqDto, PrincipalDetails principalDetails)throws Exception{
-        log.info("실패햇어요!!!!!!!!!!!!!!! : {}, {} ", seatReqDto,principalDetails);
-
-//
-//        LocalDateTime now = LocalDateTime.now();
-//
-//        LocalDateTime finalTime = now.plusHours(3);
+    public boolean inoutUser(InOutReqDto inOutReqDto, PrincipalDetails principalDetails)throws Exception{
+        log.info("실패햇어요!!!!!!!!!!!!!!! : {}, {} ", inOutReqDto,principalDetails);
 
 
-        return seatRepository.inoutUser(seatReqDto.toSeatEntity(principalDetails)) > 0;
+        return seatRepository.inoutUser(inOutReqDto.toSeatEntity(principalDetails)) > 0;
     }
 }

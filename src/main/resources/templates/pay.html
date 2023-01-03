@@ -5,19 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://kit.fontawesome.com/44bcb903a4.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <link rel="stylesheet" href="/static/css/reset.css">
 
 <link rel="stylesheet" href="/static/css/pay.css">
 <title>G-OSK 결제</title>
+
 <body>
     <main class="container">
-<!-- header -->
+        <!-- header -->
         <header class="pay-header">
             <i class="fa-solid fa-credit-card"></i>
             <p>결제</p>
             <div>안내에 따라 신용카드 결제를 진행해 주세요</div>
         </header>
-<!-- section -->
+        <!-- section -->
         <section class="pay-content">
             <ul>
                 <li>
@@ -34,18 +36,18 @@
                     </div>
                 </li>
             </ul>
-            
+
             <img src="/static/images/pngwing2.com.png">
         </section>
-<!-- footer -->
+        <!-- footer -->
         <footer class="pay-footer">
             <p>다음 단계 진행을 위해 결제하기 버튼을 눌러주세요.</p>
             <div>
-                <button class="index-btn btn gray-btn">
+                <button class="logout-btn btn gray-btn">
                     <i class="fa-solid fa-xmark"></i>
                     결제취소
                 </button>
-                <button class="next-btn btn org-btn">
+                <button class="next-btn btn org-btn pay-btn">
                     <i class="fa-solid fa-check"></i>
                     결제하기
                 </button>
@@ -54,4 +56,5 @@
     </main>
     <script src="/static/js/pay.js"></script>
 </body>
+
 </html>

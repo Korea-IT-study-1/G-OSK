@@ -1,6 +1,7 @@
 package com.Gosk.GoskProject20221221.service.InOut;
 
 import com.Gosk.GoskProject20221221.domain.User;
+import com.Gosk.GoskProject20221221.dto.DayReqDto;
 import com.Gosk.GoskProject20221221.dto.InOutReqDto;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 
@@ -10,5 +11,7 @@ public interface InOutService {
 
     public List<User> inOut(int user_id) throws Exception;
 
-    public List<User> out(int user_id) throws Exception;
+    public boolean out(int user_id) throws Exception;
+
+    public Object day(DayReqDto dayReqDto, int user_id) throws  Exception;
 }
