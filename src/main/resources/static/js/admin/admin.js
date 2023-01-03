@@ -1,14 +1,18 @@
 const productInquiry = document.querySelectorAll(".product-inquiry");
 
 productInquiry[0].onclick = () => {
-    location.replace("/templates/adminpage/product-manage.html")
+    location.replace("/admin/productlist");
 }
 productInquiry[1].onclick = () => {
-    location.replace("/templates/adminpage/user-manage.html")
+    location.replace("/admin/userlist");
 }
 productInquiry[2].onclick = () => {
-    location.replace("/templates/adminpage/seat-manage.html")
+    location.replace("/admin/seatlist");
 }
 productInquiry[3].onclick = () => {
-    location.replace("/templates/adminpage/sales-manage.html")
+    location.replace("/admin/saleslist");
 }
+
+$(".go-index-btn").dblclick(function () {
+    location.replace("/index");
+});
