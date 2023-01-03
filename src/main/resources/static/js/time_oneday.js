@@ -37,9 +37,9 @@ class OnedayService{
             <li>
                 <p>
                     <i class="fa-solid fa-ticket"></i>&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <span>${border.time}시간</span>
+                    <span>${border.time}</span>
                 </p>
-                <div>${border.price}원</div>
+                <div>${border.price}</div>
             </li>
             `;
 
@@ -78,7 +78,6 @@ class OnedayListApi{
             data: {listname: time},
             dataType: "json",
             success: (response) => {
-                alert("원데이 이용권 불러오기");
                 responseData = response.data;
             },
             error: (error) => {

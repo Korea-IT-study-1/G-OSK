@@ -10,5 +10,7 @@ import java.util.Map;
 public interface TimeRepository {
 
     public List<Time> getOnedayList(Map<String, Object> map) throws Exception;
+    public List<Time> getCoummuterList(Map<String, Object> map) throws Exception;
     public List<Time> getReservedList(Map<String, Object> map) throws Exception;
+    public List<Time> getLockerList(Map<String, Object> map) throws Exception;
 }
