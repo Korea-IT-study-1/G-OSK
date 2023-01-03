@@ -5,10 +5,10 @@ function inList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
-                responseData1 = response.data;
-                responseData = responseData1[responseData1.length - 1];
-                console.log(responseData);
-                ininList(responseData);
+            responseData1 = response.data;
+            responseData = responseData1[responseData1.length - 1];
+            console.log(responseData);
+            ininList(responseData);
 
         },
         error: (error) => {
@@ -63,14 +63,14 @@ function ininList() {
     console.log(time3);
     timehour = junho4 + time1;
     timeminute = junho5 + time2;
-    timesecond = junho6 +  time3;
+    timesecond = junho6 + time3;
     console.log(timehour);
     console.log(timeminute);
     console.log(timesecond);
-    let goodtime ={
-        timehour : time1,
-        timeminute : time2,
-        timesecond : time3,
+    let goodtime = {
+        timehour: time1,
+        timeminute: time2,
+        timesecond: time3,
     };
     console.log(goodtime);
     junholist(goodtime);
@@ -88,7 +88,7 @@ function junholist(goodtime) {
         success: (response) => {
             alert("시간 보내기 성공");
             responseData2 = response.data.replace(/T/g, ' ');
-            responseData2 = responseData2.split(/[.]/,1);
+            responseData2 = responseData2.split(/[.]/, 1);
             console.log(responseData2);
             inininList();
         },
@@ -110,9 +110,9 @@ function inininList() {
 
             responseData1 = response.data;
             responseData = responseData1[responseData1.length - 1];
-            timetime =responseData.user_update_date.replace(/T/g, ' ');
+            timetime = responseData.user_update_date.replace(/T/g, ' ');
             console.log(timetime);
-            timetime = timetime.split(/[.]/,1);
+            timetime = timetime.split(/[.]/, 1);
             console.log(timetime);
             console.log(responseData);
             if (localStorage.getItem("time") == "in") {
@@ -121,7 +121,7 @@ function inininList() {
                 inload(responseData);
             } else if (localStorage.getItem("time") == "out") {
                 alert("퇴실성공");
-                
+
                 outload(responseData);
             }
         },

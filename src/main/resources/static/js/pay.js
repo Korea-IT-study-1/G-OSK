@@ -22,6 +22,7 @@ function paydata(time) {
 
 //결제취소 버튼 이벤트
 const logOutBtn = document.querySelector(".logout-btn");
+let userPhone = null;
 
 logOutBtn.onclick = () => {
     console.log("로그아웃");
@@ -29,15 +30,35 @@ logOutBtn.onclick = () => {
     location.replace("/logout");
 }
 
-var IMP = window.IMP; // 생략 가능
-IMP.init("imp83013747"); // 예: imp00000000
 
+
+const payBtn = document.querySelector(".pay-btn");
 
 
 //결제하기 버튼 이벤트
-window.onload = () => {
-    paydata(localStorage.getItem("time"));
+payBtn.onclick = () => {
+    requestPay();
 }
+
+function loadUser() {
+    $.ajax({
+        async: false,
+        type: "get",
+        url: "/api/pay/loaduser",
+        dataType: "json",
+        success: (response) => {
+            console.log(response);
+            localStorage.setItem("userPhone", response.data);
+        },
+        error: (error) => {
+            console.log(error);
+        }
+    })
+}
+
+var IMP = window.IMP; // 생략 가능
+IMP.init("imp83013747"); // 예: imp00000000
+
 
 function requestPay() {
     // IMP.request_pay(param, callback) 결제창 호출
@@ -48,7 +69,7 @@ function requestPay() {
         name: localStorage.getItem("time") + localStorage.getItem("paytime"),
         amount: 100,
         buyer_email: "test@email.com",
-        buyer_name: "test",
+        buyer_name: localStorage.getItem("userPhone"),
         buyer_tel: localStorage.getItem("userPhone"),
     }, function (rsp) { // callback
         if (rsp.success) {
@@ -56,7 +77,6 @@ function requestPay() {
             alert("결제 성공");
             console.log(rsp);
             // location.replace("/logout");
-
         } else {
             alert("결제 성공(실패임)");
             // 결제 실패 시 로직
@@ -64,8 +84,7 @@ function requestPay() {
     });
 }
 
-const payBtn = document.querySelector(".pay-btn");
-
-payBtn.onclick = () => {
-    requestPay();
+window.onload = () => {
+    paydata(localStorage.getItem("time"));
+    loadUser();
 }
