@@ -29,7 +29,7 @@ public class User {
     private String user_pw;
     private String role;
     private String user_out;
-    private LocalDateTime result;
+    private String result;
     private LocalTime user_time;
     private LocalDateTime user_date;
     private LocalTime user_locker_date;
