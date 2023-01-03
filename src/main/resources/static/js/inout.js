@@ -57,7 +57,7 @@ function inload(responseData) {
     console.log(time3);
     timehour = junho4 + time1;
     timeminute = junho5 + time2;
-    timesecond = junho6 +  time3;
+    timesecond = junho6 + time3;
 
 
     const inoutBody = document.querySelector(".junho11");
@@ -201,7 +201,7 @@ function dayList() {
             alert("퇴실 실패");
             console.log(error);
         },
-    }); 
+    });
 }
 function hourload() {
     console.log(responseData);
@@ -220,11 +220,11 @@ function hourload() {
 
     timehour = junho4 + time1;
     timeminute = junho5 + time2;
-    timesecond = junho6 +  time3;
-    let goodtime ={
-        timehour : time1,
-        timeminute : time2,
-        timesecond : time3,
+    timesecond = junho6 + time3;
+    let goodtime = {
+        timehour: time1,
+        timeminute: time2,
+        timesecond: time3,
     };
     addtime(goodtime);
 };
@@ -252,7 +252,7 @@ function addtime(goodtime) {
     });
 }
 function returnload() {
-        if (localStorage.getItem("time") == "in") {
+    if (localStorage.getItem("time") == "in") {
         inList();
     } else if (localStorage.getItem("time") == "out") {
         outList();
