@@ -1,16 +1,12 @@
 package com.Gosk.GoskProject20221221.service.Time;
 
-import com.Gosk.GoskProject20221221.domain.Time;
-import com.Gosk.GoskProject20221221.dto.TimeReqDto;
+import com.Gosk.GoskProject20221221.dto.TimeRespDto;
 import com.Gosk.GoskProject20221221.repository.TimeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +16,30 @@ public class TimeServicelmpl implements TimeService {
     private final TimeRepository timeRepository;
 
     @Override
-    public List<TimeReqDto> getTimeList() throws Exception{
-//        log.info("{}", user_id);
-        List<TimeReqDto> timeList = new ArrayList<>();
-
+    public List<TimeRespDto> getTimeList(String listname) throws Exception{
+        List<TimeRespDto> timeList = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
 
-        timeRepository.getTimeList(map).forEach(Time -> {
-            timeList.add(Time.toRespDto());
-        });
+        log.info("listname 값 : {}", listname);
+
+        if(listname.equals("oneday") == true){
+            timeRepository.getOnedayList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        } else if(listname.equals("commuter") == true) {
+            timeRepository.getCoummuterList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        } else if(listname.equals("reserved") == true) {
+            timeRepository.getReservedList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        } else if(listname.equals("locker") == true) {
+            timeRepository.getLockerList(map).forEach(Time -> {
+                timeList.add(Time.toRespDto());
+            });
+        }
+
         return timeList;
     }
 

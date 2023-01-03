@@ -6,17 +6,69 @@
 <mapper namespace="com.Gosk.GoskProject20221221.repository.TimeRepository">
 
     <resultMap id="Time" type="com.Gosk.GoskProject20221221.domain.Time">
-        <result property="time" column="oneday_time"></result>
-        <result property="price" column="oneday_price"></result>
+        <result property="time" column="time"></result>
+        <result property="price" column="price"></result>
     </resultMap>
 
-    <select id="getTimeList" resultMap="Time">
+    <select id="getOnedayList" resultMap="Time">
 
         SELECT
-            oneday_time, CAST(format(oneday_price,0) as char(10)) as oneday_price
+            CONCAT(CAST(oneday_time as char(20)),'시간') as time,
+            CONCAT(CAST(format(oneday_price,0) as char(10)), '원') as price
         FROM
             oneday_price_mst
-        ORDER BY oneday_time
+        ORDER BY
+            oneday_time
+
+    </select>
+
+    <select id="getCoummuterList" resultMap="Time">
+
+        SELECT * FROM (
+            SELECT
+                CONCAT(CAST(commuter_tp_time as char(20)),'시간') as time,
+                CONCAT(CAST(format(commuter_tp_price,0) as char(10)), '원') as price
+            FROM
+                commuter_time_price_mst
+            ORDER BY
+                commuter_tp_time LIMIT 1000000
+            ) as a
+
+        UNION ALL
+
+            SELECT * FROM (
+                SELECT
+                    CONCAT(CAST(commuter_dp_time as char(20)),'주') as time,
+                    CONCAT(CAST(format(commuter_dp_price,0) as char(10)), '원') as price
+                FROM
+                    commuter_day_price_mst
+                ORDER BY
+                    commuter_dp_time LIMIT 1000000
+                ) as b
+
+    </select>
+
+    <select id="getReservedList" resultMap="Time">
+
+        SELECT
+            CONCAT(CAST(reserved_time as char(20)),'주') as time,
+            CONCAT(CAST(format(reserved_price,0) as char(10)), '원') as price
+        FROM
+            reserved_price_mst
+        ORDER BY
+            reserved_time
+
+    </select>
+
+    <select id="getLockerList" resultMap="Time">
+
+        SELECT
+            CONCAT(CAST(locker_time as char(20)),'주(사물함)') as time,
+            CONCAT(CAST(format(locker_price,0) as char(10)), '원') as price
+        FROM
+            locker_price_mst
+        ORDER BY
+            locker_time
 
     </select>
 

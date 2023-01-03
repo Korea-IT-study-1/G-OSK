@@ -20,15 +20,9 @@ public class TimeApi {
     private final TimeService timeService;
 
     @GetMapping("/api/time/list")
-    public ResponseEntity<?> getList() throws Exception{
-
-//        if(principalDetails == null){
-//            return ResponseEntity.ok().body(new CMRespDto<>(1, "Successfully", bagService.getBagList(0)));
-//        }
-
-//        User user = principalDetails.getUser();
-        log.info("{}", timeService.getTimeList());
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", timeService.getTimeList()));
+    public ResponseEntity<?> getList(String listname) throws Exception{
+        log.info("list : {}", timeService.getTimeList(listname));
+        return ResponseEntity.ok(new CMRespDto<>(1, "이용권 불러오기 성공", timeService.getTimeList(listname)));
     }
 
 }

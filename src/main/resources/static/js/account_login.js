@@ -60,5 +60,6 @@ const logOutBtn = document.querySelector(".logout-btn");
 
 logOutBtn.onclick = () => {
     console.log("로그아웃")
+    localStorage.clear();
     location.replace("/logout");
 }

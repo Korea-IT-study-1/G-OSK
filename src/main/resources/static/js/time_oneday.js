@@ -8,11 +8,11 @@ logOutBtn.onclick = () => {
 }
 
 //원데이 이용권 선택
-$('.time-content li').click(function () {
-    localStorage.setItem("paytime", $(this).find('span').text());
-    localStorage.setItem("pay", $(this).children('div').text());
-    location.href = "/pay";
-});
+// $('.time-content li').click(function () {
+//     localStorage.setItem("paytime", $(this).find('span').text());
+//     localStorage.setItem("pay", $(this).children('div').text());
+//     location.href = "/pay";
+// });
 
 //페이지 실행 시 원데이이용권 리스트 불러오기
 class OnedayService {
@@ -29,14 +29,15 @@ class OnedayService {
 
     #responseData = null;
 
-    loadOnedayList() {
-        this.responseData = OnedayApi.getInstance().getOneday();
+    loadTimeList() {
+        this.responseData = OnedayApi.getInstance().getOnedayList();
         console.log(this.responseData);
-        this.getOnedayList(this.responseData);
+        this.getOneday(this.responseData);
     }
 
-    getOnedayList(responseData) {
+    getOneday(responseData) {
         console.log(responseData)
+
         const borders = document.querySelector(".oneday-list");
 
         responseData.forEach((border, index) => {
@@ -45,13 +46,21 @@ class OnedayService {
             <li>
                 <p>
                     <i class="fa-solid fa-ticket"></i>&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <span>${border.time}시간</span>
+                    <span>${border.time}</span>
                 </p>
-                <div>${border.price}원</div>
+                <div>${border.price}</div>
             </li>
             `;
 
         });
+
+        //원데이 이용권 선택
+        $('.oneday-list li').click(function () {
+            localStorage.setItem("paytime", $(this).find('span').text());
+            localStorage.setItem("pay", $(this).children('div').text());
+            location.href = "/pay";
+        });
+
     }
 }
 
@@ -65,14 +74,17 @@ class OnedayApi {
         return this.#instance;
     }
 
-    getOneday() {
+    getOnedayList() {
 
         let responseData = null;
+        let time = localStorage.getItem("time");
 
         $.ajax({
             async: false,
             type: "get",
             url: "/api/time/list",
+            // data: JSON.stringify(listinfo),
+            data: {listname: time},
             dataType: "json",
             success: (response) => {
                 responseData = response.data;
@@ -87,6 +99,6 @@ class OnedayApi {
 }
 
 window.onload = () => {
-    OnedayService.getInstance().loadOnedayList();
+    OnedayService.getInstance().loadTimeList();
 }
 

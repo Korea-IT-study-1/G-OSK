@@ -1,10 +1,10 @@
 package com.Gosk.GoskProject20221221.service.Time;
 
-import com.Gosk.GoskProject20221221.dto.TimeReqDto;
+import com.Gosk.GoskProject20221221.dto.TimeRespDto;
 
 import java.util.List;
 
 public interface TimeService {
-    public List<TimeReqDto> getTimeList() throws Exception;
+    public List<TimeRespDto> getTimeList(String listname) throws Exception;
 
 }

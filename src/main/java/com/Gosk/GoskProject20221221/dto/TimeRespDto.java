@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Builder
 @Data
-public class TimeReqDto {
+public class TimeRespDto {
 
-    public int time;  //시간
+    public String time;  //시간
     public String price;    //가격
 
 }
