@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.AdminRepository">
+
+    <resultMap id="ProductList" type="com.Gosk.GoskProject20221221.domain.Admin.ProductList">
+        <result property="pdname" column="pdname"></result>
+        <result property="time" column="time"></result>
+        <result property="price" column="price"></result>
+    </resultMap>
+
+    <select id="getReservedList" resultMap="ProductList">
+
+        SELECT
+            "기간권" as pdname,
+            CONCAT(CAST(reserved_time as char(20)),'주') as time,
+            CONCAT(CAST(format(reserved_price,0) as char(10)), '원') as price
+        FROM
+            reserved_price_mst
+        ORDER BY
+            reserved_time
+
+    </select>
+    
+    <select id="getGeneralList" resultMap="ProductList">
+
+        SELECT * FROM (
+                SELECT
+                    "원데이" as pdname,
+                    CONCAT(CAST(oneday_time as char(20)),'시간') as time,
+                    CONCAT(CAST(format(oneday_price,0) as char(10)), '원') as price
+                FROM
+                    oneday_price_mst
+                ORDER BY
+                    oneday_time
+                Limit 1000000
+        ) as a
+
+        UNION ALL
+
+        SELECT * FROM (
+            SELECT
+                "시간권" as pdname,
+                CONCAT(CAST(commuter_tp_time as char(20)),'시간') as time,
+                CONCAT(CAST(format(commuter_tp_price,0) as char(10)), '원') as price
+            FROM
+                commuter_time_price_mst
+            ORDER BY
+                commuter_tp_time
+            LIMIT 1000000
+        ) as b
+
+        UNION ALL
+
+        SELECT * FROM (
+            SELECT
+                "기간권" as pdname,
+                CONCAT(CAST(commuter_dp_time as char(20)),'주') as time,
+                CONCAT(CAST(format(commuter_dp_price,0) as char(10)), '원') as price
+            FROM
+                commuter_day_price_mst
+            ORDER BY
+                commuter_dp_time
+            LIMIT 1000000
+        ) as c
+
+    </select>
+
+</mapper>

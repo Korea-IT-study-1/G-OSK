@@ -8,7 +8,6 @@ const popupRegisterBtn = document.querySelector(".popup-register-btn");
 registerBtn.onclick = () => {
     // popup.classList.remove("invisible");
     popupBack.classList.remove("invisible");
-
 }
 
 closeBtn.onclick = () => {
@@ -79,7 +78,6 @@ updateBtns.forEach((updateBtn, index) => {
 
 })
 
-
 popup2CloseBtn.onclick = () => {
     popupBack2.classList.add("invisible");
 }
@@ -96,32 +94,70 @@ const nomal = document.querySelector(".nomal");
 // 지정석만 조회
 reserved.onclick = () => {
     alert("지정석");
+    productList("지정석");
 }
 
 // 일반석만 조회
 nomal.onclick = () => {
     alert("일반석");
+    productList("일반석");
 }
 
-// function productList() {
-//     $.ajax({
-//         async: false,
-//         type: "get",
-//         url: "/api/admin/productlist",
-//         data: param,
-//         dataType: "json",
-//         success: (response) => {
-//             responseData = response.data;
-//             console.log(responseData);
-//             loadList(responseData);
+//상품리스트 불러오기
+function productList(name) {
 
-//             // responseData를 JSON 형식으로 보여주기
-//             // console.log(JSON.stringify(responseData[]));
-//         },
-//         error: (error) => {
-//             alert("상품 리스트 불러오기 실패");
-//             console.log(error);
-//         },
-//     });
-// }
+    $.ajax({
+        async: false,
+        type: "get",
+        url: "/api/admin/productlist",
+        data: {name: name},
+        dataType: "json",
+        success: (response) => {
+            responseData = response.data;
+            loadList(responseData, name);
+            // responseData를 JSON 형식으로 보여주기
+            // console.log(JSON.stringify(responseData[]));
+        },
+        error: (error) => {
+            alert("상품 리스트 불러오기 실패");
+            console.log(error);
+        },
+    });
+}
+
+function loadList(responseData, name){
+
+    const borders = document.querySelector(".prouct-table");
+
+    borders.innerHTML = `
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+        </colgroup>
+        `;
+
+    responseData.forEach((border, index) => {
+        
+        borders.innerHTML += `
+            <tr>
+                <td>` + name + `</td>
+                <td>${border.pdname}
+                    <br>${border.time}
+                </td>
+                <td><span>${border.price}</span></td>
+                <td><button class="btn update-btn">수정</button></td>
+                <td><button class="btn dlt-btn">삭제</button></td>
+            </tr>
+        `;
+
+    });
+}
+
+window.onload = () =>{
+    productList("지정석");
+}
+
 
