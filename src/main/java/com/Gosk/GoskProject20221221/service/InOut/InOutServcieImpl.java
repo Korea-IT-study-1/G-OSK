@@ -46,14 +46,12 @@ public class InOutServcieImpl implements InOutService{
                 .plusHours(dayReqDto.getTimehour())
                 .plusMinutes(dayReqDto.getTimeminute())
                 .plusSeconds(dayReqDto.getTimesecond());
+        dayReqDto.setResult(result.toString().substring(0, result.toString().lastIndexOf(".")));
+        dayReqDto.setUser_id(user_id);
 
-        String test = result.toString();
-
-        test = test.substring(0, test.lastIndexOf("."));
-        System.out.println(test + "");
         log.info("시간보내졌움? >>>>>>>>>>>>>>>>>>>{}" ,dayReqDto.todayEntity());
 
-        // inOutRepository.day(dayReqDto.todayEntity()) > 0 이게 아닐 경우의 if를 만들어서
+         inOutRepository.day(dayReqDto.todayEntity());
         // 그럴 경우에는 핸들러로 캐치 // info 로 에러떳다고 메세지
 
         return result;
