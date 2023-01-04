@@ -20,6 +20,13 @@
             seat_start_time=now()
         WHERE
             user_id = #{user_id};
+        
+        update
+            reserved_seat_mst
+        set
+            user_id = 0
+        WHERE
+            user_id = #{user_id};
     </update>
     <update id="day" parameterType="com.Gosk.GoskProject20221221.domain.User">
         update
