@@ -28,6 +28,7 @@ public class User {
     private String receipt_kinds;
     private String user_pw;
     private String role;
+    private String now;
     private String user_out;
     private String result;
     private LocalTime user_time;

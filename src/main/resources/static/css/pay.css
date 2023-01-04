@@ -47,42 +47,42 @@
     height: 170px;
     border-bottom: 1px solid black;
 }
-.pay-content ul li .product1{
+.pay-content ul li .payment{
     margin: auto 10px;
     font-size: 50px;
 }
-.pay-content ul li .product2{
+.pay-content ul li .product{
     text-align: center;
     width: 335px;
     /* margin: 0 0 0 40px; */
     border-right: 7.5px dotted  #3a3a3a;
     
 }
-.pay-content ul li .product3{
+.pay-content ul li .price{
     text-align: center;
     width: 250px;
     margin: 0 40px 0 0;
     /* border-left: 7.5px dotted  #3a3a3a; */
 }
-.pay-content ul li .product1 p{
+.pay-content ul li .payment p{
     margin: 30px 0 0 20px;
 }
-.pay-content ul li .product2 p{
+.pay-content ul li .product p{
     font-size: 30px;
     margin:10px 0 10px 0 ;
 }
-.pay-content ul li .product3 p{
+.pay-content ul li .price p{
     font-size: 30px;
     margin:10px 0 10px 0 ;
 }
 
-.pay-content ul li .product2 span{
+.pay-content ul li .product span{
     font-size: 50px;
     margin-bottom: 20px;
     color: #fb6624;;
 }
 
-.pay-content ul li .product3 span{
+.pay-content ul li .price span{
     font-size: 50px;
     margin-bottom: 20px;
     color: #fb6624;;

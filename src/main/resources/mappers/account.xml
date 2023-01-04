@@ -28,7 +28,6 @@
             um.role_id,
 
             rm.role,
-
             um.user_create_date,
             um.user_update_date
 
