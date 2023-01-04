@@ -6,14 +6,6 @@
 <mapper namespace="com.Gosk.GoskProject20221221.repository.PayRepository">
 
     <insert id="historyadd" parameterType="com.Gosk.GoskProject20221221.domain.PayHistory">
-<!--        INSERT INTO-->
-<!--            receipt_mst-->
-<!--        VALUES (-->
-<!--        #{user_id},-->
-<!--        #{count},-->
-<!--        #{product_id},-->
-<!--        #{quantity}-->
-<!--        )-->
 
         INSERT INTO
             receipt_mst(user_id, receipt_kinds, receipt_price, receipt_time,receipt_day, receipt_start_date)
@@ -25,6 +17,7 @@
             #{receipt_day},
             #{receipt_start_date}
         )
+
     </insert>
 
 </mapper>

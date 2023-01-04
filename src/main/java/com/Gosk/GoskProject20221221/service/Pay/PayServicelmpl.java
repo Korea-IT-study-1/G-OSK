@@ -21,7 +21,7 @@ public class PayServicelmpl implements PayService{
     public void historyadd(PayHistoryReqDto payHistoryReqDto) throws Exception{
 
         LocalDateTime now = LocalDateTime.now();
-        payHistoryReqDto.setReceipt_start_date(now.toString());
+        payHistoryReqDto.setReceipt_start_date(now.toString().substring(0, now.toString().lastIndexOf(".")));
 
         log.info("RepositoryDto : {}", payHistoryReqDto);
 

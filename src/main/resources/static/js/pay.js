@@ -87,34 +87,15 @@ function requestPay() {
 }
 
 function payhistory() {
-
-
-    const test1 = localStorage.getItem("time")
-
-
-    let payhistoryinfo = {
-        // receipt_kinds: localStorage.getItem("time"),
-        // receipt_price: localStorage.getItem("pay").replace("원",""),
-        // receipt_time: localStorage.getItem("paytime").replace("시간",""),
-        // receipt_day: 0
-        receipt_kinds: localStorage.getItem("time"),
-        receipt_price: localStorage.getItem("pay"),
-        receipt_time: localStorage.getItem("paytime"),
-        receipt_day: 0
+    
+    if(localStorage.getItem("time") == "oneday"){
+        let payhistoryinfo = {
+            receipt_kinds: "원데이",
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+            receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
+            receipt_day: 0
+        }
     }
-
-    // if (localStorage.getItem("time") == "oneday"){
-
-    //     let payhistoryinfo = {
-    //         receipt_kinds: localStorage.getItem("time"),
-    //         receipt_price: localStorage.getItem("pay").replace("원",""),
-    //         receipt_time: localStorage.getItem("paytime").replace("시간",""),
-    //         receipt_day: 0
-    //     }
-
-    // }
-
-    // console.log(payhistoryinfo);
 
     $.ajax({
         async: false,
