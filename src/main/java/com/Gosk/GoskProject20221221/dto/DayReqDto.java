@@ -17,10 +17,12 @@ public class DayReqDto {
     private int timesecond;
 
     private String result;
+    private String now;
     public User todayEntity() {
         return User.builder()
                 .user_id(user_id)
                 .result(result)
+                .now(now)
                 .timehour(timehour)
                 .timeminute(timeminute)
                 .timesecond(timesecond)
