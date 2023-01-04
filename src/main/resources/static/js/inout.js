@@ -5,11 +5,6 @@ function inList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
-
-            responseData1 = response.data;
-            responseData = responseData1[responseData1.length - 1];
-            console.log(responseData);
-            ininList(responseData);
                 if (localStorage.getItem("time") == "in") {
                     alert("입실 in성공");
                     responseData1 = response.data;
@@ -22,6 +17,9 @@ function inList() {
                     timetime =responseData.user_update_date.replace(/T/g, ' ');
                     console.log(timetime);
                     timetime = timetime.split(/[.]/,1);
+                    week = responseData.user_date.replace(/T/g, ' ');
+                    console.log(timetime);
+                    week = week.split(/[.]/, 1);
                     console.log(timetime);
                     console.log(responseData);
                     alert("퇴실in 성공");
@@ -139,13 +137,13 @@ function inininList() {
             console.log(timetime);
             week = week.split(/[.]/, 1);
             console.log(timetime);
+            console.log(week);
             console.log(responseData);
             if (localStorage.getItem("time") == "in") {
                 alert("입실입실성공");
                 inload(responseData);
             } else if (localStorage.getItem("time") == "out") {
                 alert("퇴실성공");
-
                 outload(responseData);
             }
         },
