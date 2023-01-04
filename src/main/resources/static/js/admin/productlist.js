@@ -87,17 +87,18 @@ popup2UpdateBtn.onclick = () => {
     alert("수정");
 }
 
-
 const reserved = document.querySelector(".reserved");
 const nomal = document.querySelector(".nomal");
 
 // 지정석만 조회
 reserved.onclick = () => {
+    $('.table-container table tr').remove();
     productList("지정석");
 }
 
 // 일반석만 조회
 nomal.onclick = () => {
+    $('.table-container table tr').remove();
     productList("일반석");
 }
 
@@ -126,16 +127,6 @@ function productList(name) {
 function loadList(responseData, name){
 
     const borders = document.querySelector(".prouct-table");
-
-    borders.innerHTML = `
-        <colgroup>
-            <col width="20%">
-            <col width="20%">
-            <col width="20%">
-            <col width="20%">
-            <col width="20%">
-        </colgroup>
-        `;
 
     responseData.forEach((border, index) => {
         
