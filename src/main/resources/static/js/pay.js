@@ -97,6 +97,13 @@ function payhistory() {
             receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
             receipt_day: 0
         }
+    } else if(localStorage.getItem("time") == "reserved"){
+         payhistoryinfo = {
+            receipt_kinds: "reserved",
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+            receipt_time: parseInt(localStorage.getItem("paytime").replace("주","")),
+            receipt_day: 0
+        }
     }
 
     $.ajax({
