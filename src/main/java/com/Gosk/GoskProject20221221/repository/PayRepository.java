@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PayRepository {
 
-    public void historyadd(PayHistory payHistory) throws Exception;
+    public int historyadd(PayHistory payHistory);
 
 
 }

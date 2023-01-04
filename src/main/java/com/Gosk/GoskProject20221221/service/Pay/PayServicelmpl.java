@@ -12,22 +12,22 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PayServicelmpl implements PayService{
 
     private final PayRepository payRepository;
 
     @Override
-    public void historyadd(PayHistoryReqDto payHistoryReqDto) throws Exception{
+    public boolean historyadd(PayHistoryReqDto payHistoryReqDto){
 
         LocalDateTime now = LocalDateTime.now();
         payHistoryReqDto.setReceipt_start_date(now.toString().substring(0, now.toString().lastIndexOf(".")));
 
-        log.info("RepositoryDto : {}", payHistoryReqDto);
+        System.out.println("RepositoryDto : {}" + payHistoryReqDto);
 
         PayHistory historyEntity = payHistoryReqDto.toHistoryEntity();
 
-        payRepository.historyadd(historyEntity);
+        int result = payRepository.historyadd(historyEntity);
 
+        return result != 0;
     }
 }

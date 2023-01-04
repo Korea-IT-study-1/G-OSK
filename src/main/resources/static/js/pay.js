@@ -87,10 +87,12 @@ function requestPay() {
 }
 
 function payhistory() {
-    
+
+    let payhistoryinfo = null;
+
     if(localStorage.getItem("time") == "oneday"){
-        let payhistoryinfo = {
-            receipt_kinds: "원데이",
+         payhistoryinfo = {
+            receipt_kinds: "oneday",
             receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
             receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
             receipt_day: 0
@@ -107,7 +109,6 @@ function payhistory() {
         success: (response) => {
             alert("히스토리 등록완료");
             console.log(response);
-            // localStorage.setItem("userPhone", response.data);
         },
         error: (error) => {
             alert("히스토리 등록실패");

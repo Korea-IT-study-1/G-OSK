@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PayService {
 
-    public void historyadd(PayHistoryReqDto payHistoryReqDto) throws Exception;
+    public boolean historyadd(PayHistoryReqDto payHistoryReqDto);
 
 }

@@ -29,16 +29,16 @@ public class PayApi {
     }
 
     @PostMapping("/history")
-    public void payHistory(@AuthenticationPrincipal PrincipalDetails principalDetails,
+    public ResponseEntity<?> payHistory(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                         @RequestBody PayHistoryReqDto payHistoryReqDto) throws Exception {
 
         payHistoryReqDto.setUser_id(principalDetails.getUser().getUser_id());
 
-        log.info("Dto 확인 : {}", payHistoryReqDto);
+        System.out.println("Dto 확인 : {}" + payHistoryReqDto);
+
         payService.historyadd(payHistoryReqDto);
 
-
-//        return ResponseEntity.ok(new CMRespDto<>(1, "히스토리 등록 성공", ));
+        return ResponseEntity.ok(new CMRespDto<>(1, "히스토리 등록 성공", payHistoryReqDto));
 
     }
 
