@@ -22,21 +22,17 @@ public class InOutApi {
 
     @GetMapping("/api/inout")
     public ResponseEntity<?> inout(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
-        log.info("입실 값들어옴?>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",principalDetails.getUser());
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.inOut(principalDetails.getUser().getUser_id())));
     }
 
     @PutMapping("/api/inout")
     public ResponseEntity<?> out(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
-        log.info("퇴실 값들어옴?>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",principalDetails.getUser());
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.out(principalDetails.getUser())));
     }
     @PutMapping("/api/inout/day")
     public ResponseEntity<?> day(@RequestBody DayReqDto dayReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
-        log.info("문창배 >>>>>>>");
-
         int user_id = principalDetails.getUser().getUser_id();
-        log.info("문창배 >>>>>>>>>>>>>>>>>>>{}" ,dayReqDto, user_id);
+
         return ResponseEntity.ok(new CMRespDto<>(1,"success",inOutService.day(dayReqDto, user_id)));
     }
 
