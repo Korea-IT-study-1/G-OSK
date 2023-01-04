@@ -11,13 +11,16 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 public class DayReqDto {
+    private int user_id;
     private int timehour;
     private int timeminute;
     private int timesecond;
-    private LocalDateTime result;
+
+    private String result;
     public User todayEntity() {
         return User.builder()
-
+                .user_id(user_id)
+                .result(result)
                 .timehour(timehour)
                 .timeminute(timeminute)
                 .timesecond(timesecond)

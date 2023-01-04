@@ -5,22 +5,11 @@ function inList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
-            if (localStorage.getItem("time") == "in") {
-                alert("입실입실성공");
-                responseData1 = response.data;
-                responseData = responseData1[responseData1.length - 1];
-                console.log(responseData);
-                ininList(responseData);
-            } else if (localStorage.getItem("time") == "out") {
-                alert("퇴실성공");
-                responseData1 = response.data;
-                console.log(responseData1);
-                responseData = responseData1[responseData1.length - 1];
-                console.log(responseData);
-                outload(responseData);
-            }
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
+            responseData1 = response.data;
+            responseData = responseData1[responseData1.length - 1];
+            console.log(responseData);
+            ininList(responseData);
+
         },
         error: (error) => {
             alert("퇴실 실패");
@@ -40,9 +29,6 @@ function outList() {
             responseData = response.data;
             console.log(responseData);
             inList();
-
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
         },
         error: (error) => {
             alert("퇴실 실패");
@@ -77,14 +63,14 @@ function ininList() {
     console.log(time3);
     timehour = junho4 + time1;
     timeminute = junho5 + time2;
-    timesecond = junho6 +  time3;
+    timesecond = junho6 + time3;
     console.log(timehour);
     console.log(timeminute);
     console.log(timesecond);
-    let goodtime ={
-        timehour : time1,
-        timeminute : time2,
-        timesecond : time3,
+    let goodtime = {
+        timehour: time1,
+        timeminute: time2,
+        timesecond: time3,
     };
     console.log(goodtime);
     junholist(goodtime);
@@ -101,17 +87,10 @@ function junholist(goodtime) {
         data: JSON.stringify(goodtime),
         success: (response) => {
             alert("시간 보내기 성공");
-            // responseData2 = response.data;
             responseData2 = response.data.replace(/T/g, ' ');
-            responseData2 = responseData2.split(/[.]/,1);
-            // responseData2 = responseData2[0]+responseData2[1];
-            // end_time = responseData2.substring(0, responseData2.lastIndexOf("."));
+            responseData2 = responseData2.split(/[.]/, 1);
             console.log(responseData2);
-            // inload(responseData1);
             inininList();
-
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
         },
         error: (error) => {
             alert("시간 보내기 실패");
@@ -128,27 +107,33 @@ function inininList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
-            alert("완전 보내기 성공");
+
             responseData1 = response.data;
             responseData = responseData1[responseData1.length - 1];
+            timetime = responseData.user_update_date.replace(/T/g, ' ');
+            console.log(timetime);
+            timetime = timetime.split(/[.]/, 1);
+            console.log(timetime);
             console.log(responseData);
-            inload(responseData);
+            if (localStorage.getItem("time") == "in") {
+                alert("입실입실성공");
 
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
+                inload(responseData);
+            } else if (localStorage.getItem("time") == "out") {
+                alert("퇴실성공");
+
+                outload(responseData);
+            }
         },
         error: (error) => {
             alert("완전 보내기 실패");
             console.log(error);
         },
-        // responseData를 JSON 형식으로 보여주기
-        // console.log(JSON.stringify(responseData[]));
     });
 }
 
 function inload(responseData) {
-    timetime =responseData.user_update_date.replace(/T/g, ' ');
-    timetime = timetime.split(/[.]/,1);
+
     const inoutBody = document.querySelector(".junho11");
     inoutBody.innerHTML += `
         <header class="inout-header">
@@ -181,7 +166,7 @@ function inload(responseData) {
 }
 
 function outload(responseData) {
-    console.log(responseData);
+
     const inoutBody = document.querySelector(".junho11");
 
     if (responseData.receipt_time == 0) {
@@ -201,11 +186,11 @@ function outload(responseData) {
                 </li>
                 <li>
                     <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
-                    <span>${responseData.user_update_date}</span>
+                    <span>${timetime}</span>
                 </li>
                 <li class="close">
                     <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                    <span>${responseData.user_date}<span>
+                    <span>${responseData2}<span>
                 </li>
                 <li>
                     <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
@@ -232,11 +217,11 @@ function outload(responseData) {
                     </li>
                     <li>
                         <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
-                        <span>${responseData.user_update_date}</span>
+                        <span>${timetime}</span>
                     </li>
                     <li class="close">
                         <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                        <span>${responseData.user_date}<span>
+                        <span>${responseData2}<span>
                     </li>
                     <li>
                         <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
@@ -260,14 +245,6 @@ window.onload = () => {
 
 };
 
-// window.onload = () => {
-//     if (localStorage.getItem("time") == "in") {
-//         inList();
-//     } else if (localStorage.getItem("time") == "out") {
-//         outList();
-//     }
-
-// };
 
 const logOutBtn = document.querySelector(".logout-btn");
 
