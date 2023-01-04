@@ -21,6 +21,7 @@ public class User {
     private int receipt_time;
     private int receipt_day;
     private String seat_id;
+    private String reserved_seat_id;
     private String seat_num;
     private String reserved_num;
     private String locker_num;

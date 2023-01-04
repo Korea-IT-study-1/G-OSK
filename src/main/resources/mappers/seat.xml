@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.SeatRepository">
+
+
+    <update id="inoutUser"  parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            seat_mst
+        set
+            user_id=#{user_id},
+            seat_start_time=now()
+        WHERE
+            seat_id = #{seat_id};
+
+        update
+            user_mst
+        set
+            user_update_date=now(),
+            user_out=#{user_out}
+        WHERE
+            user_id = #{user_id};
+    </update>
+    <update id="zero"  parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            seat_mst
+        set
+            user_id= 0
+        WHERE
+        user_id = #{user_id};
+    </update>
+    <update id="reservedinoutUser" parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            reserved_seat_mst
+        set
+            user_id=#{user_id}
+        WHERE
+        reserved_seat_id = #{seat_id};
+    </update>
+    <update id="reservedzero" parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            reserved_seat_mst
+        set
+            user_id=0
+        WHERE
+            user_id = #{user_id};
+    </update>
+    <select id="check" resultType="com.Gosk.GoskProject20221221.domain.User">
+        SELECT
+            um.user_id,
+            um.user_create_date,
+            um.user_update_date,
+            um.user_time,
+            um.user_date,
+            um.user_out,
+            rm.receipt_time,
+            rm.receipt_day,
+            rm.receipt_start_date,
+            rm.receipt_kinds,
+
+            sm.seat_id,
+            sm.seat_start_time
+        FROM
+            user_mst um
+            left outer join receipt_mst rm on(rm.user_id = um.user_id)
+            left outer join seat_mst sm on(sm.user_id = um.user_id)
+        WHERE
+            um.user_id = #{user_id}
+
+    </select>
+</mapper>

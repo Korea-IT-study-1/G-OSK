@@ -20,4 +20,11 @@ public class InOutReqDto {
                 .user_out(seat_id)
                 .build();
     }
+//    public User toReservedEntity(PrincipalDetails principalDetails) {
+//        return User.builder()
+//                .user_id(principalDetails.getUser().getUser_id())
+//                .reserved_seat_id(reserved_seat_id)
+//                .user_out(reserved_seat_id)
+//                .build();
+
 }
