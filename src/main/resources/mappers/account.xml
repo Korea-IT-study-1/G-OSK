@@ -26,7 +26,9 @@
             um.user_phone,
             um.user_pw,
             um.role_id,
-
+            um.user_out,
+            um.user_time,
+            um.user_date,
             rm.role,
 
             um.user_create_date,

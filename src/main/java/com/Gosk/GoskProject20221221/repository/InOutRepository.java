@@ -10,7 +10,7 @@ import java.util.List;
 public interface InOutRepository {
     public List<User> inOut(int user_id) throws Exception;
 
-    public int out(int user_id) throws Exception;
+    public int out(User user) throws Exception;
 
     public int day(User user) throws Exception;
 }

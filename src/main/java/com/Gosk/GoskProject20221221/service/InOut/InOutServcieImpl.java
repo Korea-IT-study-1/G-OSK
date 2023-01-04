@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -22,21 +23,32 @@ public class InOutServcieImpl implements InOutService{
 
     @Override
     public List<User> inOut(int user_id) throws Exception {
-//        LocalDateTime time = LocalDateTime.now();
-//        LocalDateTime now = LocalDateTime.now();
-//
-//        Long hour = ChronoUnit.HOURS.between(now, time);
-//        Long minute = ChronoUnit.MINUTES.between(now, time);
-
 
         return inOutRepository.inOut(user_id);
     }
 
     @Override
-    public boolean out(int user_id) throws Exception {
+    public Object out(User principalDetails) throws Exception {
+        log.info("장난?/>>>>>>..: {}", principalDetails);
+        LocalDateTime endtime = LocalDateTime.now();  //퇴실 시간
+        LocalDateTime starttime = principalDetails.getUser_update_date();  // 입실시간
 
-        return inOutRepository.out(user_id) > 0;
+        long second = ChronoUnit.SECONDS.between(starttime, endtime);
+        log.info("퇴실 입실 비교 시간>>>>>>..: {}", second);
+        LocalTime user_time1 = principalDetails.getUser_time();
+        LocalTime user_time2 = user_time1.minusSeconds(second);
+
+        log.info("남은시간>>>>>>..: {}", user_time1);
+        log.info("계산된시간>>>>>>>.: {}", user_time2);
+
+        principalDetails.setUser_time2(user_time2.toString());
+
+
+        inOutRepository.out(principalDetails);
+        log.info("계산된시간>>>>>>>.: {}", principalDetails.getUser_time2());
+        return user_time2;
     }
+
     @Override
     public Object day(DayReqDto dayReqDto, int user_id)throws Exception{
         LocalDateTime now = LocalDateTime.now();
@@ -47,6 +59,7 @@ public class InOutServcieImpl implements InOutService{
                 .plusMinutes(dayReqDto.getTimeminute())
                 .plusSeconds(dayReqDto.getTimesecond());
         dayReqDto.setResult(result.toString().substring(0, result.toString().lastIndexOf(".")));
+        dayReqDto.setNow(now.toString().substring(0, now.toString().lastIndexOf(".")));
         dayReqDto.setUser_id(user_id);
 
         log.info("시간보내졌움? >>>>>>>>>>>>>>>>>>>{}" ,dayReqDto.todayEntity());

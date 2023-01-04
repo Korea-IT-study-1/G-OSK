@@ -4,11 +4,12 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.Gosk.GoskProject20221221.repository.InOutRepository">
+
     <update id="out" parameterType="com.Gosk.GoskProject20221221.domain.User">
         update
             user_mst
         set
-            user_update_date=now()
+            user_time=#{user_time2}
         WHERE
             user_id = #{user_id};
 
@@ -24,13 +25,14 @@
         update
             user_mst
         set
-            user_create_date=#{result}
+            user_create_date=#{result},
+            user_update_date=#{now}
         WHERE
             user_id = #{user_id};
     </update>
 
 
-    <select id="inOut" parameterType="integer" resultType="com.Gosk.GoskProject20221221.domain.User">
+    <select id="inOut"  resultType="com.Gosk.GoskProject20221221.domain.User">
         SELECT
             um.user_id,
             um.user_create_date,
@@ -38,8 +40,6 @@
             um.user_time,
             um.user_date,
             um.user_out,
-
-
             rm.receipt_time,
             rm.receipt_day,
             rm.receipt_start_date,

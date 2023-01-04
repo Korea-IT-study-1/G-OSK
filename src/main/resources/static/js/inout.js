@@ -5,14 +5,35 @@ function inList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
+<<<<<<< HEAD
             responseData1 = response.data;
             responseData = responseData1[responseData1.length - 1];
             console.log(responseData);
             ininList(responseData);
+=======
+                if (localStorage.getItem("time") == "in") {
+                    alert("입실 in성공");
+                    responseData1 = response.data;
+                    responseData = responseData1[responseData1.length - 1];
+                    console.log(responseData);
+                    ininList(responseData);
+                } else if (localStorage.getItem("time") == "out") {
+                    responseData1 = response.data;
+                    responseData = responseData1[responseData1.length - 1];
+                    timetime =responseData.user_update_date.replace(/T/g, ' ');
+                    console.log(timetime);
+                    timetime = timetime.split(/[.]/,1);
+                    console.log(timetime);
+                    console.log(responseData);
+                    alert("퇴실in 성공");
+                    outload(responseData);
+                    
+                }
+>>>>>>> junho
 
         },
         error: (error) => {
-            alert("퇴실 실패");
+            alert("입실 퇴실 in 실패");
             console.log(error);
         },
     });
@@ -24,14 +45,17 @@ function outList() {
         type: "put",
         url: "/api/inout",
         dataType: "json",
+
         success: (response) => {
-            // alert("퇴실퇴실 성공");
+            alert("퇴실퇴실 성공");
             responseData = response.data;
+            console.log("준호 짱짱맨:")
             console.log(responseData);
             inList();
         },
         error: (error) => {
             alert("퇴실 실패");
+            console.log(response.data);
             console.log(error);
         },
     });
@@ -190,7 +214,7 @@ function outload(responseData) {
                 </li>
                 <li class="close">
                     <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                    <span>${responseData2}<span>
+                    <span>${responseData.user_date}<span>
                 </li>
                 <li>
                     <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
@@ -220,8 +244,8 @@ function outload(responseData) {
                         <span>${timetime}</span>
                     </li>
                     <li class="close">
-                        <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                        <span>${responseData2}<span>
+                        <p><i class="fa-regular fa-calendar-xmark"></i>남은시간</p>
+                        <span>${responseData.user_time}<span>
                     </li>
                     <li>
                         <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
