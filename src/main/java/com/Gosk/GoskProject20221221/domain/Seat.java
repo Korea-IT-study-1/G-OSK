@@ -12,15 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Seat {
-
+    private String reserved_seat_id;
     private String seat_id;
 
     private int user_id;
 
-    public SeatListRespDto seatListRespDto() {
-        return SeatListRespDto.builder()
-                .seat_id(seat_id)
-                .build();
 
-    }
 }

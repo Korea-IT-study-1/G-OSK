@@ -16,6 +16,6 @@ public interface SeatService {
     public List<User> check(int user_id) throws Exception;
 
     public List<Seat> checkuser(int user_id) throws Exception;
-
+    public List<Seat>  seatuser(int user_id) throws Exception;
 
 }

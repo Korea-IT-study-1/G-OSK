@@ -56,15 +56,12 @@ public class SeatServiceImpl implements SeatService{
     }
     @Override
     public List<Seat> checkuser(int user_id) throws Exception {
-//        Map<String, Object> paramsMap = new HashMap<String, Object>();
-//        paramsMap.put("userseat", userseat);
-//
-//        List<SeatListRespDto> list = new ArrayList<SeatListRespDto>();
-//
-//        seatRepository.checkuser(paramsMap).forEach(seat -> {
-//            list.add(seat.seatListRespDto());
-//        });
 
         return seatRepository.checkuser(user_id);
+    }
+    @Override
+    public List<Seat> seatuser(int user_id) throws Exception {
+
+        return seatRepository.seatuser(user_id);
     }
 }
