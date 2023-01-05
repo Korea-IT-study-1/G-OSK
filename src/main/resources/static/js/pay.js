@@ -1,4 +1,9 @@
 //결제페이지에 데이터 불러오기
+let setSeatinfo = {
+    seat_id: null,
+    // user_id: null
+    paytime: null
+}
 function paydata(time) {
 
     if (time == "oneday") {
@@ -74,9 +79,9 @@ function requestPay() {
             console.log(rsp);
 
             payhistory();
-
-            localStorage.clear();
-            location.replace("/logout");
+            setSeat();
+            // localStorage.clear();
+            // location.replace("/logout");
 
             // location.replace("/logout");
         } else {
@@ -90,18 +95,18 @@ function payhistory() {
 
     let payhistoryinfo = null;
 
-    if(localStorage.getItem("time") == "oneday"){
-         payhistoryinfo = {
+    if (localStorage.getItem("time") == "oneday") {
+        payhistoryinfo = {
             receipt_kinds: "oneday",
-            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
-            receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원", "").replace(",", "")),
+            receipt_time: parseInt(localStorage.getItem("paytime").replace("시간", "")),
             receipt_day: 0
         }
-    } else if(localStorage.getItem("time") == "reserved"){
-         payhistoryinfo = {
+    } else if (localStorage.getItem("time") == "reserved") {
+        payhistoryinfo = {
             receipt_kinds: "reserved",
-            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
-            receipt_time: parseInt(localStorage.getItem("paytime").replace("주","")),
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원", "").replace(",", "")),
+            receipt_time: parseInt(localStorage.getItem("paytime").replace("주", "")),
             receipt_day: 0
         }
     }
@@ -124,7 +129,33 @@ function payhistory() {
     })
 }
 
+
+function setSeat() {
+
+
+    setSeatinfo.seat_id = (localStorage.getItem("seatnum"));
+    // setSeatinfo.user_id = (parseInt(localStorage.getItem("userPhone")));
+    setSeatinfo.paytime = (localStorage.getItem("paytime").replace("시간", ""));
+    console.log(setSeatinfo);
+
+    $.ajax({
+        async: false,
+        type: "put",
+        url: "/api/pay/setseat",
+        contentType: "application/json",
+        data: JSON.stringify(setSeatinfo),
+        dataType: "json",
+        success: (response) => {
+            console.log(response);
+        },
+        error: (error) => {
+            console.log(error);
+        }
+    });
+}
+
 window.onload = () => {
     paydata(localStorage.getItem("time"));
     loadUser();
+
 }
