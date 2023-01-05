@@ -1,12 +1,12 @@
 package com.Gosk.GoskProject20221221.dto;
 
-import com.Gosk.GoskProject20221221.domain.SetSeat;
+import com.Gosk.GoskProject20221221.domain.SetSeatOneday;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class SetSeatDto {
+public class SetSeatOnedayDto {
     private int user_id;
     private String seat_id;
 
@@ -14,8 +14,8 @@ public class SetSeatDto {
     private String seat_start_date;
 
 
-    public SetSeat toSetSeatEntity(){
-        return SetSeat.builder()
+    public SetSeatOneday toSetSeatEntity(){
+        return SetSeatOneday.builder()
                 .user_id(user_id)
                 .seat_id(seat_id)
                 .seat_start_date(seat_start_date)

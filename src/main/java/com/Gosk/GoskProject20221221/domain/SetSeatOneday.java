@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetSeat {
+public class SetSeatOneday {
 
     public int user_id;
     public String seat_id;

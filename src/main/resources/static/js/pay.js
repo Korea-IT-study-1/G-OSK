@@ -1,9 +1,4 @@
 //결제페이지에 데이터 불러오기
-let setSeatinfo = {
-    seat_id: null,
-    // user_id: null
-    paytime: null
-}
 function paydata(time) {
 
     if (time == "oneday") {
@@ -78,8 +73,11 @@ function requestPay() {
             alert("결제 성공");
             console.log(rsp);
 
+            //결제내역 히스토리 등록
             payhistory();
+            //결제 시 자리설정
             setSeat();
+
             // localStorage.clear();
             // location.replace("/logout");
 
@@ -91,6 +89,7 @@ function requestPay() {
     });
 }
 
+//결제내역 히스토리 등록 이벤트
 function payhistory() {
 
     let payhistoryinfo = null;
@@ -155,33 +154,53 @@ function payhistory() {
     })
 }
 
-
+//결제 시 자리설정
 function setSeat() {
+    
+    let setSeatinfo = null;
 
+    if(localStorage.getItem("time") == "oneday"){
 
-    setSeatinfo.seat_id = (localStorage.getItem("seatnum"));
-    // setSeatinfo.user_id = (parseInt(localStorage.getItem("userPhone")));
-    setSeatinfo.paytime = (localStorage.getItem("paytime").replace("시간", ""));
+        setSeatinfo = {
+            seat_id: localStorage.getItem("seatnum"),
+            paytime: localStorage.getItem("paytime").replace("시간", "")
+        }
+
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/pay/setseat/oneday" ,
+            contentType: "application/json",
+            data: JSON.stringify(setSeatinfo),
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        });
+
+    } else if(localStorage.getItem("time") == "commuter"){
+        if(localStorage.getItem("paytime").includes("시간") == true){
+            setSeatinfo.seat_id = localStorage.getItem("seatnum");
+            setSeatinfo.paytime = localStorage.getItem("paytime").replace("시간", "");
+        } else {
+            setSeatinfo.seat_id = localStorage.getItem("seatnum");
+            setSeatinfo.paytime = localStorage.getItem("paytime").replace("주", "");
+        }
+    } else if(localStorage.getItem("time") == "reserved"){
+        
+    } else {
+
+    }
+
     console.log(setSeatinfo);
 
-    $.ajax({
-        async: false,
-        type: "put",
-        url: "/api/pay/setseat",
-        contentType: "application/json",
-        data: JSON.stringify(setSeatinfo),
-        dataType: "json",
-        success: (response) => {
-            console.log(response);
-        },
-        error: (error) => {
-            console.log(error);
-        }
-    });
+
 }
 
 window.onload = () => {
     paydata(localStorage.getItem("time"));
     loadUser();
-
 }
