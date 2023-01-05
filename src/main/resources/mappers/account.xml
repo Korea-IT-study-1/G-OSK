@@ -30,7 +30,6 @@
             um.user_time,
             um.user_date,
             rm.role,
-
             um.user_create_date,
             um.user_update_date
 

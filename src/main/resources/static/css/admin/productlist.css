@@ -31,7 +31,31 @@
     cursor: pointer;
 }
 
+.table-container {
+    width: 930px;
+    padding-right: 10px;
+    overflow:auto;
+    overflow-x: hidden;
+    white-space:nowrap;
+}
 
+.table-container::-webkit-scrollbar {
+    width: 20px; 
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    height: 40%;
+    background: #62c1a9;
+    border-radius: 10px;
+}
+
+.prouct-table > tr > td > button {
+    width: 150px;
+}
+
+.prouct-table {
+    margin-bottom: 0;
+}
 
 /* 등록 팝업 */
 .popup {

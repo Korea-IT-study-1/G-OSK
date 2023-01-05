@@ -62,7 +62,6 @@
     color: #fb6624;
     width: 300px;
     margin: auto 0;
-
 }
 
 .time-content .junho button {
@@ -75,16 +74,17 @@
     color: #fb6624;
     font-size: 50px;
 }
+
 .time-content {
     overflow:auto; 
 }
 .time-content::-webkit-scrollbar {
-    width: 20px;  /* 스크롤바의 너비 */
+    width: 20px;
 }
 
 .time-content::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: #62c1a9; /* 스크롤바의 색상 */
+    height: 30%; 
+    background: #62c1a9; 
     border-radius: 10px;
 }
 

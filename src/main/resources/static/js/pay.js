@@ -2,21 +2,21 @@
 function paydata(time) {
 
     if (time == "oneday") {
-        $('.pay-content li').children('.product1').find('p').text('원데이결제');
-        $('.pay-content li').children('.product2').find('span').text(localStorage.getItem("paytime"));
-        $('.pay-content li').children('.product3').find('span').text(localStorage.getItem("pay"));
+        $('.pay-content li').children('.payment').find('p').text('원데이결제');
+        $('.pay-content li').children('.product').find('span').text(localStorage.getItem("paytime"));
+        $('.pay-content li').children('.price').find('span').text(localStorage.getItem("pay"));
     } else if (time == "commuter") {
-        $('.pay-content li').children('.product1').find('p').text('정액권결제');
-        $('.pay-content li').children('.product2').find('span').text(localStorage.getItem("paytime"));
-        $('.pay-content li').children('.product3').find('span').text(localStorage.getItem("pay"));
+        $('.pay-content li').children('.payment').find('p').text('정액권결제');
+        $('.pay-content li').children('.product').find('span').text(localStorage.getItem("paytime"));
+        $('.pay-content li').children('.price').find('span').text(localStorage.getItem("pay"));
     } else if (time == "reserved") {
-        $('.pay-content li').children('.product1').find('p').text('지정석결제');
-        $('.pay-content li').children('.product2').find('span').text(localStorage.getItem("paytime"));
-        $('.pay-content li').children('.product3').find('span').text(localStorage.getItem("pay"));
+        $('.pay-content li').children('.payment').find('p').text('지정석결제');
+        $('.pay-content li').children('.product').find('span').text(localStorage.getItem("paytime"));
+        $('.pay-content li').children('.price').find('span').text(localStorage.getItem("pay"));
     } else if (time == "locker") {
-        $('.pay-content li').children('.product1').find('p').text('사물함결제');
-        $('.pay-content li').children('.product2').find('span').text(localStorage.getItem("paytime"));
-        $('.pay-content li').children('.product3').find('span').text(localStorage.getItem("pay"));
+        $('.pay-content li').children('.payment').find('p').text('사물함결제');
+        $('.pay-content li').children('.product').find('span').text(localStorage.getItem("paytime"));
+        $('.pay-content li').children('.price').find('span').text(localStorage.getItem("pay"));
     }
 }
 
@@ -30,10 +30,7 @@ logOutBtn.onclick = () => {
     location.replace("/logout");
 }
 
-
-
 const payBtn = document.querySelector(".pay-btn");
-
 
 //결제하기 버튼 이벤트
 payBtn.onclick = () => {
@@ -59,7 +56,6 @@ function loadUser() {
 var IMP = window.IMP; // 생략 가능
 IMP.init("imp83013747"); // 예: imp00000000
 
-
 function requestPay() {
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param
@@ -76,12 +72,56 @@ function requestPay() {
             // 결제 성공 시 로직
             alert("결제 성공");
             console.log(rsp);
+
+            payhistory();
+
+            localStorage.clear();
+            location.replace("/logout");
+
             // location.replace("/logout");
         } else {
             alert("결제 성공(실패임)");
             // 결제 실패 시 로직
         }
     });
+}
+
+function payhistory() {
+
+    let payhistoryinfo = null;
+
+    if(localStorage.getItem("time") == "oneday"){
+         payhistoryinfo = {
+            receipt_kinds: "oneday",
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+            receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
+            receipt_day: 0
+        }
+    } else if(localStorage.getItem("time") == "reserved"){
+         payhistoryinfo = {
+            receipt_kinds: "reserved",
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+            receipt_time: parseInt(localStorage.getItem("paytime").replace("주","")),
+            receipt_day: 0
+        }
+    }
+
+    $.ajax({
+        async: false,
+        type: "post",
+        url: "/api/pay/history",
+        contentType: "application/json",
+        data: JSON.stringify(payhistoryinfo),
+        dataType: "json",
+        success: (response) => {
+            alert("히스토리 등록완료");
+            console.log(response);
+        },
+        error: (error) => {
+            alert("히스토리 등록실패");
+            console.log(error);
+        }
+    })
 }
 
 window.onload = () => {

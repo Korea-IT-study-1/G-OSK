@@ -7,7 +7,6 @@ import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import java.util.List;
 
 public interface SeatService {
-
     public boolean inoutUser(InOutReqDto inOutReqDto, PrincipalDetails principalDetails) throws  Exception;
     public boolean zero(InOutReqDto inOutReqDto, PrincipalDetails principalDetails) throws  Exception;
     public boolean reservedinoutUser(InOutReqDto inOutReqDto, PrincipalDetails principalDetails) throws  Exception;

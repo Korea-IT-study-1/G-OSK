@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.PayRepository">
+
+    <insert id="historyadd" parameterType="com.Gosk.GoskProject20221221.domain.PayHistory">
+
+        INSERT INTO
+            receipt_mst(user_id, receipt_kinds, receipt_price, receipt_time,receipt_day, receipt_start_date)
+        VALUES (
+            #{user_id},
+            #{receipt_kinds},
+            #{receipt_price},
+            #{receipt_time},
+            #{receipt_day},
+            #{receipt_start_date}
+        )
+
+    </insert>
+
+</mapper>

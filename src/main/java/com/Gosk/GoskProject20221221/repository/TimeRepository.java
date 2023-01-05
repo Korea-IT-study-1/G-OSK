@@ -8,7 +8,6 @@ import java.util.Map;
 
 @Mapper
 public interface TimeRepository {
-
     public List<Time> getOnedayList(Map<String, Object> map) throws Exception;
     public List<Time> getCoummuterList(Map<String, Object> map) throws Exception;
     public List<Time> getReservedList(Map<String, Object> map) throws Exception;
