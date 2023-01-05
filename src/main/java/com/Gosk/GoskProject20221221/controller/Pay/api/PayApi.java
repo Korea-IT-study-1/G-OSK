@@ -3,6 +3,7 @@ package com.Gosk.GoskProject20221221.controller.Pay.api;
 
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
 import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
+import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
 import com.Gosk.GoskProject20221221.service.Pay.PayService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
@@ -29,27 +30,39 @@ public class PayApi {
 
     }
 
+    //결제 히스토리 등록
     @PostMapping("/history")
     public ResponseEntity<?> payHistory(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                         @RequestBody PayHistoryReqDto payHistoryReqDto) throws Exception {
 
         payHistoryReqDto.setUser_id(principalDetails.getUser().getUser_id());
-
         payService.historyadd(payHistoryReqDto);
 
         return ResponseEntity.ok(new CMRespDto<>(1, "히스토리 등록 성공", payHistoryReqDto));
 
     }
 
+    //결제 시 원데이 자리설정
     @PutMapping("/setseat/oneday")
     public ResponseEntity<?> setSeatOneday(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                            @RequestBody SetSeatOnedayDto setSeatOnedayDto) throws Exception{
 
         setSeatOnedayDto.setUser_id(principalDetails.getUser().getUser_id());
-
         payService.setSeatOneday(setSeatOnedayDto);
 
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", setSeatOnedayDto));
+        return ResponseEntity.ok(new CMRespDto<>(1, "원데이 자리 설정 완료", setSeatOnedayDto));
     }
+
+    //결제 시 정액권 자리설정(시간)
+    @PutMapping("/setseat/commutertime")
+    public ResponseEntity<?> setSeatCommutertime(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                           @RequestBody SetSeatCommuterTimeDto setSeatCommuterTimeDto) throws Exception{
+
+        setSeatCommuterTimeDto.setUser_id(principalDetails.getUser().getUser_id());
+        payService.setSeatCommuterTime(setSeatCommuterTimeDto);
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "정액권 시간제 자리 설정 완료", setSeatCommuterTimeDto));
+    }
+
 
 }

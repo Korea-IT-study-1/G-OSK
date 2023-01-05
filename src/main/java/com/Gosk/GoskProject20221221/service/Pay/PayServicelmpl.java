@@ -1,8 +1,10 @@
 package com.Gosk.GoskProject20221221.service.Pay;
 
 import com.Gosk.GoskProject20221221.domain.PayHistory;
+import com.Gosk.GoskProject20221221.domain.SetSeatCommuterTime;
 import com.Gosk.GoskProject20221221.domain.SetSeatOneday;
 import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
+import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
 import com.Gosk.GoskProject20221221.repository.PayRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,26 @@ public class PayServicelmpl implements PayService{
         SetSeatOneday setSeatOneday = setSeatOnedayDto.toSetSeatEntity();
 
         int result = payRepository.setSeatOneday(setSeatOneday);
+
+        return result != 0;
+    }
+
+    @Override
+    public boolean setSeatCommuterTime(SetSeatCommuterTimeDto setSeatCommuterTimeDto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+//        setSeatCommuterTimeDto.setSeat_start_date(
+//                now.plusHours(setSeatCommuterTimeDto.getPaytime())
+//                        .toString().substring(0, now.toString().lastIndexOf(".")));
+//        setSeatCommuterTimeDto.setPaytime(
+//
+//                setSeatCommuterTimeDto.getPaytime()
+//
+//        );
+        setSeatCommuterTimeDto.setSeat_start_date(now.toString().substring(0, now.toString().lastIndexOf(".")));
+        SetSeatCommuterTime setSeatCommuterTime = setSeatCommuterTimeDto.toSetSeatEntity();
+        int result = payRepository.setSeatCommuterTime(setSeatCommuterTime);
 
         return result != 0;
     }
