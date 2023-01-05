@@ -97,12 +97,38 @@ function payhistory() {
             receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
             receipt_day: 0
         }
+    } else if(localStorage.getItem("time") == "commuter"){
+
+        if(localStorage.getItem("paytime").includes("시간") == true){
+            payhistoryinfo = {
+                receipt_kinds: "commuter_time",
+                receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+                receipt_time: parseInt(localStorage.getItem("paytime").replace("시간","")),
+                receipt_day: 0
+            }
+        } else {
+            payhistoryinfo = {
+                receipt_kinds: "commuter_day",
+                receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+                receipt_time: 0,
+                receipt_day: parseInt(localStorage.getItem("paytime").replace("주",""))
+            }
+        }
+
     } else if(localStorage.getItem("time") == "reserved"){
          payhistoryinfo = {
-            receipt_kinds: "reserved",
+            receipt_kinds: "reserved_seat",
             receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
-            receipt_time: parseInt(localStorage.getItem("paytime").replace("주","")),
-            receipt_day: 0
+            receipt_time: 0,
+            receipt_day: parseInt(localStorage.getItem("paytime").replace("주",""))
+        }
+        
+    } else if(localStorage.getItem("time") == "locker"){
+        payhistoryinfo = {
+            receipt_kinds: "locker",
+            receipt_price: parseInt(localStorage.getItem("pay").replace("원","").replace(",","")),
+            receipt_time: 0,
+            receipt_day: parseInt(localStorage.getItem("paytime").replace("주(사물함)",""))
         }
     }
 
