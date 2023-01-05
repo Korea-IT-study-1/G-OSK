@@ -4,6 +4,7 @@ package com.Gosk.GoskProject20221221.controller.Pay.api;
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
 import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
+import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
 import com.Gosk.GoskProject20221221.service.Pay.PayService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,17 @@ public class PayApi {
         payService.setSeatOneday(setSeatOnedayDto);
 
         return ResponseEntity.ok(new CMRespDto<>(1, "success", setSeatOnedayDto));
+    }
+
+    @PutMapping("/setseat/reserved")
+    public ResponseEntity<?> setSeatReserved(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                           @RequestBody SetSeatReservedDto setSeatReservedDto) throws Exception{
+
+        setSeatReservedDto.setUser_id(principalDetails.getUser().getUser_id());
+
+        payService.setSeatReserved(setSeatReservedDto);
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", setSeatReservedDto));
     }
 
 }

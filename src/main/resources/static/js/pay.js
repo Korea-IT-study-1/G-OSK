@@ -156,10 +156,10 @@ function payhistory() {
 
 //결제 시 자리설정
 function setSeat() {
-    
+
     let setSeatinfo = null;
 
-    if(localStorage.getItem("time") == "oneday"){
+    if (localStorage.getItem("time") == "oneday") {
 
         setSeatinfo = {
             seat_id: localStorage.getItem("seatnum"),
@@ -169,7 +169,7 @@ function setSeat() {
         $.ajax({
             async: false,
             type: "put",
-            url: "/api/pay/setseat/oneday" ,
+            url: "/api/pay/setseat/oneday",
             contentType: "application/json",
             data: JSON.stringify(setSeatinfo),
             dataType: "json",
@@ -181,16 +181,36 @@ function setSeat() {
             }
         });
 
-    } else if(localStorage.getItem("time") == "commuter"){
-        if(localStorage.getItem("paytime").includes("시간") == true){
+    } else if (localStorage.getItem("time") == "commuter") {
+        if (localStorage.getItem("paytime").includes("시간") == true) {
             setSeatinfo.seat_id = localStorage.getItem("seatnum");
             setSeatinfo.paytime = localStorage.getItem("paytime").replace("시간", "");
         } else {
             setSeatinfo.seat_id = localStorage.getItem("seatnum");
             setSeatinfo.paytime = localStorage.getItem("paytime").replace("주", "");
         }
-    } else if(localStorage.getItem("time") == "reserved"){
-        
+    } else if (localStorage.getItem("time") == "reserved") {
+
+        setSeatinfo = {
+            seat_id: localStorage.getItem("seatnum"),
+            paytime: (localStorage.getItem("paytime").replace("주", ""))
+        }
+
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/pay/setseat/reserved",
+            contentType: "application/json",
+            data: JSON.stringify(setSeatinfo),
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        });
+
     } else {
 
     }

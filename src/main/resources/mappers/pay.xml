@@ -36,4 +36,22 @@
             user_id = #{user_id};
     </update>
 
+    <update id="setSeatReserved" parameterType="com.Gosk.GoskProject20221221.domain.SetSeatReserved">
+        UPDATE
+            reserved_seat_mst
+        SET
+            user_id = #{user_id},
+            reserved_start_time = #{now_time}
+        WHERE
+            reserved_seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = #{seat_id},
+            user_date = #{reserved_start_date}
+        WHERE
+            user_id = #{user_id};
+    </update>
+
 </mapper>
