@@ -36,7 +36,6 @@ public class User {
     private String user_time2;
     private LocalDateTime user_date;
     private LocalTime user_locker_date;
-    private String now;
     private LocalDateTime seat_start_time;
     private LocalDateTime user_create_date;
     private LocalDateTime user_update_date;
