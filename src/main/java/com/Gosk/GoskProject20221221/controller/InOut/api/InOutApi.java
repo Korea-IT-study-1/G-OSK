@@ -19,16 +19,17 @@ import org.springframework.web.bind.annotation.*;
 public class InOutApi {
 
     private final InOutService inOutService;
-
+    //*****************유저 정보 가져오기**************************
     @GetMapping("/api/inout")
     public ResponseEntity<?> inout(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.inOut(principalDetails.getUser().getUser_id())));
     }
-
+    //*******************퇴실*********************
     @PutMapping("/api/inout")
     public ResponseEntity<?> out(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.out(principalDetails.getUser())));
     }
+    // ****************남은시간 int변경값 서버로 전달후 변경***********************   
     @PutMapping("/api/inout/day")
     public ResponseEntity<?> day(@RequestBody DayReqDto dayReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
         int user_id = principalDetails.getUser().getUser_id();

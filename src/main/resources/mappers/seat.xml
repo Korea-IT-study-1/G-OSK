@@ -82,4 +82,15 @@
         WHERE
         sm.user_id= 0;
     </select>
+    <select id="seatuser" resultType="com.Gosk.GoskProject20221221.domain.Seat">
+        SELECT
+        rsm.reserved_seat_id,
+        um.user_id
+
+        FROM
+        reserved_seat_mst rsm
+        left outer join  user_mst um on(um.user_id = rsm.user_id)
+        WHERE
+        rsm.user_id= 0;
+    </select>
 </mapper>
