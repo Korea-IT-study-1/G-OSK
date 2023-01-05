@@ -67,7 +67,19 @@
             left outer join receipt_mst rm on(rm.user_id = um.user_id)
             left outer join seat_mst sm on(sm.user_id = um.user_id)
         WHERE
-            um.user_id = #{user_id}
+            um.user_id = #{user_id};
 
+
+    </select>
+    <select id="checkuser" resultType="com.Gosk.GoskProject20221221.domain.Seat">
+        SELECT
+        sm.seat_id,
+        um.user_id
+
+        FROM
+        seat_mst sm
+        left outer join  user_mst um on(um.user_id = sm.user_id)
+        WHERE
+        sm.user_id= 0;
     </select>
 </mapper>

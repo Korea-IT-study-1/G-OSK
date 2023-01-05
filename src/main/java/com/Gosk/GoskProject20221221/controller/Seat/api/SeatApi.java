@@ -8,6 +8,7 @@ import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +45,11 @@ public class SeatApi {
     @GetMapping("/check")
     public ResponseEntity<?> check(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",seatService.check(principalDetails.getUser().getUser_id())));
+    }
+    @GetMapping("/check/user")
+    public ResponseEntity<?> checkuser(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", seatService.checkuser(principalDetails.getUser().getUser_id())));
+
     }
 }
