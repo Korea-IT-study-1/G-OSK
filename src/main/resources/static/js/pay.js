@@ -78,8 +78,8 @@ function requestPay() {
             //결제 시 자리설정
             setSeat();
 
-            // localStorage.clear();
-            // location.replace("/logout");
+            localStorage.clear();
+            location.replace("/logout");
 
             // location.replace("/logout");
         } else {
