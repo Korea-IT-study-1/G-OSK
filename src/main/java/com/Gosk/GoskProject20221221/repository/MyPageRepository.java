@@ -9,4 +9,11 @@ import java.util.List;
 @Mapper
 public interface MyPageRepository {
     public List<MyPage> receipt(int user_id) throws Exception;
+
+    public List<MyPage> receiptToday(int user_id) throws Exception;
+
+    public List<MyPage> receiptMonth(int user_id) throws Exception;
+
+    public List<MyPage> receiptMonth3(int user_id) throws Exception;
+
 }
