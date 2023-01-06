@@ -19,7 +19,29 @@
         )
 
     </insert>
+
     <update id="setSeatOneday" parameterType="com.Gosk.GoskProject20221221.domain.SetSeatOneday">
+
+        UPDATE
+            seat_mst
+        SET
+            user_id = #{user_id},
+            seat_start_time = #{seat_start_date}
+        WHERE
+            seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = #{seat_id},
+            user_time = SEC_TO_TIME(#{paytime})
+        WHERE
+            user_id = #{user_id};
+
+    </update>
+
+    <update id="setSeatCommuterTime" parameterType="com.Gosk.GoskProject20221221.domain.SetSeatCommuterTime">
+
         UPDATE
             seat_mst
         SET
@@ -32,8 +54,10 @@
             user_mst
         SET
             user_out = #{seat_id}
+            user_time = #{paytime}
         WHERE
             user_id = #{user_id};
+
     </update>
 
     <update id="setSeatReserved" parameterType="com.Gosk.GoskProject20221221.domain.SetSeatReserved">

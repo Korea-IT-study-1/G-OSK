@@ -1,9 +1,11 @@
 package com.Gosk.GoskProject20221221.service.Pay;
 
 import com.Gosk.GoskProject20221221.domain.PayHistory;
+import com.Gosk.GoskProject20221221.domain.SetSeatCommuterTime;
 import com.Gosk.GoskProject20221221.domain.SetSeatOneday;
 import com.Gosk.GoskProject20221221.domain.SetSeatReserved;
 import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
+import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
 import com.Gosk.GoskProject20221221.repository.PayRepository;
@@ -50,6 +52,24 @@ public class PayServicelmpl implements PayService{
     }
 
     @Override
+    public boolean setSeatCommuterTime(SetSeatCommuterTimeDto setSeatCommuterTimeDto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+//        setSeatCommuterTimeDto.setSeat_start_date(
+//                now.plusHours(setSeatCommuterTimeDto.getPaytime())
+//                        .toString().substring(0, now.toString().lastIndexOf(".")));
+//        setSeatCommuterTimeDto.setPaytime(
+//
+//                setSeatCommuterTimeDto.getPaytime()
+//
+//        );
+        setSeatCommuterTimeDto.setSeat_start_date(now.toString().substring(0, now.toString().lastIndexOf(".")));
+        SetSeatCommuterTime setSeatCommuterTime = setSeatCommuterTimeDto.toSetSeatEntity();
+        int result = payRepository.setSeatCommuterTime(setSeatCommuterTime);
+
+        return result != 0;
+    }
     public boolean setSeatReserved(SetSeatReservedDto setSeatReservedDto) {
 
         LocalDateTime now = LocalDateTime.now();
@@ -58,15 +78,11 @@ public class PayServicelmpl implements PayService{
 
         setSeatReservedDto.setReserved_start_date(now.plusWeeks(setSeatReservedDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
 
-
-
-
         System.out.println("setSeatDto : {}" + setSeatReservedDto);
 
         SetSeatReserved setSeatReserved = setSeatReservedDto.toSetSeatEntity();
 
         int result = payRepository.setSeatReserved(setSeatReserved);
-
 
         return result != 0;
     }

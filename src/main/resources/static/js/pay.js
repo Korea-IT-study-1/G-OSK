@@ -184,7 +184,23 @@ function setSeat() {
     } else if (localStorage.getItem("time") == "commuter") {
         if (localStorage.getItem("paytime").includes("시간") == true) {
             setSeatinfo.seat_id = localStorage.getItem("seatnum");
-            setSeatinfo.paytime = localStorage.getItem("paytime").replace("시간", "");
+            setSeatinfo.paytime = (localStorage.getItem("paytime").replace("시간", "")) * 3600;
+
+            $.ajax({
+                async: false,
+                type: "put",
+                url: "/api/pay/setseat/commutertime",
+                contentType: "application/json",
+                data: JSON.stringify(setSeatinfo),
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+
         } else {
             setSeatinfo.seat_id = localStorage.getItem("seatnum");
             setSeatinfo.paytime = localStorage.getItem("paytime").replace("주", "");
