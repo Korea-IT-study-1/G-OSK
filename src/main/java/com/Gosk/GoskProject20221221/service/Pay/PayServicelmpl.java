@@ -1,13 +1,7 @@
 package com.Gosk.GoskProject20221221.service.Pay;
 
-import com.Gosk.GoskProject20221221.domain.PayHistory;
-import com.Gosk.GoskProject20221221.domain.SetSeatCommuterTime;
-import com.Gosk.GoskProject20221221.domain.SetSeatOneday;
-import com.Gosk.GoskProject20221221.domain.SetSeatReserved;
-import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
+import com.Gosk.GoskProject20221221.domain.*;
+import com.Gosk.GoskProject20221221.dto.*;
 import com.Gosk.GoskProject20221221.repository.PayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -86,5 +80,24 @@ public class PayServicelmpl implements PayService{
 
         return result != 0;
     }
+
+    @Override
+    public boolean setLocker(SetLockerReqDto setLockerReqDto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        setLockerReqDto.setLocker_start_time(now.toString().substring(0, now.toString().lastIndexOf(".")));
+
+        setLockerReqDto.setLocker_end_time(now.plusWeeks(setLockerReqDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
+
+        System.out.println("setLockerReqDto : {}" + setLockerReqDto);
+
+        Locker locker = setLockerReqDto.toLocker();
+
+        int result = payRepository.setLocker(locker);
+
+        return result != 0;
+    }
+
 
 }

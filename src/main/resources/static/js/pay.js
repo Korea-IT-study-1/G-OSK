@@ -158,6 +158,7 @@ function payhistory() {
 function setSeat() {
 
     let setSeatinfo = null;
+    let setLockerinfo = null;
 
     if (localStorage.getItem("time") == "oneday") {
 
@@ -227,10 +228,30 @@ function setSeat() {
             }
         });
 
-    } else {
+    } else if (localStorage.getItem("time") == "locker") {
+        setLockerinfo = {
+            locker_id: localStorage.getItem("seatnum"),
+            paytime: localStorage.getItem("paytime").replace("주(사물함)", "")
+        }
+
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/pay/locker",
+            contentType: "application/json",
+            data: JSON.stringify(setLockerinfo),
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        })
 
     }
 
+    console.log(setLockerinfo);
     console.log(setSeatinfo);
 
 

@@ -1,17 +1,14 @@
 package com.Gosk.GoskProject20221221.controller.Pay.api;
 
 
-import com.Gosk.GoskProject20221221.dto.CMRespDto;
-import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
+import com.Gosk.GoskProject20221221.dto.*;
 import com.Gosk.GoskProject20221221.service.Pay.PayService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -75,6 +72,18 @@ public class PayApi {
         payService.setSeatReserved(setSeatReservedDto);
 
         return ResponseEntity.ok(new CMRespDto<>(1, "success", setSeatReservedDto));
+    }
+
+    @PutMapping("/locker")
+    public ResponseEntity<?> setLocker(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                       @RequestBody SetLockerReqDto setLockerReqDto) throws Exception{
+
+        setLockerReqDto.setUser_id(principalDetails.getUser().getUser_id());
+
+        payService.setLocker(setLockerReqDto);
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", setLockerReqDto));
+
     }
 
 }

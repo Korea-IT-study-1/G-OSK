@@ -77,5 +77,15 @@
         WHERE
             user_id = #{user_id};
     </update>
+    <update id="setLocker" parameterType="com.Gosk.GoskProject20221221.domain.Locker">
+        UPDATE
+            locker_mst
+        SET
+            user_id = #{user_id},
+            locker_start_time = #{locker_start_time},
+            locker_end_time = #{locker_end_time}
+        WHERE
+            locker_id = #{locker_id};
+    </update>
 
 </mapper>

@@ -11,5 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Locker {
-    private String locker_num;
+
+    public int user_id;
+    public String locker_id;
+
+    public int paytime;
+
+    public String locker_start_time;
+    public String locker_end_time;
+
 }

@@ -1,9 +1,6 @@
 package com.Gosk.GoskProject20221221.service.Pay;
 
-import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
+import com.Gosk.GoskProject20221221.dto.*;
 
 public interface PayService {
 
@@ -14,6 +11,8 @@ public interface PayService {
     public boolean setSeatCommuterTime(SetSeatCommuterTimeDto setSeatCommuterTimeDto);
 
     public boolean setSeatReserved(SetSeatReservedDto setSeatReservedDto);
+
+    public boolean setLocker(SetLockerReqDto setLockerReqDto);
 
 
 }
