@@ -52,6 +52,7 @@ function userList() {
         type: "get",
         url: "/api/seat/check/user",
         success: (response) => {
+            alert("일반석 유저정보 불러오기")
             console.log(response.data);
             responseData = response.data;
             userload(responseData);
@@ -126,9 +127,9 @@ function userload(responseData) {
         }
 
     }
+    seatuserList();
    
     
-    seatuserList();
 }
 // ----------------------------지정석 유저정보 불러오기-------------------------------------------
 function seatuserList() {
@@ -212,14 +213,26 @@ function seatuserload(responseData) {
 
     }
     //요기에서 창배창석 설정
-    // if (localStorage.getItem("time") == "in") {
+    if(localStorage.getItem("time") == "seatmove"){
+        getList();
+    }else if(localStorage.getItem("time") == "in") {
+        getList();
+    }else if (localStorage.getItem("time") == "oneday" || localStorage.getItem("time") == "commuter"){
+        $('.basic').show();
+        $('.special').hide();
+        seatbasic.classList.remove("invisible");
+        seatspecial.classList.add("invisible");
+        special.classList.remove("sky-btn");
+        basic.classList.add("sky-btn");
+    }else if (localStorage.getItem("time") == "reserved") {
+        $('.basic').hide();
+        $('.special').show();
+        seatspecial.classList.remove("invisible");
+        seatbasic.classList.add("invisible");
+        basic.classList.remove("sky-btn");
+        special.classList.add("sky-btn");
 
-    // }
-    // else if(localStorage.getItem("time") == "in") {
-
-    // }
-
-    getList();
+    }
 }
 // ----------------------------현재 사용중인 이용권으로 이용석 지정석 구분 유저정보 불러오기-------------------------------------------
 function getList() {
@@ -234,7 +247,6 @@ function getList() {
             responseData = responseData1[responseData1.length - 1];
             console.log(responseData);
             if (responseData.receipt_kinds != "reserved_seat") {
-
                 alert("일반석 입석");
                 $('.basic').show();
                 $('.special').hide();
@@ -403,14 +415,13 @@ $('.seat-content button').click(function () {
     
 })
 
-
-//홈으로 버튼 이벤트
+// 홈으로 버튼 이벤트
 $('.home-btn').click(function () {
     localStorage.clear();
     location.replace("/index");
 });
 
-//다음단계 버튼 이벤트
+// 다음단계 버튼 이벤트
 $('.next-btn').click(function () {
     if ($('.seat-select-name').val() != "") {
         switch (localStorage.getItem("time")) {
