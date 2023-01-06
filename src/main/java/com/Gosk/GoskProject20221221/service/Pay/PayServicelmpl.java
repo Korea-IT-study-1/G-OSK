@@ -3,9 +3,11 @@ package com.Gosk.GoskProject20221221.service.Pay;
 import com.Gosk.GoskProject20221221.domain.PayHistory;
 import com.Gosk.GoskProject20221221.domain.SetSeatCommuterTime;
 import com.Gosk.GoskProject20221221.domain.SetSeatOneday;
+import com.Gosk.GoskProject20221221.domain.SetSeatReserved;
 import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
 import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
+import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
 import com.Gosk.GoskProject20221221.repository.PayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,22 @@ public class PayServicelmpl implements PayService{
         setSeatCommuterTimeDto.setSeat_start_date(now.toString().substring(0, now.toString().lastIndexOf(".")));
         SetSeatCommuterTime setSeatCommuterTime = setSeatCommuterTimeDto.toSetSeatEntity();
         int result = payRepository.setSeatCommuterTime(setSeatCommuterTime);
+
+        return result != 0;
+    }
+    public boolean setSeatReserved(SetSeatReservedDto setSeatReservedDto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        setSeatReservedDto.setNow_time(now.toString().substring(0, now.toString().lastIndexOf(".")));
+
+        setSeatReservedDto.setReserved_start_date(now.plusWeeks(setSeatReservedDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
+
+        System.out.println("setSeatDto : {}" + setSeatReservedDto);
+
+        SetSeatReserved setSeatReserved = setSeatReservedDto.toSetSeatEntity();
+
+        int result = payRepository.setSeatReserved(setSeatReserved);
 
         return result != 0;
     }

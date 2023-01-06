@@ -1,7 +1,9 @@
 package com.Gosk.GoskProject20221221.service.Seat;
 
+import com.Gosk.GoskProject20221221.domain.Seat;
 import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.InOutReqDto;
+import com.Gosk.GoskProject20221221.dto.SeatListRespDto;
 import com.Gosk.GoskProject20221221.repository.SeatRepository;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -46,5 +53,15 @@ public class SeatServiceImpl implements SeatService{
     public List<User> check(int user_id) throws Exception {
 
         return seatRepository.check(user_id);
+    }
+    @Override
+    public List<Seat> checkuser(int user_id) throws Exception {
+
+        return seatRepository.checkuser(user_id);
+    }
+    @Override
+    public List<Seat> seatuser(int user_id) throws Exception {
+
+        return seatRepository.seatuser(user_id);
     }
 }
