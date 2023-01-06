@@ -38,6 +38,7 @@ public class InOutServcieImpl implements InOutService{
         LocalTime user_time2 = user_time1.minusSeconds(second);
 
         principalDetails.setUser_time2(user_time2.toString());
+        principalDetails.setEndtime(endtime.toString().substring(0, endtime.toString().lastIndexOf(".")));
 
 
         inOutRepository.out(principalDetails);
@@ -61,5 +62,15 @@ public class InOutServcieImpl implements InOutService{
         // 그럴 경우에는 핸들러로 캐치 // info 로 에러떳다고 메세지
 
         return result;
+    }
+    @Override
+    public Object inoutcheck(User principalDetails) throws Exception {
+        LocalDateTime endtime = LocalDateTime.now();  //퇴실 시간
+
+        principalDetails.setEndtime(endtime.toString().substring(0, endtime.toString().lastIndexOf(".")));
+
+
+        inOutRepository.inoutcheck(principalDetails);
+        return endtime;
     }
 }

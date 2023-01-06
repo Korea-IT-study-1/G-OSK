@@ -14,4 +14,6 @@ public class InOutPageController {
         return "inout";
     }
 
+    @GetMapping("/inout_check")
+    public String inout_check(){return "inout_check";}
 }

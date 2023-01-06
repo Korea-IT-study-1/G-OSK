@@ -13,5 +13,7 @@ public interface InOutRepository {
     public int out(User user) throws Exception;
 
     public int day(User user) throws Exception;
+
+    public int inoutcheck(User user) throws Exception;
 }
 

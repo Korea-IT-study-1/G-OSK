@@ -9,15 +9,15 @@
         update
             user_mst
         set
-            user_time=#{user_time2}
+            user_time=#{user_time2},
+            user_update_date = #{endtime}
         WHERE
             user_id = #{user_id};
 
         update
             seat_mst
         set
-            user_id = 0,
-            seat_start_time=now()
+            user_id = 0
         WHERE
             user_id = #{user_id};
         
@@ -36,6 +36,39 @@
             user_update_date=#{now}
         WHERE
             user_id = #{user_id};
+    </update>
+    <update id="inoutcheck" parameterType="com.Gosk.GoskProject20221221.domain.User">
+        update
+            user_mst
+        set
+            user_time=null,
+            user_date=null,
+            user_update_date = #{endtime}
+        WHERE
+        user_id = #{user_id};
+
+        update
+            seat_mst
+        set
+            user_id = 0,
+            seat_start_time= null
+        WHERE
+        user_id = #{user_id};
+
+        update
+        reserved_seat_mst
+        set
+        user_id = 0,
+        reserved_start_time=null
+        WHERE
+        user_id = #{user_id};
+
+        update
+        receipt_mst
+        set
+        receipt_onoff = 0
+        WHERE
+        user_id = #{user_id};
     </update>
 
 

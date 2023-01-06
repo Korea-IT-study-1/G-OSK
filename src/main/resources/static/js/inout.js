@@ -12,18 +12,28 @@ function inList() {
                     console.log(responseData);
                     ininList(responseData);
                 } else if (localStorage.getItem("time") == "out") {
-                    responseData1 = response.data;
-                    responseData = responseData1[responseData1.length - 1];
-                    timetime =responseData.user_update_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    timetime = timetime.split(/[.]/,1);
-                    week = responseData.user_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    week = week.split(/[.]/, 1);
-                    console.log(timetime);
-                    console.log(responseData);
-                    alert("퇴실in 성공");
-                    outload(responseData);
+                    if(localStorage.getItem("commuter_out") == "out") {
+                        responseData1 = response.data;
+                        responseData = responseData1[responseData1.length - 1];
+                        timetime =responseData.user_update_date.replace(/T/g, ' ');
+                        console.log(timetime);
+                        timetime = timetime.split(/[.]/,1);
+                        week = responseData.user_date.replace(/T/g, ' ');
+                        console.log(timetime);
+                        week = week.split(/[.]/, 1);
+                        console.log(timetime);
+                        console.log(responseData);
+                        alert("퇴실in 성공");
+                        outload(responseData);
+                    }else if(localStorage.getItem("time") == "out") {
+                        responseData1 = response.data;
+                        responseData = responseData1[responseData1.length - 1];
+                        timetime =responseData.user_update_date.replace(/T/g, ' ');
+                        console.log(timetime);
+                        timetime = timetime.split(/[.]/,1);
+                        outload(responseData);
+                    }
+                   
                     
                 }
 
@@ -224,38 +234,73 @@ function outload(responseData) {
     const inoutBody = document.querySelector(".junho11");
 
     if (responseData.receipt_time == 0) {
-        inoutBody.innerHTML += `
+        if(localStorage.getItem("commuter_out") == "out") {
+            inoutBody.innerHTML += `
             <header class="inout-header">
             <i class="fa-solid fa-check"></i>
             <p>퇴실처리 완료</p>
             <div>회원님, 처리가 퇴실처리가 완료되었습니다.</div>
-        </header>
+            </header>
 
-        <section class="inout-content">
-            
-            <ul>
-                <li>
-                    <p><i class="fa-solid fa-ticket"></i>기간이용권</p>
-                    <span>${responseData.receipt_day}주권<span>
-                </li>
-                <li>
-                    <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
-                    <span>${timetime}</span>
-                </li>
-                <li class="close">
-                    <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                    <span>${week}<span>
-                </li>
-                <li>
-                    <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
-                    <div>${responseData.user_out}</div>
-                </li>
-            
-            </ul>
-        </section>
-            `
+            <section class="inout-content">
+                
+                <ul>
+                    <li>
+                        <p><i class="fa-solid fa-ticket"></i>기간이용권</p>
+                        <span>${responseData.receipt_day}주권<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
+                        <span>${timetime}</span>
+                    </li>
+                    <li class="close">
+                        <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
+                        <span>${week}<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
+                        <div>${responseData.user_out}</div>
+                    </li>
+                
+                </ul>
+            </section>
+                `
+        }else if(localStorage.getItem("commuter_out") == "delete") {
+            inoutBody.innerHTML += `
+            <header class="inout-header">
+            <i class="fa-solid fa-check"></i>
+            <p>이용권 종료</p>
+            <div>회원님, 처리가 이용권종료가 완료되었습니다.</div>
+            </header>
+
+            <section class="inout-content">
+                
+                <ul>
+                    <li>
+                        <p><i class="fa-solid fa-ticket"></i>기간이용권</p>
+                        <span>${responseData.receipt_day}주권<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
+                        <span>${timetime}</span>
+                    </li>
+                    <li class="close">
+                        <p><i class="fa-regular fa-calendar-xmark"></i>종료</p>
+                        <span>이용권종료<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
+                        <div>${responseData.user_out}</div>
+                    </li>
+                
+                </ul>
+            </section>
+                `
+        }
+        
     } else if (responseData.receipt_time != 0) {
-        inoutBody.innerHTML += `
+        if(localStorage.getItem("commuter_out") == "out") {
+            inoutBody.innerHTML += `
                 <header class="inout-header">
                 <i class="fa-solid fa-check"></i>
                 <p>퇴실처리 완료</p>
@@ -285,6 +330,39 @@ function outload(responseData) {
                 </ul>
             </section>
                 `
+        }else if(localStorage.getItem("commuter_out") == "delete") {
+            inoutBody.innerHTML += `
+                <header class="inout-header">
+                <i class="fa-solid fa-check"></i>
+                <p>이용권 종료</p>
+                <div>회원님, 처리가 이용권종료가 완료되었습니다.</div>
+            </header>
+    
+            <section class="inout-content">
+                
+                <ul>
+                    <li>
+                        <p><i class="fa-solid fa-ticket"></i>시간이용권</p>
+                        <span>${responseData.receipt_time}시간권<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-regular fa-clock"></i>퇴실(현재)시간</p>
+                        <span>${timetime}</span>
+                    </li>
+                    <li class="close">
+                        <p><i class="fa-regular fa-calendar-xmark"></i>남은시간</p>
+                        <span>이용권 종료<span>
+                    </li>
+                    <li>
+                        <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>
+                        <div>${responseData.user_out}</div>
+                    </li>
+                
+                </ul>
+            </section>
+                `
+        }
+        
     }
 
 }
@@ -294,7 +372,12 @@ window.onload = () => {
     if (localStorage.getItem("time") == "in") {
         inList();
     } else if (localStorage.getItem("time") == "out") {
-        outList();
+        if(localStorage.getItem("commuter_out") == "out"){
+            outList();
+        }else if(localStorage.getItem("commuter_out") == "delete") {
+            inList();
+        }
+        
     }
 
 };
