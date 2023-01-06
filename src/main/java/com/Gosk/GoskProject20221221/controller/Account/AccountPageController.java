@@ -20,6 +20,7 @@ public class AccountPageController {
     public String login(Model model, @RequestParam @Nullable String error) {
         if (error != null) {
             model.addAttribute("error", error.equals("auth") ? "휴대폰 번호 또는 비밀번호가 잘못되었습니다." : "");
+            return "account_join_check";
         }
         return "account_login";
     }
