@@ -5,27 +5,27 @@ function inList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
-                if (localStorage.getItem("time") == "in") {
-                    alert("입실 in성공");
-                    responseData1 = response.data;
-                    responseData = responseData1[responseData1.length - 1];
-                    console.log(responseData);
-                    ininList(responseData);
-                } else if (localStorage.getItem("time") == "out") {
-                    responseData1 = response.data;
-                    responseData = responseData1[responseData1.length - 1];
-                    timetime =responseData.user_update_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    timetime = timetime.split(/[.]/,1);
-                    week = responseData.user_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    week = week.split(/[.]/, 1);
-                    console.log(timetime);
-                    console.log(responseData);
-                    alert("퇴실in 성공");
-                    outload(responseData);
-                    
-                }
+            if (localStorage.getItem("time") == "in") {
+                alert("입실 in성공");
+                responseData1 = response.data;
+                responseData = responseData1[responseData1.length - 1];
+                console.log(responseData);
+                ininList(responseData);
+            } else if (localStorage.getItem("time") == "out") {
+                responseData1 = response.data;
+                responseData = responseData1[responseData1.length - 1];
+                timetime = responseData.user_update_date.replace(/T/g, ' ');
+                console.log(timetime);
+                timetime = timetime.split(/[.]/, 1);
+                week = responseData.user_date.replace(/T/g, ' ');
+                console.log(timetime);
+                week = week.split(/[.]/, 1);
+                console.log(timetime);
+                console.log(responseData);
+                alert("퇴실in 성공");
+                outload(responseData);
+
+            }
 
         },
         error: (error) => {
@@ -186,7 +186,7 @@ function inload(responseData) {
             </ul>
         </section>
             `
-    }else if(responseData.receipt_time != 0){
+    } else if (responseData.receipt_time != 0) {
         inoutBody.innerHTML += `
         <header class="inout-header">
         <i class="fa-solid fa-check"></i>
@@ -216,7 +216,7 @@ function inload(responseData) {
         </section>
             `
     }
-    
+
 }
 
 function outload(responseData) {
