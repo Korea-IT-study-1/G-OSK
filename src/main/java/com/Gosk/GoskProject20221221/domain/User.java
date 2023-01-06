@@ -34,6 +34,7 @@ public class User {
     private String result;
     private LocalTime user_time;
     private String user_time2;
+    private String endtime;
     private LocalDateTime user_date;
     private LocalTime user_locker_date;
     private LocalDateTime seat_start_time;

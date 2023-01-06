@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index", "account/login", "account/join")
                 .permitAll()
 
-                .antMatchers("/mypage", "/time/**", "/seat/**", "/locker/**", "/pay", "/in", "/inout")
+                .antMatchers("/mypage", "/time/**", "/seat/**", "/locker/**", "/pay", "/in", "/inout_check")
 //                .access("hasRole('USER') or hasRole('ADMIN')")
 //                .and()
                 .authenticated()
