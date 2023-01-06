@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetSeatReserved {
+public class SetSeatCommuterDay {
 
     public int user_id;
     public String seat_id;
-
     public int paytime;
-    public String reserved_start_date;
+    public String commuter_start_date;
     public String now_time;
 
 }

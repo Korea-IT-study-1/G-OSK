@@ -62,6 +62,17 @@ public class PayApi {
         return ResponseEntity.ok(new CMRespDto<>(1, "정액권 시간제 자리 설정 완료", setSeatCommuterTimeDto));
     }
 
+    //결제 시 정액권 자리설정(주)
+    @PutMapping("/setseat/commuterday")
+    public ResponseEntity<?> setSeatCommuterday(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                @RequestBody SetSeatCommuterDayDto setSeatCommuterDayDto) throws Exception{
+
+        setSeatCommuterDayDto.setUser_id(principalDetails.getUser().getUser_id());
+        payService.setSeatCommuterDay(setSeatCommuterDayDto);
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "정액권 시간제 자리 설정 완료", setSeatCommuterDayDto));
+    }
+
     //결제 시 지정석 자리설정
     @PutMapping("/setseat/reserved")
     public ResponseEntity<?> setSeatReserved(@AuthenticationPrincipal PrincipalDetails principalDetails,

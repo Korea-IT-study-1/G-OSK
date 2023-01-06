@@ -11,6 +11,7 @@ public interface PayRepository {
     public int setSeatOneday(SetSeatOneday setSeatOneday);
 
     public int setSeatCommuterTime(SetSeatCommuterTime setSeatCommuterTime);
+    public int setSeatCommuterDay(SetSeatCommuterDay setSeatCommuterDay);
 
     public int setSeatReserved(SetSeatReserved setSeatReserved);
 

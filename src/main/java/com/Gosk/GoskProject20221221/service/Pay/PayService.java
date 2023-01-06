@@ -10,6 +10,8 @@ public interface PayService {
 
     public boolean setSeatCommuterTime(SetSeatCommuterTimeDto setSeatCommuterTimeDto);
 
+    public boolean setSeatCommuterDay(SetSeatCommuterDayDto setSeatCommuterDayDto);
+
     public boolean setSeatReserved(SetSeatReservedDto setSeatReservedDto);
 
     public boolean setLocker(SetLockerReqDto setLockerReqDto);

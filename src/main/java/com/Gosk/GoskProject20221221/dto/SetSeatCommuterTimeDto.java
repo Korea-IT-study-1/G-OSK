@@ -17,6 +17,7 @@ public class SetSeatCommuterTimeDto {
         return SetSeatCommuterTime.builder()
                 .user_id(user_id)
                 .seat_id(seat_id)
+                .paytime(paytime)
                 .seat_start_date(seat_start_date)
                 .build();
     }
