@@ -19,5 +19,5 @@ public class MyPage {
     private int receipt_price;
     private int receipt_time;
     private int receipt_day;
-
+    private int receipt_onoff;
 }

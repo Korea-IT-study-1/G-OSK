@@ -7,6 +7,24 @@
 
     <select id="receipt" resultType="com.Gosk.GoskProject20221221.domain.MyPage">
         SELECT
+            user_id,
+            receipt_start_date,
+            receipt_kinds,
+            receipt_price,
+            receipt_time,
+            receipt_onoff,
+            receipt_day
+
+        FROM
+            receipt_mst
+        WHERE
+            user_id = #{user_id}
+
+        ORDER BY receipt_start_date DESC
+
+    </select>
+    <select id="receiptToday" resultType="com.Gosk.GoskProject20221221.domain.MyPage">
+        SELECT
         user_id,
         receipt_start_date,
         receipt_kinds,
@@ -19,5 +37,41 @@
         receipt_mst
         WHERE
         user_id = #{user_id}
+
+        ORDER BY receipt_start_date DESC
+    </select>
+    <select id="receiptMonth" resultType="com.Gosk.GoskProject20221221.domain.MyPage">
+        SELECT
+        user_id,
+        receipt_start_date,
+        receipt_kinds,
+        receipt_price,
+        receipt_time,
+        receipt_onoff,
+        receipt_day
+
+        FROM
+        receipt_mst
+        WHERE
+        user_id = #{user_id}
+
+        ORDER BY receipt_start_date DESC
+    </select>
+    <select id="receiptMonth3" resultType="com.Gosk.GoskProject20221221.domain.MyPage">
+        SELECT
+        user_id,
+        receipt_start_date,
+        receipt_kinds,
+        receipt_price,
+        receipt_time,
+        receipt_onoff,
+        receipt_day
+
+        FROM
+        receipt_mst
+        WHERE
+        user_id = #{user_id}
+
+        ORDER BY receipt_start_date DESC
     </select>
 </mapper>

@@ -18,8 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MyPageApi {
     private final MyPageService myPageService;
-    @GetMapping("/receipt")
+    @GetMapping("/receipt/all")
     public ResponseEntity<?> receipt(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+        return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",myPageService.receipt(principalDetails.getUser().getUser_id())));
+    }
+
+    @GetMapping("/receipt/today")
+    public ResponseEntity<?> receiptToday(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+        return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",myPageService.receipt(principalDetails.getUser().getUser_id())));
+    }
+
+    @GetMapping("/receipt/month")
+    public ResponseEntity<?> receiptMonth(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+        return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",myPageService.receipt(principalDetails.getUser().getUser_id())));
+    }
+
+    @GetMapping("/receipt/month3")
+    public ResponseEntity<?> receiptMonth3(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",myPageService.receipt(principalDetails.getUser().getUser_id())));
     }
 }
