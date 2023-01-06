@@ -183,8 +183,11 @@ function setSeat() {
 
     } else if (localStorage.getItem("time") == "commuter") {
         if (localStorage.getItem("paytime").includes("시간") == true) {
-            setSeatinfo.seat_id = localStorage.getItem("seatnum");
-            setSeatinfo.paytime = (localStorage.getItem("paytime").replace("시간", "")) * 3600;
+
+            setSeatinfo = {
+                seat_id: localStorage.getItem("seatnum"),
+                paytime: timechange((localStorage.getItem("paytime").replace("시간", "")) * 3600)
+            }
 
             $.ajax({
                 async: false,
@@ -202,8 +205,26 @@ function setSeat() {
             });
 
         } else {
-            setSeatinfo.seat_id = localStorage.getItem("seatnum");
-            setSeatinfo.paytime = localStorage.getItem("paytime").replace("주", "");
+
+            setSeatinfo = {
+                seat_id: localStorage.getItem("seatnum"),
+                paytime: (localStorage.getItem("paytime").replace("주", ""))
+            }
+
+            $.ajax({
+                async: false,
+                type: "put",
+                url: "/api/pay/setseat/commuterday",
+                contentType: "application/json",
+                data: JSON.stringify(setSeatinfo),
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
         }
     } else if (localStorage.getItem("time") == "reserved") {
 
@@ -234,6 +255,29 @@ function setSeat() {
     console.log(setSeatinfo);
 
 
+}
+
+
+function timechange(seconds) {
+
+    var hour = parseInt(seconds/3600);
+    var min = parseInt((seconds%3600)/60);
+    var sec = seconds%60;
+    
+    if(hour < 10){
+        hour = '0' + hour
+    }
+
+    if(min < 10){
+        min = '0' + min
+    }
+
+    if(sec < 10){
+        sec = '0' + sec
+    }
+
+    return hour + ":" + min + ":" + sec
+    
 }
 
 window.onload = () => {

@@ -1,11 +1,7 @@
 package com.Gosk.GoskProject20221221.controller.Pay.api;
 
 
-import com.Gosk.GoskProject20221221.dto.CMRespDto;
-import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
+import com.Gosk.GoskProject20221221.dto.*;
 import com.Gosk.GoskProject20221221.service.Pay.PayService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +59,17 @@ public class PayApi {
         payService.setSeatCommuterTime(setSeatCommuterTimeDto);
 
         return ResponseEntity.ok(new CMRespDto<>(1, "정액권 시간제 자리 설정 완료", setSeatCommuterTimeDto));
+    }
+
+    //결제 시 정액권 자리설정(주)
+    @PutMapping("/setseat/commuterday")
+    public ResponseEntity<?> setSeatCommuterday(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                @RequestBody SetSeatCommuterDayDto setSeatCommuterDayDto) throws Exception{
+
+        setSeatCommuterDayDto.setUser_id(principalDetails.getUser().getUser_id());
+        payService.setSeatCommuterDay(setSeatCommuterDayDto);
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "정액권 시간제 자리 설정 완료", setSeatCommuterDayDto));
     }
 
     //결제 시 지정석 자리설정

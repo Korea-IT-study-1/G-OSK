@@ -1,18 +1,13 @@
 package com.Gosk.GoskProject20221221.service.Pay;
 
-import com.Gosk.GoskProject20221221.domain.PayHistory;
-import com.Gosk.GoskProject20221221.domain.SetSeatCommuterTime;
-import com.Gosk.GoskProject20221221.domain.SetSeatOneday;
-import com.Gosk.GoskProject20221221.domain.SetSeatReserved;
-import com.Gosk.GoskProject20221221.dto.PayHistoryReqDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatCommuterTimeDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatOnedayDto;
-import com.Gosk.GoskProject20221221.dto.SetSeatReservedDto;
+import com.Gosk.GoskProject20221221.domain.*;
+import com.Gosk.GoskProject20221221.dto.*;
 import com.Gosk.GoskProject20221221.repository.PayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 @RequiredArgsConstructor
@@ -56,20 +51,31 @@ public class PayServicelmpl implements PayService{
 
         LocalDateTime now = LocalDateTime.now();
 
-//        setSeatCommuterTimeDto.setSeat_start_date(
-//                now.plusHours(setSeatCommuterTimeDto.getPaytime())
-//                        .toString().substring(0, now.toString().lastIndexOf(".")));
-//        setSeatCommuterTimeDto.setPaytime(
-//
-//                setSeatCommuterTimeDto.getPaytime()
-//
-//        );
         setSeatCommuterTimeDto.setSeat_start_date(now.toString().substring(0, now.toString().lastIndexOf(".")));
         SetSeatCommuterTime setSeatCommuterTime = setSeatCommuterTimeDto.toSetSeatEntity();
         int result = payRepository.setSeatCommuterTime(setSeatCommuterTime);
 
         return result != 0;
     }
+
+    @Override
+    public boolean setSeatCommuterDay(SetSeatCommuterDayDto setSeatCommuterDayDto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        setSeatCommuterDayDto.setNow_time(now.toString().substring(0, now.toString().lastIndexOf(".")));
+
+        setSeatCommuterDayDto.setCommuter_start_date(now.plusWeeks(setSeatCommuterDayDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
+
+//        System.out.println("setSeatDto : {}" + setSeatReservedDto);
+
+        SetSeatCommuterDay setSeatCommuterDay = setSeatCommuterDayDto.toSetSeatEntity();
+
+        int result = payRepository.setSeatCommuterDay(setSeatCommuterDay);
+
+        return result != 0;
+    }
+
     public boolean setSeatReserved(SetSeatReservedDto setSeatReservedDto) {
 
         LocalDateTime now = LocalDateTime.now();

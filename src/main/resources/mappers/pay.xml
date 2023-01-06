@@ -53,8 +53,28 @@
         UPDATE
             user_mst
         SET
-            user_out = #{seat_id}
+            user_out = #{seat_id},
             user_time = #{paytime}
+        WHERE
+            user_id = #{user_id};
+
+    </update>
+
+    <update id="setSeatCommuterDay" parameterType="com.Gosk.GoskProject20221221.domain.SetSeatCommuterDay">
+
+        UPDATE
+            seat_mst
+        SET
+            user_id = #{user_id},
+            seat_start_time = #{now_time}
+        WHERE
+            seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = #{seat_id},
+            user_date = #{commuter_start_date}
         WHERE
             user_id = #{user_id};
 
