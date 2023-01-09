@@ -15,17 +15,117 @@
         <div class="popup-back invisible">
             <div class="popup">
                 <p>수정 전 정보</p>
-                <input type="text" value="수정 전 회원 번호" readonly>
-                <input type="text" value="수정 전 회원 비번" readonly>
+                <input class="before-input" type="text" value="수정 전 회원 번호" readonly>
+                <!-- <input class="before-input" type="text" value="수정 전 회원 비번" readonly> -->
                 <p>수정 할 정보</p>
-                <input type="text" placeholder="수정 할 회원 번호" onfocus="this.placeholder=''"
+                <input class="after-input" type="text" placeholder="수정 할 회원 번호" onfocus="this.placeholder=''"
                     onblur="this.placeholder='수정 할 회원 번호'">
-                <input type="text" placeholder="수정 할 회원 비번" onfocus="this.placeholder=''"
+                <input class="after-input" type="text" placeholder="수정 할 회원 비번" onfocus="this.placeholder=''"
                     onblur="this.placeholder='수정 할 회원 비번'">
 
                 <div class="popup-btns">
                     <button class="btn gray-btn popup-update-btn">수정</button>
                     <button class="btn org-btn popup-close-btn">닫기</button>
+                </div>
+            </div>
+        </div>
+        <div class="info-popup-back invisible">
+            <div class="info-popup">
+                <div class="info-div">
+                    <p>전화번호 : 010-0000-0000</p>
+                    <p>사용중인 좌석 : </p>
+                    <p>사용중인 상품 : </p>
+                </div>
+                <table class="user-info-th-table">
+                    <colgroup>
+                        <col width="25%">
+                        <col width="25%">
+                        <col width="50%">
+                    </colgroup>
+                    <tr>
+                        <th>상품</th>
+                        <th>가격</th>
+                        <th>구매날짜</th>
+                    </tr>
+                </table>
+                <div class="table-container">
+                    <table class="user-info-table">
+                        <colgroup>
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="50%">
+                        </colgroup>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+                        <tr>
+                            <td>지정석
+                                <br>
+                                1주
+                            </td>
+                            <td>92902원</td>
+                            <td>2023-01-01</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+                <div class="popup-btns">
+                    <button class="btn org-btn popup-close-btn info-close-btn" style="width: 100%;">닫기</button>
                 </div>
             </div>
         </div>
@@ -48,12 +148,12 @@
                 <colgroup>
                     <col width="">
                     <col width="20%">
-                    <col width="15%">
-                    <col width="15%">
+                    <col width="20%">
+                    <col width="20%">
                 </colgroup>
                 <tr>
                     <th>전화번호</th>
-                    <th>비밀번호</th>
+                    <th>개인정보</th>
                     <th>수정</th>
                     <th>삭제</th>
                 </tr>
@@ -63,16 +163,16 @@
                     <colgroup>
                         <col width="">
                         <col width="20%">
-                        <col width="15%">
-                        <col width="15%">
+                        <col width="20%">
+                        <col width="20%">
                     </colgroup>
                     <!-- update-btn, dlt-btn css는 admin.css에 있음 -->
-                    <tr>
+                    <!-- <tr>
                         <td>010-1234-5678</td>
-                        <td>1234</td>
+                        <td><button class="btn user-info-btn">정보</button></td>
                         <td><button class="btn update-btn">수정</button></td>
                         <td><button class="btn dlt-btn">삭제</button></td>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
         </section>

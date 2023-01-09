@@ -1,6 +1,8 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
+import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
+import com.Gosk.GoskProject20221221.dto.admin.UserListDto;
 
 import java.util.List;
 
@@ -8,4 +10,9 @@ public interface AdminService {
 
     public List<PdListRespDto> getPdList(String name) throws Exception;
 
+    public List<UserListDto> loadUserList(String user_phone) throws Exception;
+
+    public boolean deleteUser(String user_phone) throws Exception;
+
+    public int updateUser(String user_phone, String after_phone, String after_pw) throws Exception;
 }

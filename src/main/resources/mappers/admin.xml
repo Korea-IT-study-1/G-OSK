@@ -11,6 +11,8 @@
         <result property="price" column="price"></result>
     </resultMap>
 
+
+
     <select id="getReservedList" resultMap="ProductList">
 
         SELECT
@@ -67,5 +69,30 @@
         ) as c
 
     </select>
+    <select id="loadUserList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserList">
+        SELECT
+            user_phone,
+            user_pw
+        FROM
+            user_mst;
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM
+            user_mst
+        WHERE
+            user_phone = #{user_phone};
+    </delete>
+
+    <update id="updateUser">
+        UPDATE
+        user_mst
+        SET
+        user_phone = #{after_phone},
+        user_pw = #{after_pw}
+        WHERE
+        user_phone = #{user_phone};
+    </update>
 
 </mapper>
