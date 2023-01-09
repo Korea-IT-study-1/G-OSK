@@ -34,7 +34,8 @@
             user_mst
         SET
             user_out = #{seat_id},
-            user_time = SEC_TO_TIME(#{paytime})
+<!--            user_time = SEC_TO_TIME(#{paytime})-->
+            user_time = #{paytime}
         WHERE
             user_id = #{user_id};
 
@@ -97,6 +98,7 @@
         WHERE
             user_id = #{user_id};
     </update>
+
     <update id="setLocker" parameterType="com.Gosk.GoskProject20221221.domain.Locker">
         UPDATE
             locker_mst

@@ -141,9 +141,15 @@ function loadList(responseData, name){
                 <td><button class="btn dlt-btn">삭제</button></td>
             </tr>
         `;
-
     });
 }
+
+$('.product-category li').click(function(){
+    if ($(this).hasClass('org-li') == false){
+        $(this).siblings().removeClass('org-li');
+        $(this).addClass('org-li');
+    }
+})
 
 window.onload = () =>{
     productList("지정석");

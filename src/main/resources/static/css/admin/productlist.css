@@ -18,7 +18,12 @@
     margin-bottom: 50px;
 }
 
-.product-category>ul>li {
+.product-category > ul > .org-li{
+    background-color: #fb6624;
+    color: #fff;
+}
+
+.product-category > ul > li {
     width: 300px;
     height: 100px;
     border-radius: 5px;
@@ -27,7 +32,6 @@
     color: black;
     margin: 10px;
     padding: 20px;
-
     cursor: pointer;
 }
 

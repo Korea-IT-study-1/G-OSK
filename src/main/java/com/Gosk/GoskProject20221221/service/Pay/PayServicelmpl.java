@@ -35,9 +35,15 @@ public class PayServicelmpl implements PayService{
 
         LocalDateTime now = LocalDateTime.now();
 
-        setSeatOnedayDto.setSeat_start_date(now.plusHours(setSeatOnedayDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
+        setSeatOnedayDto.setSeat_start_date(
+                now.plusHours(setSeatOnedayDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
 
-        System.out.println("setSeatDto : {}" + setSeatOnedayDto);
+        setSeatOnedayDto.setPaytime(
+                setSeatOnedayDto.getPaytime() * 3600
+        );
+
+        System.out.println("paytime : " + setSeatOnedayDto.getPaytime());
+        System.out.println("setSeatDto : " + setSeatOnedayDto);
 
         SetSeatOneday setSeatOneday = setSeatOnedayDto.toSetSeatEntity();
 
