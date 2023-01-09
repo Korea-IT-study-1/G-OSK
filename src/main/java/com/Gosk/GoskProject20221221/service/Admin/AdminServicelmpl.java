@@ -28,8 +28,12 @@ public class AdminServicelmpl implements AdminService {
             adminRepository.getReservedList(map).forEach(ProductList -> {
                 PdList.add(ProductList.toRespDto());
             });
-        } else {
+        } else if(name.equals("일반석") == true){
             adminRepository.getGeneralList(map).forEach(ProductList -> {
+                PdList.add(ProductList.toRespDto());
+            });
+        } else {
+            adminRepository.getLockerList(map).forEach(ProductList -> {
                 PdList.add(ProductList.toRespDto());
             });
         }

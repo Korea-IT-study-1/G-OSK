@@ -68,4 +68,17 @@
 
     </select>
 
+    <select id="getLockerList" resultMap="ProductList">
+
+        SELECT
+            "사물함" as pdname,
+            CONCAT(CAST(locker_time as char(20)),'주') as time,
+            CONCAT(CAST(format(locker_price,0) as char(10)), '원') as price
+        FROM
+            locker_price_mst
+        ORDER BY
+            locker_time
+
+    </select>
+
 </mapper>

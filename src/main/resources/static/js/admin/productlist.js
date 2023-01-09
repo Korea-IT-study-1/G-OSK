@@ -89,6 +89,7 @@ popup2UpdateBtn.onclick = () => {
 
 const reserved = document.querySelector(".reserved");
 const nomal = document.querySelector(".nomal");
+const locker = document.querySelector(".locker");
 
 // 지정석만 조회
 reserved.onclick = () => {
@@ -102,6 +103,13 @@ nomal.onclick = () => {
     productList("일반석");
 }
 
+//사물함만 조회
+locker.onclick = () => {
+    $('.table-container table tr').remove();
+    productList("사물함");
+}
+
+
 //상품리스트 불러오기
 function productList(name) {
 
@@ -114,6 +122,7 @@ function productList(name) {
         success: (response) => {
             responseData = response.data;
             loadList(responseData, name);
+            delbtn()
             // responseData를 JSON 형식으로 보여주기
             // console.log(JSON.stringify(responseData[]));
         },
@@ -131,7 +140,7 @@ function loadList(responseData, name){
     responseData.forEach((border, index) => {
         
         borders.innerHTML += `
-            <tr>
+            <tr value = "${}">
                 <td>` + name + `</td>
                 <td>${border.pdname}
                     <br>${border.time}
@@ -151,8 +160,59 @@ $('.product-category li').click(function(){
     }
 })
 
-window.onload = () =>{
-    productList("지정석");
+function delbtn(){
+    const dels = document.querySelectorAll(".dlt-btn");
+
+    dels.forEach((del,index) => {
+
+        del.onclick = () => {
+
+            if(confirm("해당 이용권을 삭제하시겠습니까?") == true){
+                btn_address("DELETE")
+                location.reload;
+            }
+
+        }
+    })
+
+}
+
+function btn_address(btn_name){
+
+    if(btn_name == "DELETE"){
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/admin/listdelete",
+            contentType: "application/json",
+            data: JSON.stringify(userData),
+            dataType: "json",
+            success: (response) => {
+                alert("자리 변환완료");
+                console.log(userData)
+    
+            },
+            error: (error) => {
+                alert("자리 변환 실패");
+                console.log(error);
+                console.log(userData)
+            }
+        });
+    } else {
+        
+    }
+}
+
+window.onload = () => {
+
+    if($('.reserved').hasClass('org-li') == true){
+        productList("지정석");
+    } else if($('.nomal').hasClass('org-li') == true){
+        productList("일반석");
+    } else {
+        productList("사물함");
+    }
+    
 }
 
 

@@ -10,6 +10,7 @@ import java.util.Map;
 @Mapper
 public interface AdminRepository {
     public List<ProductList> getReservedList(Map<String, Object> map) throws Exception;
-
     public List<ProductList> getGeneralList(Map<String, Object> map) throws Exception;
+
+    public List<ProductList> getLockerList(Map<String, Object> map) throws Exception;
 }
