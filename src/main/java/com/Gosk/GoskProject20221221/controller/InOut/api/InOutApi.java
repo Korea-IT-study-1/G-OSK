@@ -22,6 +22,8 @@ public class InOutApi {
     //*****************유저 정보 가져오기**************************
     @GetMapping("/api/inout")
     public ResponseEntity<?> inout(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+        log.info("junho>>>>>>>>>>>>>>>>>>>>>>>>>>>,{}",principalDetails.getUser());
+
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.inOut(principalDetails.getUser().getUser_id())));
     }
     //*******************퇴실*********************
@@ -31,10 +33,10 @@ public class InOutApi {
     }
     // ****************남은시간 int변경값 서버로 전달후 변경***********************   
     @PutMapping("/api/inout/day")
-    public ResponseEntity<?> day(@RequestBody DayReqDto dayReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
-        int user_id = principalDetails.getUser().getUser_id();
+    public ResponseEntity<?> day(@AuthenticationPrincipal PrincipalDetails principalDetails)throws Exception {
+//        int user_id = principalDetails.getUser().getUser_id();
 
-        return ResponseEntity.ok(new CMRespDto<>(1,"success",inOutService.day(dayReqDto, user_id)));
+        return ResponseEntity.ok(new CMRespDto<>(1,"success",inOutService.day(principalDetails.getUser())));
     }
     @PutMapping("/api/inout/check")
     public ResponseEntity<?> inoutcheck(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {

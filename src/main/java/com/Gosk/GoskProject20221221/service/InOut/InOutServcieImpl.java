@@ -32,35 +32,32 @@ public class InOutServcieImpl implements InOutService{
         LocalDateTime endtime = LocalDateTime.now();  //퇴실 시간
         LocalDateTime starttime = principalDetails.getUser_update_date();  // 입실시간
 
-        long second = ChronoUnit.SECONDS.between(starttime, endtime);
+        int second = (int)ChronoUnit.SECONDS.between(starttime, endtime);
 
-        LocalTime user_time1 = principalDetails.getUser_time();
-        LocalTime user_time2 = user_time1.minusSeconds(second);
-
-        principalDetails.setUser_time2(user_time2.toString());
+        //사용 초
+        principalDetails.setUser_time2(principalDetails.getUser_time() - second);
+        //퇴실 시간!!
         principalDetails.setEndtime(endtime.toString().substring(0, endtime.toString().lastIndexOf(".")));
 
 
         inOutRepository.out(principalDetails);
-        return user_time2;
+        return second;
     }
 
     @Override
-    public Object day(DayReqDto dayReqDto, int user_id)throws Exception{
+    public Object day(User principalDetails)throws Exception{
         LocalDateTime now = LocalDateTime.now();
         System.out.println(now);
 
         LocalDateTime result = now
-                .plusHours(dayReqDto.getTimehour())
-                .plusMinutes(dayReqDto.getTimeminute())
-                .plusSeconds(dayReqDto.getTimesecond());
-        dayReqDto.setResult(result.toString().substring(0, result.toString().lastIndexOf(".")));
-        dayReqDto.setNow(now.toString().substring(0, now.toString().lastIndexOf(".")));
-        dayReqDto.setUser_id(user_id);
-
-         inOutRepository.day(dayReqDto.todayEntity());
+                .plusSeconds(principalDetails.getUser_time());
+        principalDetails.setResult(result.toString().substring(0, result.toString().lastIndexOf(".")));
+        principalDetails.setNow(now.toString().substring(0, now.toString().lastIndexOf(".")));
+//        dayReqDto.setUser_id(user_id);
+//
+//         inOutRepository.day(dayReqDto.todayEntity());
         // 그럴 경우에는 핸들러로 캐치 // info 로 에러떳다고 메세지
-
+        inOutRepository.day(principalDetails);
         return result;
     }
     @Override

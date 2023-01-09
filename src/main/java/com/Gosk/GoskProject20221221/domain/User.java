@@ -32,8 +32,8 @@ public class User {
     private String now;
     private String user_out;
     private String result;
-    private LocalTime user_time;
-    private String user_time2;
+    private int user_time;
+    private long user_time2;
     private String endtime;
     private LocalDateTime user_date;
     private LocalTime user_locker_date;

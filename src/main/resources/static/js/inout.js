@@ -10,7 +10,7 @@ function inList() {
                 responseData1 = response.data;
                 responseData = responseData1[responseData1.length - 1];
                 console.log(responseData);
-                ininList(responseData);
+                junholist();
             } else if (localStorage.getItem("time") == "out") {
                 if(localStorage.getItem("commuter_out") == "out") {
                     responseData1 = response.data;
@@ -83,38 +83,38 @@ function ininList() {
     console.log(junho5);
     console.log(junho6);
 
-    time0 = responseData.user_time.split(/[:]/);
-    time1 = parseInt(time0[0]);
-    time2 = parseInt(time0[1]);
-    time3 = parseInt(time0[2]);
+    // time0 = responseData.user_time.split(/[:]/);
+    // time1 = parseInt(time0[0]);
+    // time2 = parseInt(time0[1]);
+    // time3 = parseInt(time0[2]);
 
-    console.log(time1);
-    console.log(time2);
-    console.log(time3);
-    timehour = junho4 + time1;
-    timeminute = junho5 + time2;
-    timesecond = junho6 + time3;
-    console.log(timehour);
-    console.log(timeminute);
-    console.log(timesecond);
-    let goodtime = {
-        timehour: time1,
-        timeminute: time2,
-        timesecond: time3,
-    };
-    console.log(goodtime);
-    junholist(goodtime);
+    // console.log(time1);
+    // console.log(time2);
+    // console.log(time3);
+    // timehour = junho4 + time1;
+    // timeminute = junho5 + time2;
+    // timesecond = junho6 + time3;
+    // console.log(timehour);
+    // console.log(timeminute);
+    // console.log(timesecond);
+    // let goodtime = {
+    //     timehour: time1,
+    //     timeminute: time2,
+    //     timesecond: time3,
+    // };
+    // console.log(goodtime);
+    // junholist(goodtime);
 
 }
-function junholist(goodtime) {
-    console.log(goodtime);
+function junholist() {
+    // console.log();
     $.ajax({
         async: false,
         type: "put",
         url: "/api/inout/day",
         contentType: 'application/json',
         dataType: "json",
-        data: JSON.stringify(goodtime),
+        // data: JSON.stringify(goodtime),
         success: (response) => {
             alert("시간 보내기 성공");
             responseData2 = response.data.replace(/T/g, ' ');
@@ -197,6 +197,10 @@ function inload(responseData) {
         </section>
             `
     } else if (responseData.receipt_time != 0) {
+        user_time =responseData.user_time;
+        var hour = parseInt(user_time/3600);
+        var min = parseInt((user_time%3600)/60);
+        var sec = user_time%60;
         inoutBody.innerHTML += `
         <header class="inout-header">
         <i class="fa-solid fa-check"></i>
@@ -212,7 +216,7 @@ function inload(responseData) {
                 </li>
                 <li>
                     <p><i class="fa-solid fa-hourglass-half"></i>총 잔여</p>
-                    <span>${responseData.user_time}</span>
+                    <span>${hour}시${min}분${sec}초</span>
                 </li>
                 <li class="close">
                     <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
@@ -299,6 +303,10 @@ function outload(responseData) {
         }
         
     } else if (responseData.receipt_time != 0) {
+        user_time =responseData.user_time;
+        var hour = parseInt(user_time/3600);
+        var min = parseInt((user_time%3600)/60);
+        var sec = user_time%60;
         if(localStorage.getItem("commuter_out") == "out") {
             inoutBody.innerHTML += `
                 <header class="inout-header">
@@ -320,7 +328,7 @@ function outload(responseData) {
                     </li>
                     <li class="close">
                         <p><i class="fa-regular fa-calendar-xmark"></i>남은시간</p>
-                        <span>${responseData.user_time}<span>
+                        <span>${hour}시${min}분${sec}초<span>
                     </li>
                     <li>
                         <p><i class="fa-solid fa-chair"></i>퇴실좌석</p>

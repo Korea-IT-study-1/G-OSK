@@ -12,7 +12,7 @@ public interface InOutService {
 
     public Object out(User principalDetails) throws Exception;
 
-    public Object day(DayReqDto dayReqDto, int user_id) throws  Exception;
+    public Object day(User principalDetails) throws  Exception;
 
     public Object inoutcheck(User principalDetails) throws Exception;
 }
