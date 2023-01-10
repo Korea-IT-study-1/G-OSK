@@ -1,12 +1,12 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
-import com.Gosk.GoskProject20221221.domain.Admin.UserList;
-import com.Gosk.GoskProject20221221.domain.User;
+import com.Gosk.GoskProject20221221.domain.Admin.UserInfoList;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
 import com.Gosk.GoskProject20221221.dto.admin.UserListDto;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,12 +63,25 @@ public class AdminServicelmpl implements AdminService {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        String hashedPassword = passwordEncoder.encode(after_pw);
+
+
+
         map.put("user_phone", user_phone);
         map.put("after_phone", after_phone);
-        map.put("after_pw", after_pw);
+        map.put("after_pw", hashedPassword);
 
+        System.out.println(map);
 
         return adminRepository.updateUser(map);
+    }
+
+    @Override
+    public List<UserInfoList> loadUserInfoList(String user_phone) throws Exception {
+
+        return adminRepository.loadUserInfoList(user_phone);
     }
 
 

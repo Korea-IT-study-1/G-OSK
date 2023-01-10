@@ -52,12 +52,6 @@ function buttonClick() {
 
             beforeInput[0].value = responseData[index].user_phone;
 
-
-
-
-
-
-
         }
 
     })
@@ -91,6 +85,7 @@ function buttonClick() {
             success: (success) => {
                 console.log(success);
                 console.log(afterInputs);
+                location.reload();
             },
             error: (error) => {
                 console.log(error);
@@ -102,15 +97,125 @@ function buttonClick() {
 
     const userInfoBtns = document.querySelectorAll(".user-info-btn");
     const infoPopupBack = document.querySelector(".info-popup-back");
+    const infoCloseBtn = document.querySelector(".info-close-btn");
 
-    userInfoBtns.forEach((userInfoBtn, index) => {
-        userInfoBtn.onclick = () => {
-            infoPopupBack.classList.onclick = () => {
+    userInfoBtns.forEach((userinfoBtn, index) => {
+        userinfoBtn.onclick = () => {
+            infoPopupBack.classList.remove("invisible");
 
+            console.log(responseData[index].user_phone);
+
+            infoData = null;
+
+            infoData = {
+                user_phone: responseData[index].user_phone
             }
+
+            console.log(infoData);
+
+
+            const infoDiv = document.querySelector(".info-div");
+            const userInfoTable = document.querySelector(".user-info-table");
+
+            infoDiv.innerHTML = "";
+
+
+            $.ajax({
+                async: false,
+                type: "get",
+                url: "/api/admin/loaduserinfo",
+                data: infoData,
+                dataType: "json",
+                success: (response) => {
+                    alert("성공");
+                    console.log(response);
+                    responseInfoData = response.data;
+                },
+                error: (error) => {
+                    alert("실패");
+                    console.log(error);
+                }
+            })
+
+            console.log(responseInfoData[0].user_phone);
+            console.log(responseInfoData.slice(-1)[0].user_out);
+
+            if (responseInfoData.slice(-1)[0].user_out != null) {
+                infoDiv.innerHTML += `
+                    <p>전화번호 : ${responseInfoData[0].user_phone}</p>
+                    <p>사용중인 좌석 : ${responseInfoData.slice(-1)[0].user_out}</p>
+                    
+            `
+            } else {
+                infoDiv.innerHTML += `
+                    <p>전화번호 : ${responseInfoData[0].user_phone}</p>
+                    <p>사용중인 좌석 : 없음</p>
+                    
+            `
+            }
+
+            userInfoTable.innerHTML = "";
+
+            let seatname = null;
+
+            responseInfoData.forEach((data, index) => {
+
+                if (data.receipt_kinds == "ondeday") {
+                    seatname = "일반석";
+                } else if (data.receipt_kinds == "commuter_day") {
+                    seatname = "일반석";
+                } else if (data.receipt_kinds == "commuter_time") {
+                    seatname = "일반석";
+                } else if (data.receipt_kinds == "reserved_seat") {
+                    seatname = "지정석";
+                } else if (data.receipt_kinds == "locker") {
+                    seatname = "사물함";
+                }
+
+                if (data.receipt_time != 0) {
+                    userInfoTable.innerHTML += `
+                        <tr>
+                            <td>${seatname}
+                                <br>
+                                ${data.receipt_time} 시간
+                            </td>
+                            <td>${data.receipt_price} 원</td>
+                            <td>${data.receipt_start_date.split(" ")[0]}</td>
+                        </tr>
+
+                `
+
+                } else if (data.receipt_day != 0) {
+                    userInfoTable.innerHTML += `
+                        <tr>
+                            <td>${seatname}
+                                <br>
+                                ${data.receipt_day} 주
+                            </td>
+                            <td>${data.receipt_price} 원</td>
+                            <td>${data.receipt_start_date.split(" ")[0]}</td>
+                        </tr>
+
+                `
+                }
+
+
+
+
+            })
+
+
+
+
         }
+
     })
 
+    infoCloseBtn.onclick = () => {
+        infoPopupBack.classList.add("invisible");
+    }
+
+    // 삭제
     const dltBtns = document.querySelectorAll(".dlt-btn");
 
     dltBtns.forEach((dltBtn, index) => {
@@ -136,6 +241,10 @@ function buttonClick() {
 
         }
     })
+
+
+
+
 
 
 

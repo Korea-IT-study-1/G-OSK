@@ -95,4 +95,22 @@
         user_phone = #{user_phone};
     </update>
 
+    <select id="loadUserInfoList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserInfoList">
+        SELECT
+        um.user_id,
+        um.user_phone,
+        um.user_out,
+        rm.receipt_kinds,
+        rm.receipt_time,
+        rm.receipt_day,
+        rm.receipt_start_date,
+        rm.receipt_price
+        FROM
+        user_mst um
+        LEFT OUTER JOIN receipt_mst rm ON(um.user_id = rm.user_id)
+        WHERE
+        um.user_phone = #{user_phone};
+
+    </select>
+
 </mapper>

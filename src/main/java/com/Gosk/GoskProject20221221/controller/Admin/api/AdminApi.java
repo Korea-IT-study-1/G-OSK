@@ -1,7 +1,6 @@
 package com.Gosk.GoskProject20221221.controller.Admin.api;
 
 
-import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
 import com.Gosk.GoskProject20221221.service.Admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +37,18 @@ public class AdminApi {
     }
 
     @PutMapping("/updateuser/{user_phone}/{after_phone}/{after_pw}")
-    public ResponseEntity<?> updateUser(@PathVariable String user_phone, @PathVariable String after_phone, @PathVariable String user_pw) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", null));
+    public ResponseEntity<?> updateUser(@PathVariable String user_phone, @PathVariable String after_phone, @PathVariable String after_pw) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.updateUser(user_phone, after_phone, after_pw)));
     }
+
+    @GetMapping("/loaduserinfo")
+    public ResponseEntity<?> loadUserInfo(String user_phone) throws Exception{
+
+        System.out.println("userphone: " + user_phone);
+
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.loadUserInfoList(user_phone)));
+    }
+
 
 }
