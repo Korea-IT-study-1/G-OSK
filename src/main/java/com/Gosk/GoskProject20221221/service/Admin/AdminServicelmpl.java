@@ -1,10 +1,12 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
-import com.Gosk.GoskProject20221221.domain.Admin.ProductList;
+import com.Gosk.GoskProject20221221.domain.Admin.UserInfoList;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
+import com.Gosk.GoskProject20221221.dto.admin.UserListDto;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,5 +38,51 @@ public class AdminServicelmpl implements AdminService {
 
         return PdList;
     }
+
+    @Override
+    public List<UserListDto> loadUserList(String user_phone) throws Exception {
+
+        List<UserListDto> userList = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+
+        adminRepository.loadUserList(map).forEach(UserList -> {
+            userList.add(UserList.toUserListDto());
+        });
+
+        return userList;
+    }
+
+    @Override
+    public boolean deleteUser(String user_phone) throws Exception {
+
+        return adminRepository.deleteUser(user_phone) > 1;
+    }
+
+    @Override
+    public int updateUser(String user_phone, String after_phone, String after_pw) throws Exception {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        String hashedPassword = passwordEncoder.encode(after_pw);
+
+
+
+        map.put("user_phone", user_phone);
+        map.put("after_phone", after_phone);
+        map.put("after_pw", hashedPassword);
+
+        System.out.println(map);
+
+        return adminRepository.updateUser(map);
+    }
+
+    @Override
+    public List<UserInfoList> loadUserInfoList(String user_phone) throws Exception {
+
+        return adminRepository.loadUserInfoList(user_phone);
+    }
+
 
 }

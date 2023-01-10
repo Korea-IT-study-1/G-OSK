@@ -111,8 +111,10 @@ td {
 }
 
 
+
 /* user-manage */
 .update-btn,
-.dlt-btn {
+.dlt-btn,
+.user-info-btn {
     width: 130px;
 }

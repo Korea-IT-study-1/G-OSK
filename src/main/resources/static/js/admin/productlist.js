@@ -109,7 +109,7 @@ function productList(name) {
         async: false,
         type: "get",
         url: "/api/admin/productlist",
-        data: {name: name},
+        data: { name: name },
         dataType: "json",
         success: (response) => {
             responseData = response.data;
@@ -124,12 +124,12 @@ function productList(name) {
     });
 }
 
-function loadList(responseData, name){
+function loadList(responseData, name) {
 
     const borders = document.querySelector(".prouct-table");
 
     responseData.forEach((border, index) => {
-        
+
         borders.innerHTML += `
             <tr>
                 <td>` + name + `</td>
@@ -145,7 +145,7 @@ function loadList(responseData, name){
     });
 }
 
-window.onload = () =>{
+window.onload = () => {
     productList("지정석");
 }
 

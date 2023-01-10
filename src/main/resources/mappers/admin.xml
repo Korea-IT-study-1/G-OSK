@@ -11,6 +11,8 @@
         <result property="price" column="price"></result>
     </resultMap>
 
+
+
     <select id="getReservedList" resultMap="ProductList">
 
         SELECT
@@ -65,6 +67,49 @@
                 commuter_dp_time
             LIMIT 1000000
         ) as c
+
+    </select>
+    <select id="loadUserList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserList">
+        SELECT
+            user_phone,
+            user_pw
+        FROM
+            user_mst;
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM
+            user_mst
+        WHERE
+            user_phone = #{user_phone};
+    </delete>
+
+    <update id="updateUser">
+        UPDATE
+        user_mst
+        SET
+        user_phone = #{after_phone},
+        user_pw = #{after_pw}
+        WHERE
+        user_phone = #{user_phone};
+    </update>
+
+    <select id="loadUserInfoList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserInfoList">
+        SELECT
+        um.user_id,
+        um.user_phone,
+        um.user_out,
+        rm.receipt_kinds,
+        rm.receipt_time,
+        rm.receipt_day,
+        rm.receipt_start_date,
+        rm.receipt_price
+        FROM
+        user_mst um
+        LEFT OUTER JOIN receipt_mst rm ON(um.user_id = rm.user_id)
+        WHERE
+        um.user_phone = #{user_phone};
 
     </select>
 
