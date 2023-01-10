@@ -1,6 +1,7 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
 import com.Gosk.GoskProject20221221.domain.Admin.ProductList;
+import com.Gosk.GoskProject20221221.domain.Admin.SalesList;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,12 @@ public class AdminServicelmpl implements AdminService {
         }
 
         return PdList;
+    }
+
+    @Override
+    public List<SalesList> salesList(int user_id) throws Exception {
+        List<SalesList> salesList = adminRepository.salesList(user_id);
+        return salesList;
     }
 
 }

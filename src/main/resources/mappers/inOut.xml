@@ -72,7 +72,7 @@
     </update>
 
 
-    <select id="inOut"  resultType="com.Gosk.GoskProject20221221.domain.User">
+    <select id="inOut" resultType="com.Gosk.GoskProject20221221.domain.User">
         SELECT
             um.user_id,
             um.user_create_date,

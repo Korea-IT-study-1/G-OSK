@@ -45,14 +45,19 @@
                         type="hidden">
                 </div>
                 <div class="seat-search">
-                    <select id="seat-category" name="seat-category">
+                    <select id="seat-category" name="order_status">
                         <option value="all">전체</option>
-                        <option value="reserved">지정석</option>
-                        <option value="normal">일반석</option>
-                        <option class="order-status-hidden" style=" display: none;">
+                        <option value="oneday">원데이</option>
+                        <option value="commuter_time">정액권(시간)</option>
+                        <option value="commuter_day">정액권(기간)</option>
+                        <option value="reserved_seat">지정석</option>
+                        <option value="locker">사물함</option>
+                        <option class="order-status-hidden" th:value="${order_status}" style="display: none;"></option>
                         </option>
                     </select>
-                    <button class="btn gray-btn search-btn">조회</button>
+                    <!-- <input alt="조회" id="order-search-btn" class="btn gray-btn search-btn" type="image" src="/image/images/lash_btn/btn_search.gif"
+                            onclick="submit();"> -->
+                    <button class="btn gray-btn search-btn" type="submit">조회</button>
                 </div>
             </div>
             <table class="sales-th-table">
@@ -63,14 +68,14 @@
                     <col width="25%">
                 </colgroup>
                 <tr>
-                    <th>판매 날짜</th>
-                    <th>판매된 상품</th>
+                    <th>상품명</th>
+                    <th>상품 시간</th>
                     <th>판매 횟수</th>
                     <th>누적 금액</th>
                 </tr>
             </table>
             <div class="table-container">
-                <table class="sales-table">
+                <!-- <table class="sales-table">
                     <colgroup>
                         <col width="25%">
                         <col width="25%">
@@ -78,18 +83,18 @@
                         <col width="25%">
                     </colgroup>
                     <tr>
-                        <td>2022. 12. 22</td>
-                        <td>100시간 권</td>
+                        <td>원데이</td>
+                        <td>2시간 권</td>
                         <td>1 회</td>
                         <td>100000 원</td>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                         <td></td>
                         <td></td>
                         <td>총 매출</td>
                         <td class="total-price">총 100000 원</td>
-                    </tr> -->
-                </table>
+                    </tr>
+                </table> -->
             </div>
             <div class="total-price">
                 <div><b>총 매출</b> 100000원</div>
@@ -107,6 +112,16 @@
     </main>
     <script src="/static/js/admin/saleslist.js"></script>
     <script src="/static/js/admin/admin.js"></script>
+    <script  th:inline="javascript">
+        /*<![CDATA[*/
+        var testValue1 = [[${order_status}]];
+            // alert(testValue1);
+        var testValue2 = [[${history_start_date}]];
+            // alert(testValue2);
+        var testValue3 = [[${history_end_date}]];
+            // alert(testValue3);
+        /*]]>*/
+    </script>
 </body>
 
 </html>
