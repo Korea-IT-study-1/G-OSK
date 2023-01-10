@@ -122,7 +122,7 @@ function productList(name) {
         success: (response) => {
             responseData = response.data;
             loadList(responseData, name);
-            delbtn()
+            delbtn();
             // responseData를 JSON 형식으로 보여주기
             // console.log(JSON.stringify(responseData[]));
         },
@@ -135,12 +135,12 @@ function productList(name) {
 
 function loadList(responseData, name){
 
-    const borders = document.querySelector(".prouct-table");
+    const borders = document.querySelector(".product-table");
 
     responseData.forEach((border, index) => {
-        
+
         borders.innerHTML += `
-            <tr value = "${}">
+            <tr class = "${border.id}">
                 <td>` + name + `</td>
                 <td>${border.pdname}
                     <br>${border.time}
@@ -168,8 +168,7 @@ function delbtn(){
         del.onclick = () => {
 
             if(confirm("해당 이용권을 삭제하시겠습니까?") == true){
-                btn_address("DELETE")
-                location.reload;
+                btn_address("DELETE", index)
             }
 
         }
@@ -177,25 +176,32 @@ function delbtn(){
 
 }
 
-function btn_address(btn_name){
+function btn_address(btn_name, index){
+
+    let ListData = null;
+
+    ListData = {
+        product_id: $('.product-table tr:eq('+index+')').attr("class"),
+        product_name: $('.product-table tr:eq('+index+')').children('td:eq(0)').text(),
+        product_secondname: $('.product-table tr:eq('+index+')').children('td:eq(1)').text().split("\n")[0]
+    }
 
     if(btn_name == "DELETE"){
         $.ajax({
             async: false,
-            type: "put",
+            type: "delete",
             url: "/api/admin/listdelete",
             contentType: "application/json",
-            data: JSON.stringify(userData),
+            data: JSON.stringify(ListData),
             dataType: "json",
             success: (response) => {
-                alert("자리 변환완료");
-                console.log(userData)
-    
+                alert("이용권 삭제 완료");
+                $('.table-container table tr').remove();
+                pageload();
             },
             error: (error) => {
-                alert("자리 변환 실패");
+                alert("이용권 삭제 실패");
                 console.log(error);
-                console.log(userData)
             }
         });
     } else {
@@ -203,8 +209,7 @@ function btn_address(btn_name){
     }
 }
 
-window.onload = () => {
-
+function pageload(){
     if($('.reserved').hasClass('org-li') == true){
         productList("지정석");
     } else if($('.nomal').hasClass('org-li') == true){
@@ -212,6 +217,12 @@ window.onload = () => {
     } else {
         productList("사물함");
     }
+}
+
+
+window.onload = () => {
+
+    pageload();
     
 }
 

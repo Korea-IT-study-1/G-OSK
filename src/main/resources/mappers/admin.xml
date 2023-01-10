@@ -14,6 +14,7 @@
     <select id="getReservedList" resultMap="ProductList">
 
         SELECT
+            reserved_price_id as id,
             "기간권" as pdname,
             CONCAT(CAST(reserved_time as char(20)),'주') as time,
             CONCAT(CAST(format(reserved_price,0) as char(10)), '원') as price
@@ -28,6 +29,7 @@
 
         SELECT * FROM (
                 SELECT
+                    oneday_price_id as id,
                     "원데이" as pdname,
                     CONCAT(CAST(oneday_time as char(20)),'시간') as time,
                     CONCAT(CAST(format(oneday_price,0) as char(10)), '원') as price
@@ -42,6 +44,7 @@
 
         SELECT * FROM (
             SELECT
+                commuter_tp_id as id,
                 "시간권" as pdname,
                 CONCAT(CAST(commuter_tp_time as char(20)),'시간') as time,
                 CONCAT(CAST(format(commuter_tp_price,0) as char(10)), '원') as price
@@ -56,6 +59,7 @@
 
         SELECT * FROM (
             SELECT
+                commuter_dp_id as id,
                 "기간권" as pdname,
                 CONCAT(CAST(commuter_dp_time as char(20)),'주') as time,
                 CONCAT(CAST(format(commuter_dp_price,0) as char(10)), '원') as price
@@ -71,6 +75,7 @@
     <select id="getLockerList" resultMap="ProductList">
 
         SELECT
+            locker_price_id as id,
             "사물함" as pdname,
             CONCAT(CAST(locker_time as char(20)),'주') as time,
             CONCAT(CAST(format(locker_price,0) as char(10)), '원') as price
@@ -80,5 +85,45 @@
             locker_time
 
     </select>
+
+    <delete id="getDelPayList_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.DelPayList">
+        DELETE
+        FROM
+            oneday_price_mst
+        WHERE
+            oneday_price_id = #{product_id}
+    </delete>
+
+    <delete id="getDelPayList_commuter_time">
+        DELETE
+        FROM
+            commuter_time_price_mst
+        WHERE
+            commuter_tp_id = #{product_id}
+    </delete>
+
+    <delete id="getDelPayList_commuter_day">
+        DELETE
+        FROM
+            commuter_day_price_mst
+        WHERE
+            commuter_dp_id = #{product_id}
+    </delete>
+
+    <delete id="getDelPayList_reserved">
+        DELETE
+        FROM
+            reserved_price_mst
+        WHERE
+            reserved_price_id = #{product_id}
+    </delete>
+
+    <delete id="getDelPayList_locker">
+        DELETE
+        FROM
+            locker_price_mst
+        WHERE
+            locker_price_id = #{product_id}
+    </delete>
 
 </mapper>

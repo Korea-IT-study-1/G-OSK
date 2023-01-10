@@ -14,7 +14,6 @@ public class SetSeatCommuterDayDto {
     private String commuter_start_date;
     private String now_time;
 
-
     public SetSeatCommuterDay toSetSeatEntity(){
         return SetSeatCommuterDay.builder()
                 .user_id(user_id)

@@ -6,7 +6,9 @@ import lombok.Data;
 @Builder
 @Data
 public class PdListRespDto {
+    public int id;
     public String pdname; //제품명
     public String time; //시간
     public String price; //가격
+
 }

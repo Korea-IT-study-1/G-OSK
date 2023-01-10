@@ -2,14 +2,14 @@ package com.Gosk.GoskProject20221221.controller.Admin.api;
 
 
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
+import com.Gosk.GoskProject20221221.dto.admin.DelPayListReqDto;
 import com.Gosk.GoskProject20221221.service.Admin.AdminService;
-import jdk.jshell.spi.ExecutionControlProvider;
+import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.rmi.server.ExportException;
 
 @Slf4j
 @RequestMapping("/api/admin")
@@ -29,13 +29,13 @@ public class AdminApi {
         return ResponseEntity.ok(new CMRespDto<>(1, "제품 리스트 불러오기 완료", adminService.getPdList(name)));
     }
 
-//    @PutMapping("/listdelete")
-//    public ResponseEntity<?> ListDelete() throws Exception{
-//        setSeatCommuterDayDto.setUser_id(principalDetails.getUser().getUser_id());
-//        payService.setSeatCommuterDay(setSeatCommuterDayDto);
-//
-//        return ResponseEntity.ok(new CMRespDto<>(1, "정액권 시간제 자리 설정 완료", setSeatCommuterDayDto));
-//    }
+    @DeleteMapping("/listdelete")
+    public ResponseEntity<?> ListDelete(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                        @RequestBody DelPayListReqDto delPayListReqDto) throws Exception{
+
+        adminService.getDelPayList(delPayListReqDto);
+        return ResponseEntity.ok(new CMRespDto<>(1, "관리자 이용권 리스트 삭제 완료", delPayListReqDto));
+    }
 
 
 }

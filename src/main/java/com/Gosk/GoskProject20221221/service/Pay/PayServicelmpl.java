@@ -73,8 +73,6 @@ public class PayServicelmpl implements PayService{
 
         setSeatCommuterDayDto.setCommuter_start_date(now.plusWeeks(setSeatCommuterDayDto.getPaytime()).toString().substring(0, now.toString().lastIndexOf(".")));
 
-//        System.out.println("setSeatDto : {}" + setSeatReservedDto);
-
         SetSeatCommuterDay setSeatCommuterDay = setSeatCommuterDayDto.toSetSeatEntity();
 
         int result = payRepository.setSeatCommuterDay(setSeatCommuterDay);

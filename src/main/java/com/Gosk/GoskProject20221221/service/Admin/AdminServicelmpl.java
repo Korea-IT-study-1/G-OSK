@@ -1,6 +1,7 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
-import com.Gosk.GoskProject20221221.domain.Admin.ProductList;
+import com.Gosk.GoskProject20221221.domain.Admin.DelPayList;
+import com.Gosk.GoskProject20221221.dto.admin.DelPayListReqDto;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,33 @@ public class AdminServicelmpl implements AdminService {
         }
 
         return PdList;
+    }
+
+    @Override
+    public boolean getDelPayList(DelPayListReqDto delPayListReqDto) throws Exception{
+
+        DelPayList delPayList = delPayListReqDto.toDelListEntity();
+
+        log.info("설정 : " + delPayListReqDto);
+
+        if(delPayListReqDto.getProduct_name().equals("일반석") == true){
+            if(delPayListReqDto.getProduct_secondname().equals("원데이") == true){
+                int result = adminRepository.getDelPayList_oneday(delPayList);
+                return result != 0;
+            } else if(delPayListReqDto.getProduct_secondname().equals("시간권") == true){
+                int result = adminRepository.getDelPayList_commuter_time(delPayList);
+                return result != 0;
+            } else {
+                int result = adminRepository.getDelPayList_commuter_day(delPayList);
+                return result != 0;
+            }
+        } else if(delPayListReqDto.getProduct_name().equals("지정석") == true){
+            int result = adminRepository.getDelPayList_reserved(delPayList);
+            return result != 0;
+        } else {
+            int result = adminRepository.getDelPayList_locker(delPayList);
+            return result != 0;
+        }
     }
 
 }
