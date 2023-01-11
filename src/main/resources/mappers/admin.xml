@@ -110,7 +110,22 @@
         LEFT OUTER JOIN receipt_mst rm ON(um.user_id = rm.user_id)
         WHERE
         um.user_phone = #{user_phone};
+    </select>
 
+    <select id="salesList"  resultType="com.Gosk.GoskProject20221221.domain.Admin.SalesList">
+        SELECT
+            receipt_id,
+            user_id,
+            receipt_kinds,
+            receipt_price,
+            receipt_time,
+            receipt_day,
+            SUBSTRING(receipt_start_date,1,10) AS receipt_start_date,
+            receipt_onoff,
+            COUNT(*) receipt_count
+        FROM
+            receipt_mst group BY receipt_kinds , receipt_time,receipt_day,receipt_price
+            order by  receipt_start_date DESC
     </select>
 
 </mapper>

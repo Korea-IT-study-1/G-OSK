@@ -62,6 +62,9 @@
     border-radius: 10px;
     color: black;
     height: 840px;
+    overflow: auto;
+    overflow-x: hidden;
+    white-space:nowrap;
 }
 
 table {

@@ -1,3 +1,4 @@
+
 .sales-category {
     display: flex;
     align-items: center;
@@ -72,4 +73,13 @@
 
 .total-price b {
     font-weight: 900;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 20px; 
+}
+.table-container::-webkit-scrollbar-thumb {
+    height: 40%;
+    background: #62c1a9;
+    border-radius: 10px;
 }
