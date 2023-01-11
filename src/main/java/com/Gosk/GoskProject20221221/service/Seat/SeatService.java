@@ -1,5 +1,6 @@
 package com.Gosk.GoskProject20221221.service.Seat;
 
+import com.Gosk.GoskProject20221221.domain.Locker;
 import com.Gosk.GoskProject20221221.domain.Seat;
 import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.InOutReqDto;
@@ -17,5 +18,6 @@ public interface SeatService {
 
     public List<Seat> checkuser(int user_id) throws Exception;
     public List<Seat>  seatuser(int user_id) throws Exception;
+    public List<Locker>  seatlocker(int user_id) throws Exception;
 
 }

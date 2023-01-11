@@ -93,4 +93,15 @@
         WHERE
         rsm.user_id= 0;
     </select>
+    <select id="seatlocker" resultType="com.Gosk.GoskProject20221221.domain.Locker">
+        SELECT
+        lm.locker_id,
+        um.user_id
+
+        FROM
+        locker_mst lm
+        left outer join  user_mst um on(um.user_id = lm.user_id)
+        WHERE
+        lm.user_id= 0;
+    </select>
 </mapper>

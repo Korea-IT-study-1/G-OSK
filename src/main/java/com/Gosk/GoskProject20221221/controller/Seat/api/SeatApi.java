@@ -63,4 +63,11 @@ public class SeatApi {
         return ResponseEntity.ok(new CMRespDto<>(1, "success", seatService.seatuser(principalDetails.getUser().getUser_id())));
 
     }
+
+    @GetMapping("/check/locker")
+    public ResponseEntity<?> seatlocker(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", seatService.seatlocker(principalDetails.getUser().getUser_id())));
+
+    }
 }

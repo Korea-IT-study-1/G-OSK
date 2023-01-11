@@ -1,5 +1,6 @@
 package com.Gosk.GoskProject20221221.service.Seat;
 
+import com.Gosk.GoskProject20221221.domain.Locker;
 import com.Gosk.GoskProject20221221.domain.Seat;
 import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.InOutReqDto;
@@ -63,5 +64,11 @@ public class SeatServiceImpl implements SeatService{
     public List<Seat> seatuser(int user_id) throws Exception {
 
         return seatRepository.seatuser(user_id);
+    }
+
+    @Override
+    public List<Locker> seatlocker(int user_id) throws Exception {
+
+        return seatRepository.seatlocker(user_id);
     }
 }
