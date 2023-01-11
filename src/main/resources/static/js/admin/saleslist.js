@@ -1,6 +1,11 @@
 let order_status = document.querySelector(".order-status-hidden").value;
 let start_date = document.querySelector("#history_start_date_hidden").value;
 let end_date = document.querySelector("#history_end_date_hidden").value;
+
+console.log(order_status);
+console.log(start_date);
+console.log(end_date);
+
 let data = null;
 // datepicker
 $(document).ready(function () {
@@ -29,7 +34,7 @@ $(function () {
         maxDate: "today",
         minDate: "-2y",
     });
-
+    console.log($("#history_start_date, #history_end_date").datepicker("setDate", "today"));
     $("#history_start_date, #history_end_date").datepicker("setDate", "today");
 });
 
@@ -41,6 +46,8 @@ const historyStartDate = document.querySelector("#history_start_date");
 const historyEndDate = document.querySelector("#history_end_date");
 const seatCategory = document.querySelector("#seat-category");
 const table = document.querySelector(".table-container");
+
+
 
 function userlist() {
     $.ajax({
@@ -84,19 +91,23 @@ orderStatus.onchange = () => {
 function inlist(responseData) {
     table.innerHTML = "";
     console.log(responseData);
-    
+    let total1 = 0;
     responseData.forEach((user, index) => {
         console.log(param.status);
         let orderDate = new Date(user.receipt_start_date);
         let orderStatus2 = user.receipt_kinds;
+        
         if (param.status != "all" ? orderStatus2 == param.status : true) {
             console.log(orderStatus2);
             console.log(param.status);
 
             let start = new Date(param.history_start_date);
             let end = new Date(param.history_end_date);
-
+            console.log(start);
+            console.log(end);
+            
             if ((orderDate >= start && orderDate <= end) || (start == "Invalid Date" && end == "Invalid Date")) {
+                total1 += user.receipt_price;
                 if(user.receipt_kinds =="oneday"){
                     table.innerHTML += `
                                 <table class="sales-table">
@@ -186,6 +197,10 @@ function inlist(responseData) {
             }
         }
     });
+    const total = document.querySelector(".total-price");
+    total.innerHTML += `
+                    <div><b>총 매출</b> ${total1}원</div>
+                    `;
     const updateSelects = document.querySelectorAll(".order-status2");
       // 기존 select 값과 일치하는 value에 seleted 옵션을 줘라
     updateSelects.forEach((updateSelect, index) => {
@@ -205,8 +220,8 @@ function inlist(responseData) {
 
 
 function setModel() {
-    const statusSelect = document.querySelector("#order_status");
-    for (let i = 0; i < 5; i++) {
+    const statusSelect = document.querySelector("#seat-category");
+    for (let i = 0; i < 6; i++) {
         if (statusSelect.options[i].value == testValue1) {
             statusSelect.options[i].selected = true;
         }

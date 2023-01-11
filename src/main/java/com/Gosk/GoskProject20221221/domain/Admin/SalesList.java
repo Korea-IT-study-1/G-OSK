@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -18,7 +19,8 @@ public class SalesList {
     private int receipt_price;
     private int receipt_time;
     private int receipt_day;
-    private LocalDateTime receipt_start_date;
+    private String receipt_start_date;
     private int receipt_onoff;
     private int receipt_count;
+
 }
