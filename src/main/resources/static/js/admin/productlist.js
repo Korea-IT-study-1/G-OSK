@@ -2,17 +2,42 @@
 const registerBtn = document.querySelector(".register-btn");
 const popup = document.querySelector(".popup");
 const popupBack = document.querySelector(".popup-back");
-const closeBtn = document.querySelector(".close-btn");
+const popupcloseBtn = document.querySelector(".popup-close-btn");
 const popupRegisterBtn = document.querySelector(".popup-register-btn");
+const pdname = document.querySelector(".pdname input");
+const pdprice = document.querySelector(".pdprice input");
 
 registerBtn.onclick = () => {
-    // popup.classList.remove("invisible");
     popupBack.classList.remove("invisible");
 }
 
-closeBtn.onclick = () => {
-    // popup.classList.add("invisible");
+popupcloseBtn.onclick = () => {
     popupBack.classList.add("invisible");
+    pdname.value = null;
+    pdprice.value = null;
+    pageload();
+}
+
+function changeSelection(){
+    if($("#seat-select option:selected").val() == "normal"){
+        $("#time-select option").remove();
+        $("#time-select").append("<option value='oneday'>원데이</option>");
+        $("#time-select").append("<option value='time'>시간권</option>");
+        $("#time-select").append("<option value='day'>기간권</option>");
+    } else {
+        $("#time-select option").remove();
+        $("#time-select").append("<option value='day'>기간권</option>");
+    }
+
+    changePdname();
+}
+
+function changePdname(){
+    if($("#time-select option:selected").val() == "day"){
+        $(".pdname p").text("주");
+    } else {
+        $(".pdname p").text("시간");
+    }
 }
 
 let productInfo = {
@@ -24,45 +49,63 @@ let productInfo = {
 
 // 등록 팝업에서 등록버튼 클릭시
 popupRegisterBtn.onclick = () => {
-    alert("등록");
 
-    const seatSelect = document.querySelector("#seat-select");
-    const timeSelect = document.querySelector("#time-select");
-    const productName = document.querySelector("#product-name");
-    const productPrice = document.querySelector("#product-price");
+    if($(".pdname input").val() == "" || $(".pdprice input").val() == ""){
+        alert("제품정보에 빈 값이 존재합니다. 입력해주세요!!")
+        return;
+    }
 
+    let ListInsData = null;
 
-    console.log(seatSelect.value);
-    console.log(timeSelect.value);
-    console.log(productName.value);
-    console.log(productPrice.value);
+    ListInsData = {
+        name: $("#seat-select option:selected").text(),
+        subname: $("#time-select option:selected").text(),
+        time: $(".pdname input").val(),
+        price: $(".pdprice input").val()
+    }
 
-    productInfo.seat = seatSelect.value;
-    productInfo.time = timeSelect.value;
-    productInfo.name = productName.value;
-    productInfo.price = productPrice.value;
-
-
-
-    console.log(productInfo);
+    if (OverlapChk(ListInsData) == true){
+        alert("이미 생성된 제품입니다!!");
+        return;
+    }
 
     $.ajax({
         async: false,
         type: "post",
-        url: "/api/admin/product/registration",
-        data: productInfo,
+        url: "/api/admin/listinsert",
+        contentType: "application/json",
+        data: JSON.stringify(ListInsData),
         dataType: "json",
         success: (response) => {
-            console.log(response);
+            alert("이용권 등록 완료");
+            $('.table-container table tr').remove();
+            pageload();
         },
         error: (error) => {
+            alert("이용권 등록 실패");
             console.log(error);
         }
-    })
+    });
+}
 
-
-
-
+function OverlapChk(ListInsData){
+    $.ajax({
+        async: false,
+        type: "get",
+        url: "/api/admin/pdoverlapchk",
+        contentType: "application/json",
+        data: JSON.stringify(ListInsData),
+        dataType: "json",
+        success: (response) => {
+            alert("이용권 등록 완료");
+            $('.table-container table tr').remove();
+            pageload();
+        },
+        error: (error) => {
+            alert("이용권 등록 실패");
+            console.log(error);
+        }
+    });
 }
 
 // 수정 팝업
@@ -121,10 +164,9 @@ function productList(name) {
         dataType: "json",
         success: (response) => {
             responseData = response.data;
+            console.log(responseData);
             loadList(responseData, name);
             delbtn();
-            // responseData를 JSON 형식으로 보여주기
-            // console.log(JSON.stringify(responseData[]));
         },
         error: (error) => {
             alert("상품 리스트 불러오기 실패");
@@ -219,11 +261,8 @@ function pageload(){
     }
 }
 
-
 window.onload = () => {
-
     pageload();
-    
 }
 
 

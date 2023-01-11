@@ -3,6 +3,7 @@ package com.Gosk.GoskProject20221221.controller.Admin.api;
 
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
 import com.Gosk.GoskProject20221221.dto.admin.DelPayListReqDto;
+import com.Gosk.GoskProject20221221.dto.admin.OverlapChkReqDto;
 import com.Gosk.GoskProject20221221.service.Admin.AdminService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,11 @@ public class AdminApi {
 
         adminService.getDelPayList(delPayListReqDto);
         return ResponseEntity.ok(new CMRespDto<>(1, "관리자 이용권 리스트 삭제 완료", delPayListReqDto));
+    }
+
+    @GetMapping("/pdoverlapchk")
+    public ResponseEntity<?> OverlapChk(@RequestBody OverlapChkReqDto overlapChkReqDto) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인", ""));
     }
 
 

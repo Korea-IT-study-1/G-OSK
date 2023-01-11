@@ -76,7 +76,7 @@
 
         SELECT
             locker_price_id as id,
-            "사물함" as pdname,
+            "기간권" as pdname,
             CONCAT(CAST(locker_time as char(20)),'주') as time,
             CONCAT(CAST(format(locker_price,0) as char(10)), '원') as price
         FROM
@@ -86,7 +86,7 @@
 
     </select>
 
-    <delete id="getDelPayList_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.DelPayList">
+    <delete id="getDelPayList_oneday">
         DELETE
         FROM
             oneday_price_mst
@@ -125,5 +125,52 @@
         WHERE
             locker_price_id = #{product_id}
     </delete>
+
+
+    <select id="getOverlapChk_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
+            resultType="boolean">
+        select
+            count(username)
+        From
+            user_mst
+        where
+            username=#{username}
+    </select>
+
+    <select id="getOverlapChk_commuter_time" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
+            resultType="boolean">
+        DELETE
+        FROM
+            commuter_time_price_mst
+        WHERE
+            commuter_tp_id = #{product_id}
+    </select>
+
+    <select id="getOverlapChk_commuter_day" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
+            resultType="boolean">
+        DELETE
+        FROM
+            commuter_day_price_mst
+        WHERE
+            commuter_dp_id = #{product_id}
+    </select>
+
+    <select id="getOverlapChk_reserved" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
+            resultType="boolean">
+        DELETE
+        FROM
+            reserved_price_mst
+        WHERE
+            reserved_price_id = #{product_id}
+    </select>
+
+    <select id="getOverlapChk_locker" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
+            resultType="boolean">
+        DELETE
+        FROM
+            locker_price_mst
+        WHERE
+            locker_price_id = #{product_id}
+    </select>
 
 </mapper>

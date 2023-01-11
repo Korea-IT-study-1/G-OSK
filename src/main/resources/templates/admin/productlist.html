@@ -15,23 +15,32 @@
         <!-- header -->
         <div class="popup-back invisible">
             <div class="popup">
-                <select name="seat-select" id="seat-select">
+                <select name="seat-select" id="seat-select" onchange="changeSelection()">
                     <option value="normal">일반석</option>
                     <option value="reserved">지정석</option>
+                    <option value="locker">사물함</option>
                 </select>
-                <select name="time-select" id="time-select">
+                <select name="time-select" id="time-select" onchange="changePdname()">
                     <option value="oneday">원데이</option>
                     <option value="time">시간권</option>
                     <option value="day">기간권</option>
                 </select>
-                <input type="text" id="product-name" placeholder="상품이름" onfocus="this.placeholder=''"
-                    onblur="this.placeholder='상품이름'">
-                <input type="text" id="product-price" placeholder="가격" onfocus="this.placeholder=''"
-                    onblur="this.placeholder='가격'">
+
+                <div class = "pdname">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="product-name" placeholder="상품이름" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='상품이름'">
+                    <p>시간</p>
+                </div>
+
+                <div class = "pdprice">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="product-price" placeholder="가격" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='가격'">
+                    <p>원</p>
+                </div>
 
                 <div class="popup-btns">
                     <button class="btn gray-btn popup-register-btn">등록</button>
-                    <button class="btn org-btn close-btn">닫기</button>
+                    <button class="btn org-btn popup-close-btn">닫기</button>
                 </div>
             </div>
         </div>

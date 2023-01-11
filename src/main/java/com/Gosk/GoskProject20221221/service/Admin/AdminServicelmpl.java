@@ -1,7 +1,9 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
 import com.Gosk.GoskProject20221221.domain.Admin.DelPayList;
+import com.Gosk.GoskProject20221221.domain.Admin.OverlapChk;
 import com.Gosk.GoskProject20221221.dto.admin.DelPayListReqDto;
+import com.Gosk.GoskProject20221221.dto.admin.OverlapChkReqDto;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -66,6 +68,30 @@ public class AdminServicelmpl implements AdminService {
         } else {
             int result = adminRepository.getDelPayList_locker(delPayList);
             return result != 0;
+        }
+    }
+
+    @Override
+    public boolean getOverlapChk(OverlapChkReqDto overlapChkReqDto) throws Exception{
+        OverlapChk overlapChk = overlapChkReqDto.toOverlapChkEntity();
+
+        if(overlapChkReqDto.getName().equals("일반석") == true){
+            if(overlapChkReqDto.getSubname().equals("원데이") == true){
+                boolean result = adminRepository.getOverlapChk_oneday(overlapChk);
+                return result != false;
+            } else if(overlapChkReqDto.getSubname().equals("시간권") == true){
+                boolean result = adminRepository.getOverlapChk_commuter_time(overlapChk);
+                return result != false;
+            } else {
+                boolean result = adminRepository.getOverlapChk_commuter_day(overlapChk);
+                return result != false;
+            }
+        } else if(overlapChkReqDto.getName().equals("지정석") == true){
+            boolean result = adminRepository.getOverlapChk_reserved(overlapChk);
+            return result != false;
+        } else {
+            boolean result = adminRepository.getOverlapChk_locker(overlapChk);
+            return result != false;
         }
     }
 
