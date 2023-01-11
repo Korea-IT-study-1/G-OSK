@@ -38,10 +38,14 @@ public class AdminApi {
         return ResponseEntity.ok(new CMRespDto<>(1, "관리자 이용권 리스트 삭제 완료", delPayListReqDto));
     }
 
-    @GetMapping("/pdoverlapchk")
+    @PostMapping("/pdoverlapchk")
     public ResponseEntity<?> OverlapChk(@RequestBody OverlapChkReqDto overlapChkReqDto) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인", ""));
+        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인", adminService.getOverlapChk(overlapChkReqDto)));
     }
 
+    @PostMapping("/listinsert")
+    public ResponseEntity<?> PayListInsert(@RequestBody OverlapChkReqDto overlapChkReqDto) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 등록 확인", adminService.getPayListInsert(overlapChkReqDto)));
+    }
 
 }

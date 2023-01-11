@@ -127,50 +127,97 @@
     </delete>
 
 
-    <select id="getOverlapChk_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
-            resultType="boolean">
-        select
-            count(username)
+    <select id="getOverlapChk_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk" resultType="boolean">
+        SELECT
+            count(oneday_price_id)
         From
-            user_mst
-        where
-            username=#{username}
+            oneday_price_mst
+        WHERE
+            oneday_time = #{time}
     </select>
 
     <select id="getOverlapChk_commuter_time" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
             resultType="boolean">
-        DELETE
+        SELECT
+            count(commuter_tp_id)
         FROM
             commuter_time_price_mst
         WHERE
-            commuter_tp_id = #{product_id}
+            commuter_tp_time = #{time}
     </select>
 
     <select id="getOverlapChk_commuter_day" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
             resultType="boolean">
-        DELETE
+        SELECT
+            count(commuter_dp_id)
         FROM
             commuter_day_price_mst
         WHERE
-            commuter_dp_id = #{product_id}
+            commuter_dp_time = #{time}
     </select>
 
     <select id="getOverlapChk_reserved" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
             resultType="boolean">
-        DELETE
+        SELECT
+            count(reserved_price_id)
         FROM
             reserved_price_mst
         WHERE
-            reserved_price_id = #{product_id}
+            reserved_time = #{time}
     </select>
 
     <select id="getOverlapChk_locker" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
             resultType="boolean">
-        DELETE
+        SELECT
+            count(locker_price_id)
         FROM
             locker_price_mst
         WHERE
-            locker_price_id = #{product_id}
+            locker_time = #{time}
     </select>
 
+    <insert id="getInsertPayList_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk">
+        INSERT INTO
+            oneday_price_mst(oneday_time,oneday_price)
+        VALUES (
+            #{time},
+            #{price}
+        )
+    </insert>
+
+    <insert id="getInsertPayList_commuter_time" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk">
+        INSERT INTO
+            commuter_time_price_mst(commuter_tp_time,commuter_tp_price)
+        VALUES (
+            #{time},
+            #{price}
+        )
+    </insert>
+
+    <insert id="getInsertPayList_commuter_day" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk">
+        INSERT INTO
+            commuter_day_price_mst(commuter_dp_time,commuter_dp_price)
+        VALUES (
+            #{time},
+            #{price}
+        )
+    </insert>
+
+    <insert id="getInsertPayList_reserved" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk">
+        INSERT INTO
+            reserved_price_mst(reserved_time,reserved_price)
+        VALUES (
+            #{time},
+            #{price}
+        )
+    </insert>
+
+    <insert id="getInsertPayList_locker" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk">
+        INSERT INTO
+            locker_price_mst(locker_time,locker_price)
+        VALUES (
+            #{time},
+            #{price}
+        )
+    </insert>
 </mapper>

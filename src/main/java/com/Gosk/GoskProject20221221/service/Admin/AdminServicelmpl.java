@@ -78,20 +78,44 @@ public class AdminServicelmpl implements AdminService {
         if(overlapChkReqDto.getName().equals("일반석") == true){
             if(overlapChkReqDto.getSubname().equals("원데이") == true){
                 boolean result = adminRepository.getOverlapChk_oneday(overlapChk);
-                return result != false;
+                return result;
             } else if(overlapChkReqDto.getSubname().equals("시간권") == true){
                 boolean result = adminRepository.getOverlapChk_commuter_time(overlapChk);
-                return result != false;
+                return result;
             } else {
                 boolean result = adminRepository.getOverlapChk_commuter_day(overlapChk);
-                return result != false;
+                return result;
             }
         } else if(overlapChkReqDto.getName().equals("지정석") == true){
             boolean result = adminRepository.getOverlapChk_reserved(overlapChk);
-            return result != false;
+            return result;
         } else {
             boolean result = adminRepository.getOverlapChk_locker(overlapChk);
-            return result != false;
+            return result;
+        }
+    }
+
+    @Override
+    public boolean getPayListInsert(OverlapChkReqDto overlapChkReqDto) throws Exception{
+        OverlapChk overlapChk = overlapChkReqDto.toOverlapChkEntity();
+
+        if(overlapChkReqDto.getName().equals("일반석") == true){
+            if(overlapChkReqDto.getSubname().equals("원데이") == true){
+                boolean result = adminRepository.getInsertPayList_oneday(overlapChk);
+                return result;
+            } else if(overlapChkReqDto.getSubname().equals("시간권") == true){
+                boolean result = adminRepository.getInsertPayList_commuter_time(overlapChk);
+                return result;
+            } else {
+                boolean result = adminRepository.getInsertPayList_commuter_day(overlapChk);
+                return result;
+            }
+        } else if(overlapChkReqDto.getName().equals("지정석") == true){
+            boolean result = adminRepository.getInsertPayList_reserved(overlapChk);
+            return result;
+        } else {
+            boolean result = adminRepository.getInsertPayList_locker(overlapChk);
+            return result;
         }
     }
 

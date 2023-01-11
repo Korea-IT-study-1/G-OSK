@@ -19,17 +19,25 @@ popupcloseBtn.onclick = () => {
 }
 
 function changeSelection(){
-    if($("#seat-select option:selected").val() == "normal"){
-        $("#time-select option").remove();
-        $("#time-select").append("<option value='oneday'>원데이</option>");
-        $("#time-select").append("<option value='time'>시간권</option>");
-        $("#time-select").append("<option value='day'>기간권</option>");
-    } else {
-        $("#time-select option").remove();
-        $("#time-select").append("<option value='day'>기간권</option>");
-    }
 
-    changePdname();
+    if ($("#seat-select option:selected").val() == "") {
+        $("#time-select option").remove();
+        $("#time-select").append("<option value=''>등록상품 시간</option>");
+
+        $(".pdname p").text("");
+    } else {
+        if($("#seat-select option:selected").val() == "normal"){
+            $("#time-select option").remove();
+            $("#time-select").append("<option value='oneday'>원데이</option>");
+            $("#time-select").append("<option value='time'>시간권</option>");
+            $("#time-select").append("<option value='day'>기간권</option>");
+        } else {
+            $("#time-select option").remove();
+            $("#time-select").append("<option value='day'>기간권</option>");
+        }
+
+        changePdname(name);
+    }
 }
 
 function changePdname(){
@@ -40,17 +48,14 @@ function changePdname(){
     }
 }
 
-let productInfo = {
-    seat: null,
-    time: null,
-    name: null,
-    price: null
-};
-
 // 등록 팝업에서 등록버튼 클릭시
 popupRegisterBtn.onclick = () => {
 
-    if($(".pdname input").val() == "" || $(".pdprice input").val() == ""){
+    if($(".pdname input").val() == "" 
+        || $(".pdprice input").val() == "" 
+        || $("#seat-select option:selected").val() == "" 
+        || $("#time-select option:selected").val() == ""){
+
         alert("제품정보에 빈 값이 존재합니다. 입력해주세요!!")
         return;
     }
@@ -64,7 +69,9 @@ popupRegisterBtn.onclick = () => {
         price: $(".pdprice input").val()
     }
 
-    if (OverlapChk(ListInsData) == true){
+    console.log(ListInsData);
+
+    if (OverlapChk(ListInsData)){
         alert("이미 생성된 제품입니다!!");
         return;
     }
@@ -77,57 +84,62 @@ popupRegisterBtn.onclick = () => {
         data: JSON.stringify(ListInsData),
         dataType: "json",
         success: (response) => {
-            alert("이용권 등록 완료");
+            // alert("이용권 등록 완료");
+            $('.popup-close-btn').click();
             $('.table-container table tr').remove();
             pageload();
         },
         error: (error) => {
-            alert("이용권 등록 실패");
+            // alert("이용권 등록 실패");
             console.log(error);
         }
     });
 }
 
+//중복 체크 이벤트
 function OverlapChk(ListInsData){
+
+    let bool;
+
     $.ajax({
         async: false,
-        type: "get",
+        type: "post",
         url: "/api/admin/pdoverlapchk",
         contentType: "application/json",
         data: JSON.stringify(ListInsData),
         dataType: "json",
         success: (response) => {
-            alert("이용권 등록 완료");
-            $('.table-container table tr').remove();
-            pageload();
+            // alert("이용권 중복 검사 완료");
+            bool = response.data;
         },
         error: (error) => {
-            alert("이용권 등록 실패");
+            // alert("이용권 중복 검사 실패");
             console.log(error);
         }
     });
+
+    return bool;
 }
 
 // 수정 팝업
-const updateBtns = document.querySelectorAll(".update-btn");
+// const updateBtns = document.querySelectorAll(".update-btn");
 const popupBack2 = document.querySelector(".popup-back2");
 const popup2UpdateBtn = document.querySelector(".popup2-update-btn");
 const popup2CloseBtn = document.querySelector(".popup2-close-btn");
+const pdnameupd = document.querySelector(".pdnameupd input");
+const pdpriceupd = document.querySelector(".pdpriceupd input");
 
-updateBtns.forEach((updateBtn, index) => {
-    updateBtn.onclick = () => {
-        popupBack2.classList.remove("invisible");
-    }
-
-})
-
+//popup2 닫기 버튼
 popup2CloseBtn.onclick = () => {
     popupBack2.classList.add("invisible");
+    pdnameupd.value = null;
+    pdpriceupd.value = null;
+    pageload();
 }
 
-// 수정 팝업에서 수정버튼 클릭시
+//popup2 수정 버튼
 popup2UpdateBtn.onclick = () => {
-    alert("수정");
+    
 }
 
 const reserved = document.querySelector(".reserved");
@@ -166,6 +178,7 @@ function productList(name) {
             responseData = response.data;
             console.log(responseData);
             loadList(responseData, name);
+            updatebtn();
             delbtn();
         },
         error: (error) => {
@@ -202,6 +215,46 @@ $('.product-category li').click(function(){
     }
 })
 
+//이용권 수정 버튼
+function updatebtn(){
+    const updates = document.querySelectorAll(".update-btn");
+
+    updates.forEach((update,index) => {
+        update.onclick = () => {
+
+            let UpdateData = null;
+
+            UpdateData = {
+                id: $('.product-table tr:eq('+index+')').attr("class"),
+                seat: $('.product-table tr:eq('+index+')').children('td:eq(0)').text(),
+                time: $('.product-table tr:eq('+index+')').children('td:eq(1)').text().split("\n")[0],
+
+                before_pdname: $.trim($('.product-table tr:eq('+index+')').children('td:eq(1)').text().split("\n")[1].replace('시간','').replace('주','')),
+                before_pdprice: $.trim($('.product-table tr:eq('+index+')').children('td:eq(2)').children('span').text().replace(',','').replace('원','')),
+
+                after_pdname: "",
+                after_pdprice: ""
+            }
+
+            $("#seat-select2 option").remove();
+            $("#time-select2 option").remove();
+            $("#seat-select2").append("<option value=''>" + UpdateData.seat + "</option>");
+            $("#time-select2").append("<option value=''>" + UpdateData.time + "</option>");
+            $(".pdnameupd input").val(UpdateData.before_pdname);
+            $(".pdpriceupd input").val(UpdateData.before_pdprice);
+
+            if(UpdateData.time == "기간권"){
+                $(".pdnameupd p").text("주");
+            } else {
+                $(".pdnameupd p").text("시간");
+            }
+
+            $('.popup-back2').removeClass('invisible');
+        }
+    })
+}
+
+//이용권 삭제 버튼
 function delbtn(){
     const dels = document.querySelectorAll(".dlt-btn");
 
@@ -210,7 +263,7 @@ function delbtn(){
         del.onclick = () => {
 
             if(confirm("해당 이용권을 삭제하시겠습니까?") == true){
-                btn_address("DELETE", index)
+                btn_del(index)
             }
 
         }
@@ -218,7 +271,7 @@ function delbtn(){
 
 }
 
-function btn_address(btn_name, index){
+function btn_del(index){
 
     let ListData = null;
 
@@ -228,30 +281,28 @@ function btn_address(btn_name, index){
         product_secondname: $('.product-table tr:eq('+index+')').children('td:eq(1)').text().split("\n")[0]
     }
 
-    if(btn_name == "DELETE"){
-        $.ajax({
-            async: false,
-            type: "delete",
-            url: "/api/admin/listdelete",
-            contentType: "application/json",
-            data: JSON.stringify(ListData),
-            dataType: "json",
-            success: (response) => {
-                alert("이용권 삭제 완료");
-                $('.table-container table tr').remove();
-                pageload();
-            },
-            error: (error) => {
-                alert("이용권 삭제 실패");
-                console.log(error);
-            }
-        });
-    } else {
-        
-    }
+    $.ajax({
+        async: false,
+        type: "delete",
+        url: "/api/admin/listdelete",
+        contentType: "application/json",
+        data: JSON.stringify(ListData),
+        dataType: "json",
+        success: (response) => {
+            alert("이용권 삭제 완료");
+            $('.table-container table tr').remove();
+            pageload();
+        },
+        error: (error) => {
+            alert("이용권 삭제 실패");
+            console.log(error);
+        }
+    });
+
 }
 
 function pageload(){
+    $('.table-container table tr').remove();
     if($('.reserved').hasClass('org-li') == true){
         productList("지정석");
     } else if($('.nomal').hasClass('org-li') == true){

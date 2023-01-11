@@ -13,4 +13,6 @@ public interface AdminService {
     public boolean getDelPayList(DelPayListReqDto delPayListReqDto) throws Exception;
 
     public boolean getOverlapChk(OverlapChkReqDto overlapChkReqDto) throws Exception;
+
+    public boolean getPayListInsert(OverlapChkReqDto overlapChkReqDto) throws Exception;
 }
