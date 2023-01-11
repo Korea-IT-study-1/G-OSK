@@ -56,4 +56,10 @@ public class AdminApi {
         return ResponseEntity.ok(new CMRespDto<>(1, "제품 리스트 불러오기 완료", adminService.salesList(principalDetails.getUser().getUser_id())));
     }
 
+    @GetMapping("/loadseat")
+    public ResponseEntity<?> loadSeat() throws Exception{
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", null));
+    }
+
 }
