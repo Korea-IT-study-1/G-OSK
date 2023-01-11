@@ -51,4 +51,10 @@ public class AdminApi {
     }
 
 
+    @GetMapping("/loadseat")
+    public ResponseEntity<?> loadSeat() throws Exception{
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", null));
+    }
+
 }

@@ -28,32 +28,65 @@ locker.onclick = () => {
     seatSpecial.classList.add("invisible");
     lockerManage.classList.remove("invisible");
     seatBasic.classList.add("invisible");
-    
+
 }
 
-const seatBtns = document.querySelectorAll(".seat-btn");
+// const seatBtns = document.querySelectorAll(".seat-btn");
 
-seatBtns.forEach((seatBtn, index) => {
-    seatBtn.onclick = () => {
-        seatBtn.classList.toggle("selected-seat");
-        seatBtn.classList.toggle("seatborder");
+// seatBtns.forEach((seatBtn, index) => {
+//     seatBtn.onclick = () => {
+//          seatBtn.classList.toggle("selected-seat");
+//          seatBtn.classList.toggle("seatborder");
+//     }
+// });
+
+// const repairBtn = document.querySelector(".repair-btn");
+
+// repairBtn.onclick = () => {
+//     seatBtns.forEach((seatBtn, index) => {
+//         if (seatBtn.classList.contains("selected-seat")) {
+//              seatBtn.classList.add("repaire-seat");
+//              seatBtn.classList.remove("seatborder");
+//         } else if (seatBtn.classList.contains("repaire-seat")) {
+//             seatBtn.classList.remove("repaire-seat");
+//             seatBtn.classList.remove("seatborder");
+//         }
+
+//     })
+// }
+
+
+const basicSeatBtns = document.querySelectorAll(".basic-seat-btn");
+const specialSeatBtns = document.querySelectorAll(".special-seat-btn");
+const lockerBtns = document.querySelectorAll(".locker-btn");
+
+basicSeatBtns.forEach((basicBtn, index) => {
+    basicBtn.onclick = () => {
+        console.log(basicBtn.textContent);
+        basicBtn.classList.toggle("selected-seat");
+        basicBtn.classList.toggle("seatborder");
+    }
+})
+specialSeatBtns.forEach((specialSeatBtn, index) => {
+    specialSeatBtn.onclick = () => {
+        console.log(specialSeatBtn.textContent);
+        specialSeatBtn.classList.toggle("selected-seat");
+        specialSeatBtn.classList.toggle("seatborder");
+    }
+})
+lockerBtns.forEach((lockerBtn, index) => {
+    lockerBtn.onclick = () => {
+        console.log(lockerBtn.textContent);
+        lockerBtn.classList.toggle("selected-seat");
+        lockerBtn.classList.toggle("seatborder");
     }
 });
 
-const repairBtn = document.querySelector(".repair-btn");
 
-repairBtn.onclick = () => {
-    seatBtns.forEach((seatBtn, index) => {
-        if (seatBtn.classList.contains("selected-seat")) {
-            seatBtn.classList.add("repaire-seat");
-            seatBtn.classList.remove("seatborder");
-        }else if(seatBtn.classList.contains("repaire-seat")){
-            seatBtn.classList.remove("repaire-seat");
-            seatBtn.classList.remove("seatborder");
-        }
 
-    })
-}
+
+
+
 
 // 자리이동 팝업 띄우기
 
@@ -88,25 +121,51 @@ selCate.onchange = () => {
 
 function categoryList(sVal) {
 
-    if(sVal == "") {
+    if (sVal == "") {
         num = new Array("소분류");
         vnum = new Array("");
-   
-    } else if(sVal == "special" || sVal == "nomal" || sVal == "locker") {
+
+    } else if (sVal == "special" || sVal == "nomal" || sVal == "locker") {
 
         selList.innerHTML = "";
         selList2.innerHTML = "";
 
-        for(let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
             selList.innerHTML += `
             <option value="${i}">${i}</option>
             `;
         }
 
-        for(let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
             selList2.innerHTML += `
                 <option value="2">DATA</option>
             `;
         }
     }
+}
+
+function loadSeat() {
+    $.ajax({
+        async: false,
+        type: "get",
+        url: "/api/admin/loadseat",
+        dataType: "json",
+        success: (response) => {
+            console.log(response);
+            alert("좌석 불러오기");
+        },
+        error: (error) => {
+            console.log(error);
+        }
+    })
+
+
+
+
+
+
+}
+
+window.onload = () => {
+    loadSeat();
 }
