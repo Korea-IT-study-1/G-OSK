@@ -3,6 +3,7 @@ package com.Gosk.GoskProject20221221.service.Admin;
 import com.Gosk.GoskProject20221221.domain.Admin.UserInfoList;
 import com.Gosk.GoskProject20221221.domain.Admin.ProductList;
 import com.Gosk.GoskProject20221221.domain.Admin.SalesList;
+import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
 import com.Gosk.GoskProject20221221.dto.admin.UserListDto;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +88,20 @@ public class AdminServicelmpl implements AdminService {
         return adminRepository.loadUserInfoList(user_phone);
     }
 
+    @Override
+    public boolean usertime(int user_id) throws Exception {
+
+        return adminRepository.usertime(user_id) > 0;
+    }
+
+    @Override
+    public Object userday() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        now.toString().substring(0, now.toString().lastIndexOf("."));
+        adminRepository.userday(now.toString());
+//        log.info("now>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>{}",now);
+        return now;
+    }
 
 
     public List<SalesList> salesList(int user_id) throws Exception {

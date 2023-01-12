@@ -1,6 +1,7 @@
 package com.Gosk.GoskProject20221221.controller.Admin.api;
 
 
+import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
 import com.Gosk.GoskProject20221221.service.Admin.AdminService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
@@ -60,6 +61,16 @@ public class AdminApi {
     public ResponseEntity<?> loadSeat() throws Exception{
 
         return ResponseEntity.ok(new CMRespDto<>(1, "success", null));
+    }
+    @PutMapping("/usertime")
+    public ResponseEntity<?> usertime(@RequestBody int user_id) throws Exception{
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.usertime(user_id)));
+    }
+
+    @PutMapping("/userday")
+    public ResponseEntity<?> userday() throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.userday()));
     }
 
 }

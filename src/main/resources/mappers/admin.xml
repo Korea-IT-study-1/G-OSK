@@ -72,7 +72,10 @@
     <select id="loadUserList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserList">
         SELECT
             user_phone,
-            user_pw
+            user_pw,
+            user_create_date,
+            user_update_date,
+            user_id
         FROM
             user_mst;
     </select>
@@ -89,10 +92,50 @@
         UPDATE
         user_mst
         SET
+
         user_phone = #{after_phone},
         user_pw = #{after_pw}
         WHERE
         user_phone = #{user_phone};
+    </update>
+    <update id="usertime" parameterType="integer">
+        update
+            user_mst
+        set
+            user_time=null,
+            user_date=null,
+            user_create_date = null
+        WHERE
+        user_id = #{user_id};
+
+        update
+        seat_mst
+        set
+        user_id = 0,
+        seat_start_time= null
+        WHERE
+        user_id = #{user_id};
+
+        update
+        reserved_seat_mst
+        set
+        user_id = 0,
+        reserved_start_time=null
+        WHERE
+        user_id = #{user_id};
+
+        update
+        receipt_mst
+        set
+        receipt_onoff = 0
+        WHERE
+        user_id = #{user_id};
+    </update>
+    <update id="userday" parameterType="String">
+        update
+            user_mst
+        set
+            user_update_date= #{now};
     </update>
 
     <select id="loadUserInfoList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserInfoList">

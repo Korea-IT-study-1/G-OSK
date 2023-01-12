@@ -10,7 +10,7 @@
             user_mst
         set
             user_time=#{user_time2},
-            user_update_date = #{endtime}
+            user_create_date = null
         WHERE
             user_id = #{user_id};
 
@@ -42,10 +42,9 @@
             user_mst
         set
             user_time=null,
-            user_date=null,
-            user_update_date = #{endtime}
+            user_date=null
         WHERE
-        user_id = #{user_id};
+            user_id = #{user_id};
 
         update
             seat_mst
@@ -53,7 +52,7 @@
             user_id = 0,
             seat_start_time= null
         WHERE
-        user_id = #{user_id};
+            user_id = #{user_id};
 
         update
         reserved_seat_mst
@@ -61,14 +60,14 @@
         user_id = 0,
         reserved_start_time=null
         WHERE
-        user_id = #{user_id};
+            user_id = #{user_id};
 
         update
         receipt_mst
         set
         receipt_onoff = 0
         WHERE
-        user_id = #{user_id};
+            user_id = #{user_id};
     </update>
 
 
@@ -92,6 +91,7 @@
             left outer join receipt_mst rm on(rm.user_id = um.user_id)
             left outer join seat_mst sm on(sm.user_id = um.user_id)
         WHERE
-            um.user_id = #{user_id}
+            rm.receipt_kinds != "locker" and
+            um.user_id = #{user_id};
     </select>
 </mapper>

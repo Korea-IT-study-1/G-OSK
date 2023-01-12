@@ -76,38 +76,9 @@ goJoinBtn.onclick = () => {
                 console.log(responseData);
             },
         });
-        // location.replace("/inout"); 
+
 }
 
-
-
-// // 그냥 퇴실
-// cancelBtn.onclick = () => {
-//     localStorage.setItem("commuter_out", "out");
-//     location.replace("/inout");
-// }
-
-// // 이용권 종료
-// goJoinBtn.onclick = () => {
-//     localStorage.setItem("commuter_out", "delete");
-//     $.ajax({
-//         async: false,
-//         type: "put",
-//         url: "/api/inout/check",
-//         contentType: 'application/json',
-//         dataType: "json",
-//         success: (response) => {
-//             alert("이용권완전 삭제 성공");
-//             location.replace("/inout");
-//         },
-//         error: (error) => {
-//             alert("이용권완전 삭제 실패");
-//             console.log(error);
-//             console.log(responseData);
-//         },
-//     });
-//     // location.replace("/inout");
-// }
 
 window.onload = () => {
     getuserList();

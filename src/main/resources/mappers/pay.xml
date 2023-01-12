@@ -34,7 +34,8 @@
             user_mst
         SET
             user_out = #{seat_id},
-            user_time = SEC_TO_TIME(#{paytime})
+            user_time = SEC_TO_TIME(#{paytime}),
+            user_create_date = #{seat_start_date}
         WHERE
             user_id = #{user_id};
 
@@ -54,7 +55,8 @@
             user_mst
         SET
             user_out = #{seat_id},
-            user_time = #{paytime}
+            user_time = #{paytime},
+            user_create_date = #{seat_start_date}
         WHERE
             user_id = #{user_id};
 
@@ -74,7 +76,9 @@
             user_mst
         SET
             user_out = #{seat_id},
-            user_date = #{commuter_start_date}
+            user_date = #{commuter_start_date},
+            user_create_date = #{commuter_start_date}
+
         WHERE
             user_id = #{user_id};
 
@@ -93,7 +97,8 @@
             user_mst
         SET
             user_out = #{seat_id},
-            user_date = #{reserved_start_date}
+            user_date = #{reserved_start_date},
+            user_create_date = #{reserved_start_date}
         WHERE
             user_id = #{user_id};
     </update>

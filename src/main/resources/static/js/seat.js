@@ -441,27 +441,6 @@ $('.next-btn').click(function () {
     }
 });
 
-//일반석, 지정석 종류 버튼 히든 이벤트
-// function hidden_btn(time) {
-//     if (time == "oneday" ||
-//         time == "commuter" ||
-//         time == "in") {
-//         $('.basic').show();
-//         $('.special').hide();
-//         seatbasic.classList.remove("invisible");
-//         seatspecial.classList.add("invisible");
-//         special.classList.remove("sky-btn");
-//         basic.classList.add("sky-btn");
-//     } else {
-//         $('.basic').hide();
-//         $('.special').show();
-//         seatspecial.classList.remove("invisible");
-//         seatbasic.classList.add("invisible");
-//         basic.classList.remove("sky-btn");
-//         special.classList.add("sky-btn");
-//     }
-// };
-
 
 const logOutBtn = document.querySelector(".logout-btn");
 

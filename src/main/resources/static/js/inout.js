@@ -7,6 +7,7 @@ function inList() {
         success: (response) => {
             if (localStorage.getItem("time") == "in") {
                 alert("입실 in성공");
+                console.log(response.data);
                 responseData1 = response.data;
                 responseData = responseData1[responseData1.length - 1];
                 console.log(responseData);
@@ -18,9 +19,6 @@ function inList() {
                     timetime =responseData.user_update_date.replace(/T/g, ' ');
                     console.log(timetime);
                     timetime = timetime.split(/[.]/,1);
-                    week = responseData.user_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    week = week.split(/[.]/, 1);
                     console.log(timetime);
                     console.log(responseData);
                     alert("퇴실in 성공");
@@ -66,46 +64,7 @@ function outList() {
         },
     });
 }
-function ininList() {
-    console.log(responseData);
-    junho = responseData.user_update_date.split(/[-T:]/);
-    junho1 = parseInt(junho[0]);
-    junho2 = parseInt(junho[1]);
-    junho3 = parseInt(junho[2]);
-    junho4 = parseInt(junho[3]);
-    junho5 = parseInt(junho[4]);
-    junho6 = parseInt(junho[5]);
 
-    console.log(junho1);
-    console.log(junho2);
-    console.log(junho3);
-    console.log(junho4);
-    console.log(junho5);
-    console.log(junho6);
-
-    // time0 = responseData.user_time.split(/[:]/);
-    // time1 = parseInt(time0[0]);
-    // time2 = parseInt(time0[1]);
-    // time3 = parseInt(time0[2]);
-
-    // console.log(time1);
-    // console.log(time2);
-    // console.log(time3);
-    // timehour = junho4 + time1;
-    // timeminute = junho5 + time2;
-    // timesecond = junho6 + time3;
-    // console.log(timehour);
-    // console.log(timeminute);
-    // console.log(timesecond);
-    // let goodtime = {
-    //     timehour: time1,
-    //     timeminute: time2,
-    //     timesecond: time3,
-    // };
-    // console.log(goodtime);
-    // junholist(goodtime);
-
-}
 function junholist() {
     // console.log();
     $.ajax({
@@ -143,11 +102,6 @@ function inininList() {
             timetime = responseData.user_update_date.replace(/T/g, ' ');
             console.log(timetime);
             timetime = timetime.split(/[.]/, 1);
-            week = responseData.user_date.replace(/T/g, ' ');
-            console.log(timetime);
-            week = week.split(/[.]/, 1);
-            console.log(timetime);
-            console.log(week);
             console.log(responseData);
             if (localStorage.getItem("time") == "in") {
                 alert("입실입실성공");
@@ -168,6 +122,8 @@ function inload(responseData) {
     // onsole.log(responseData);
     const inoutBody = document.querySelector(".junho11");
     if (responseData.receipt_time == 0) {
+        week = responseData.user_date.replace(/T/g, ' ');
+        week = week.split(/[.]/, 1);
         inoutBody.innerHTML += `
         <header class="inout-header">
         <i class="fa-solid fa-check"></i>
@@ -239,6 +195,8 @@ function outload(responseData) {
 
     if (responseData.receipt_time == 0) {
         if(localStorage.getItem("commuter_out") == "out") {
+            week = responseData.user_date.replace(/T/g, ' ');
+            week = week.split(/[.]/, 1);
             inoutBody.innerHTML += `
             <header class="inout-header">
             <i class="fa-solid fa-check"></i>

@@ -40,6 +40,7 @@ public class InOutApi {
     }
     @PutMapping("/api/inout/check")
     public ResponseEntity<?> inoutcheck(@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+        log.info("inoutcheck>>>>>>>>>>>>>>>>>>>>>>>>>>>,{}",principalDetails.getUser());
         return ResponseEntity.ok(new CMRespDto<>(1,"scuccess",inOutService.inoutcheck(principalDetails.getUser())));
     }
 

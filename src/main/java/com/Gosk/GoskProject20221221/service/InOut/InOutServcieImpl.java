@@ -51,6 +51,7 @@ public class InOutServcieImpl implements InOutService{
 
         LocalDateTime result = now
                 .plusSeconds(principalDetails.getUser_time());
+
         principalDetails.setResult(result.toString().substring(0, result.toString().lastIndexOf(".")));
         principalDetails.setNow(now.toString().substring(0, now.toString().lastIndexOf(".")));
 //        dayReqDto.setUser_id(user_id);
