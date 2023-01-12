@@ -1,8 +1,6 @@
 package com.Gosk.GoskProject20221221.repository;
 
-import com.Gosk.GoskProject20221221.domain.Admin.DelPayList;
-import com.Gosk.GoskProject20221221.domain.Admin.OverlapChk;
-import com.Gosk.GoskProject20221221.domain.Admin.ProductList;
+import com.Gosk.GoskProject20221221.domain.Admin.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.rmi.server.ExportException;
@@ -24,6 +22,13 @@ public interface AdminRepository {
     public boolean getInsertPayList_reserved(OverlapChk overlapChk);
     public boolean getInsertPayList_locker(OverlapChk overlapChk);
 
+    //이용권 수정
+    public boolean getUpdatePayList_oneday(UpdPayList updPayList);
+    public boolean getUpdatePayList_commuter_day(UpdPayList updPayList);
+    public boolean getUpdatePayList_commuter_time(UpdPayList updPayList);
+    public boolean getUpdatePayList_reserved(UpdPayList updPayList);
+    public boolean getUpdatePayList_locker(UpdPayList updPayList);
+
     //이용권 삭제
     public int getDelPayList_oneday(DelPayList delPayList);
     public int getDelPayList_commuter_day(DelPayList delPayList);
@@ -38,5 +43,11 @@ public interface AdminRepository {
     public boolean getOverlapChk_reserved(OverlapChk overlapChk);
     public boolean getOverlapChk_locker(OverlapChk overlapChk);
 
+    //수정 시 이용권 중복 체크
+    public boolean getUpdOverlapChk_oneday(UpdOverlapChk updOverlapChk);
+    public boolean getUpdOverlapChk_commuter_time(UpdOverlapChk updOverlapChk);
+    public boolean getUpdOverlapChk_commuter_day(UpdOverlapChk updOverlapChk);
+    public boolean getUpdOverlapChk_reserved(UpdOverlapChk updOverlapChk);
+    public boolean getUpdOverlapChk_locker(UpdOverlapChk updOverlapChk);
 
 }

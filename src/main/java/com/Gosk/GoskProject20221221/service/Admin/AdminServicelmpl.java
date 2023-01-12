@@ -2,9 +2,9 @@ package com.Gosk.GoskProject20221221.service.Admin;
 
 import com.Gosk.GoskProject20221221.domain.Admin.DelPayList;
 import com.Gosk.GoskProject20221221.domain.Admin.OverlapChk;
-import com.Gosk.GoskProject20221221.dto.admin.DelPayListReqDto;
-import com.Gosk.GoskProject20221221.dto.admin.OverlapChkReqDto;
-import com.Gosk.GoskProject20221221.dto.admin.PdListRespDto;
+import com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk;
+import com.Gosk.GoskProject20221221.domain.Admin.UpdPayList;
+import com.Gosk.GoskProject20221221.dto.admin.*;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -96,25 +96,73 @@ public class AdminServicelmpl implements AdminService {
     }
 
     @Override
-    public boolean getPayListInsert(OverlapChkReqDto overlapChkReqDto) throws Exception{
+    public boolean getUpdOverlapChk(UpdOverlapChkReqDto updOverlapChkReqDto) throws Exception{
+        UpdOverlapChk updOverlapChk = updOverlapChkReqDto.toUpdOverlapChkEntity();
+
+        if(updOverlapChkReqDto.getName().equals("일반석") == true){
+            if(updOverlapChkReqDto.getSubname().equals("원데이") == true){
+                boolean result = adminRepository.getUpdOverlapChk_oneday(updOverlapChk);
+                return result;
+            } else if(updOverlapChkReqDto.getSubname().equals("시간권") == true){
+                boolean result = adminRepository.getUpdOverlapChk_commuter_time(updOverlapChk);
+                return result;
+            } else {
+                boolean result = adminRepository.getUpdOverlapChk_commuter_day(updOverlapChk);
+                return result;
+            }
+        } else if(updOverlapChkReqDto.getName().equals("지정석") == true){
+            boolean result = adminRepository.getUpdOverlapChk_reserved(updOverlapChk);
+            return result;
+        } else {
+            boolean result = adminRepository.getUpdOverlapChk_locker(updOverlapChk);
+            return result;
+        }
+    }
+
+    @Override
+    public boolean getPayListInsert(OverlapChkReqDto overlapChkReqDto) throws Exception {
         OverlapChk overlapChk = overlapChkReqDto.toOverlapChkEntity();
 
-        if(overlapChkReqDto.getName().equals("일반석") == true){
-            if(overlapChkReqDto.getSubname().equals("원데이") == true){
+        if (overlapChkReqDto.getName().equals("일반석") == true) {
+            if (overlapChkReqDto.getSubname().equals("원데이") == true) {
                 boolean result = adminRepository.getInsertPayList_oneday(overlapChk);
                 return result;
-            } else if(overlapChkReqDto.getSubname().equals("시간권") == true){
+            } else if (overlapChkReqDto.getSubname().equals("시간권") == true) {
                 boolean result = adminRepository.getInsertPayList_commuter_time(overlapChk);
                 return result;
             } else {
                 boolean result = adminRepository.getInsertPayList_commuter_day(overlapChk);
                 return result;
             }
-        } else if(overlapChkReqDto.getName().equals("지정석") == true){
+        } else if (overlapChkReqDto.getName().equals("지정석") == true) {
             boolean result = adminRepository.getInsertPayList_reserved(overlapChk);
             return result;
         } else {
             boolean result = adminRepository.getInsertPayList_locker(overlapChk);
+            return result;
+        }
+
+    }
+    @Override
+    public boolean getPayListUpdate(UpdPayListReqDto updPayListReqDto) throws Exception{
+        UpdPayList updPayList = updPayListReqDto.toUpdListEntity();
+
+        if(updPayListReqDto.getSeat().equals("일반석") == true){
+            if(updPayListReqDto.getTime().equals("원데이") == true){
+                boolean result = adminRepository.getUpdatePayList_oneday(updPayList);
+                return result;
+            } else if(updPayListReqDto.getTime().equals("시간권") == true){
+                boolean result = adminRepository.getUpdatePayList_commuter_time(updPayList);
+                return result;
+            } else {
+                boolean result = adminRepository.getUpdatePayList_commuter_day(updPayList);
+                return result;
+            }
+        } else if(updPayListReqDto.getSeat().equals("지정석") == true){
+            boolean result = adminRepository.getUpdatePayList_reserved(updPayList);
+            return result;
+        } else {
+            boolean result = adminRepository.getUpdatePayList_locker(updPayList);
             return result;
         }
     }

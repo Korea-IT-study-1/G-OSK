@@ -1,3 +1,6 @@
+let UpdateData = null;
+let ListInsData = null;
+
 // 등록 팝업
 const registerBtn = document.querySelector(".register-btn");
 const popup = document.querySelector(".popup");
@@ -60,7 +63,7 @@ popupRegisterBtn.onclick = () => {
         return;
     }
 
-    let ListInsData = null;
+    ListInsData = null;
 
     ListInsData = {
         name: $("#seat-select option:selected").text(),
@@ -69,12 +72,12 @@ popupRegisterBtn.onclick = () => {
         price: $(".pdprice input").val()
     }
 
-    console.log(ListInsData);
-
     if (OverlapChk(ListInsData)){
         alert("이미 생성된 제품입니다!!");
         return;
     }
+
+    $('.popup-back').addClass('invisible');
 
     $.ajax({
         async: false,
@@ -84,10 +87,11 @@ popupRegisterBtn.onclick = () => {
         data: JSON.stringify(ListInsData),
         dataType: "json",
         success: (response) => {
-            // alert("이용권 등록 완료");
-            $('.popup-close-btn').click();
-            $('.table-container table tr').remove();
-            pageload();
+            alert("이용권 등록 완료");
+            location.reload();
+            // $('.popup-close-btn').click();
+            // $('.table-container table tr').remove();
+            // pageload();
         },
         error: (error) => {
             // alert("이용권 등록 실패");
@@ -124,7 +128,7 @@ function OverlapChk(ListInsData){
 // 수정 팝업
 // const updateBtns = document.querySelectorAll(".update-btn");
 const popupBack2 = document.querySelector(".popup-back2");
-const popup2UpdateBtn = document.querySelector(".popup2-update-btn");
+// const popup2UpdateBtn = document.querySelector(".popup2-update-btn");
 const popup2CloseBtn = document.querySelector(".popup2-close-btn");
 const pdnameupd = document.querySelector(".pdnameupd input");
 const pdpriceupd = document.querySelector(".pdpriceupd input");
@@ -135,11 +139,6 @@ popup2CloseBtn.onclick = () => {
     pdnameupd.value = null;
     pdpriceupd.value = null;
     pageload();
-}
-
-//popup2 수정 버튼
-popup2UpdateBtn.onclick = () => {
-    
 }
 
 const reserved = document.querySelector(".reserved");
@@ -176,7 +175,6 @@ function productList(name) {
         dataType: "json",
         success: (response) => {
             responseData = response.data;
-            console.log(responseData);
             loadList(responseData, name);
             updatebtn();
             delbtn();
@@ -189,6 +187,8 @@ function productList(name) {
 }
 
 function loadList(responseData, name){
+
+    $('.table-container table tr').remove();
 
     const borders = document.querySelector(".product-table");
 
@@ -219,10 +219,11 @@ $('.product-category li').click(function(){
 function updatebtn(){
     const updates = document.querySelectorAll(".update-btn");
 
+    //팝업창열기
     updates.forEach((update,index) => {
         update.onclick = () => {
 
-            let UpdateData = null;
+            UpdateData = null;
 
             UpdateData = {
                 id: $('.product-table tr:eq('+index+')').attr("class"),
@@ -250,8 +251,96 @@ function updatebtn(){
             }
 
             $('.popup-back2').removeClass('invisible');
+
         }
     })
+
+    //popup2 수정 버튼
+    $('.popup2-update-btn').click(function(){
+
+        if($('.pdnameupd input').val() == ""
+            || $('.pdpriceupd input').val() == ""){
+
+            alert("제품정보에 빈 값이 존재합니다. 입력해주세요!!")
+            return;
+        }
+
+        UpdateData.after_pdname = $('.pdnameupd input').val();
+        UpdateData.after_pdprice = $('.pdpriceupd input').val();
+
+        ListInsData = null;
+
+        ListInsData = {
+            name: UpdateData.seat,
+            subname: UpdateData.time,
+            before_time: UpdateData.before_pdname,
+            after_time: UpdateData.after_pdname
+        }
+
+        if (UpdOverlapChk(ListInsData)){
+            alert("이미 생성된 제품입니다!!");
+            return;
+        }
+    
+        $('.popup-back2').addClass('invisible');
+
+        PayListUpd(UpdateData);
+
+    })
+
+    //중복 체크 이벤트
+    function UpdOverlapChk(ListInsData){
+
+        let bool;
+
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "/api/admin/upd/pdoverlapchk",
+            contentType: "application/json",
+            data: JSON.stringify(ListInsData),
+            dataType: "json",
+            success: (response) => {
+                // alert("이용권 중복 검사 완료");
+                bool = response.data;
+            },
+            error: (error) => {
+                // alert("이용권 중복 검사 실패");
+                console.log(error);
+            }
+        });
+
+        return bool;
+    }
+
+    //이용권 수정 이벤트
+    function PayListUpd(UpdateData){
+
+        console.log(UpdateData);
+
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/admin/listupdate",
+            contentType: "application/json",
+            data: JSON.stringify(UpdateData),
+            dataType: "json",
+            success: (response) => {
+
+                alert("이용권 수정 완료");
+                location.reload();
+                // $('.popup-back2').addClass('invisible');
+                // $('.pdnameupd input').val('');
+                // $('.pdpriceupd input').val('');
+                // pageload();
+            },
+            error: (error) => {
+                alert("이용권 수정 실패");
+                console.log(error);
+            }
+        });
+
+    }
 }
 
 //이용권 삭제 버튼
@@ -290,8 +379,9 @@ function btn_del(index){
         dataType: "json",
         success: (response) => {
             alert("이용권 삭제 완료");
-            $('.table-container table tr').remove();
-            pageload();
+            location.reload();
+            // $('.table-container table tr').remove();
+            // pageload();
         },
         error: (error) => {
             alert("이용권 삭제 실패");

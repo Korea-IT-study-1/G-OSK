@@ -2,8 +2,7 @@ package com.Gosk.GoskProject20221221.controller.Admin.api;
 
 
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
-import com.Gosk.GoskProject20221221.dto.admin.DelPayListReqDto;
-import com.Gosk.GoskProject20221221.dto.admin.OverlapChkReqDto;
+import com.Gosk.GoskProject20221221.dto.admin.*;
 import com.Gosk.GoskProject20221221.service.Admin.AdminService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +42,20 @@ public class AdminApi {
         return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인", adminService.getOverlapChk(overlapChkReqDto)));
     }
 
+    @PostMapping("/upd/pdoverlapchk")
+    public ResponseEntity<?> UpdOverlapChk(@RequestBody UpdOverlapChkReqDto updOverlapChkReqDto) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인",
+                adminService.getUpdOverlapChk(updOverlapChkReqDto)));
+    }
+
     @PostMapping("/listinsert")
     public ResponseEntity<?> PayListInsert(@RequestBody OverlapChkReqDto overlapChkReqDto) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 등록 확인", adminService.getPayListInsert(overlapChkReqDto)));
+        return ResponseEntity.ok(new CMRespDto<>(1,"관리자 이용권 리스트 등록 완료", adminService.getPayListInsert(overlapChkReqDto)));
+    }
+
+    @PutMapping("/listupdate")
+    public ResponseEntity<?> PayListUpdate(@RequestBody UpdPayListReqDto updPayListReqDto) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1,"관리자 이용권 리스트 수정 완료", adminService.getPayListUpdate(updPayListReqDto)));
     }
 
 }

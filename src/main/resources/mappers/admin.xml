@@ -126,8 +126,8 @@
             locker_price_id = #{product_id}
     </delete>
 
-
-    <select id="getOverlapChk_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk" resultType="boolean">
+    <select id="getOverlapChk_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk"
+            resultType="boolean">
         SELECT
             count(oneday_price_id)
         From
@@ -176,6 +176,66 @@
             locker_time = #{time}
     </select>
 
+    <select id="getUpdOverlapChk_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk"
+            resultType="boolean">
+        SELECT
+            count(oneday_price_id)
+        From
+            oneday_price_mst
+        WHERE
+            oneday_time not in (#{before_time})
+        AND
+            oneday_time = #{after_time}
+    </select>
+
+    <select id="getUpdOverlapChk_commuter_time" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk"
+            resultType="boolean">
+        SELECT
+            count(commuter_tp_id)
+        FROM
+            commuter_time_price_mst
+        WHERE
+            commuter_tp_time not in (#{before_time})
+        AND
+            commuter_tp_time = #{after_time}
+    </select>
+
+    <select id="getUpdOverlapChk_commuter_day" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk"
+            resultType="boolean">
+        SELECT
+            count(commuter_dp_id)
+        FROM
+            commuter_day_price_mst
+        WHERE
+            commuter_dp_time not in (#{before_time})
+        AND
+            commuter_dp_time = #{after_time}
+    </select>
+
+    <select id="getUpdOverlapChk_reserved" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk"
+            resultType="boolean">
+        SELECT
+            count(reserved_price_id)
+        FROM
+            reserved_price_mst
+        WHERE
+            reserved_time not in (#{before_time})
+        AND
+            reserved_time = #{after_time}
+    </select>
+
+    <select id="getUpdOverlapChk_locker" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk"
+            resultType="boolean">
+        SELECT
+            count(locker_price_id)
+        FROM
+            locker_price_mst
+        WHERE
+            reserved_time not in (#{before_time})
+        AND
+            reserved_time = #{after_time}
+    </select>
+
     <insert id="getInsertPayList_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.OverlapChk">
         INSERT INTO
             oneday_price_mst(oneday_time,oneday_price)
@@ -220,4 +280,55 @@
             #{price}
         )
     </insert>
+
+    <update id="getUpdatePayList_oneday" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdPayList">
+        UPDATE
+            oneday_price_mst
+        SET
+            oneday_time = #{after_pdname},
+            oneday_price = #{after_pdprice}
+        WHERE
+            oneday_price_id = #{id}
+    </update>
+
+    <update id="getUpdatePayList_commuter_day" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdPayList">
+        UPDATE
+            commuter_day_priec_mst
+        SET
+            commuter_dp_time = #{after_pdname},
+            commuter_dp_price = #{after_pdprice}
+        WHERE
+            commuter_dp_id = #{id}
+    </update>
+
+    <update id="getUpdatePayList_commuter_time" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdPayList">
+        UPDATE
+            commuter_time_priec_mst
+        SET
+            commuter_tp_time = #{after_pdname},
+            commuter_tp_price = #{after_pdprice}
+        WHERE
+            commuter_tp_id = #{id}
+    </update>
+
+    <update id="getUpdatePayList_reserved" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdPayList">
+        UPDATE
+            reserved_price_mst
+        SET
+            reserved_time = #{after_pdname},
+            reserved_price = #{after_pdprice}
+        WHERE
+            reserved_price_id = #{id}
+    </update>
+
+    <update id="getUpdatePayList_locker" parameterType="com.Gosk.GoskProject20221221.domain.Admin.UpdPayList">
+        UPDATE
+            locker_price_mst
+        SET
+            locker_time = #{after_pdname},
+            locker_price = #{after_pdprice}
+        WHERE
+            locker_price_id = #{id}
+    </update>
+
 </mapper>
