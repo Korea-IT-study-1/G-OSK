@@ -73,35 +73,30 @@
     </select>
     <select id="checkuser" resultType="com.Gosk.GoskProject20221221.domain.Seat">
         SELECT
-        sm.seat_id,
-        um.user_id
+            seat_id,
+            user_id
 
         FROM
-        seat_mst sm
-        left outer join  user_mst um on(um.user_id = sm.user_id)
+            seat_mst
         WHERE
-        sm.user_id= 0;
+            user_id= 0 OR user_id=-1;
     </select>
     <select id="seatuser" resultType="com.Gosk.GoskProject20221221.domain.Seat">
         SELECT
-        rsm.reserved_seat_id,
-        um.user_id
-
+            reserved_seat_id,
+            user_id
         FROM
-        reserved_seat_mst rsm
-        left outer join  user_mst um on(um.user_id = rsm.user_id)
+        reserved_seat_mst
         WHERE
-        rsm.user_id= 0;
+            user_id= 0 OR user_id=-1;
     </select>
     <select id="seatlocker" resultType="com.Gosk.GoskProject20221221.domain.Locker">
         SELECT
-        lm.locker_id,
-        um.user_id
-
+            locker_id,
+            user_id
         FROM
-        locker_mst lm
-        left outer join  user_mst um on(um.user_id = lm.user_id)
+            locker_mst
         WHERE
-        lm.user_id= 0;
+            user_id= 0 OR user_id=-1;
     </select>
 </mapper>
