@@ -81,13 +81,31 @@ const CL06 = document.querySelector(".CL06");
 const CL07 = document.querySelector(".CL07");
 
 
+
+const basicSeatBtns = document.querySelectorAll(".basic-seat-btn");
+const specialSeatBtns = document.querySelectorAll(".special-seat-btn");
+const lockerBtns = document.querySelectorAll(".locker-btn");
+
 // 지정석만 조회
 reserved.onclick = () => {
-    alert("지정석");
     seatuserList();
+    alert("지정석");
     seatSpecial.classList.remove("invisible");
     lockerManage.classList.add("invisible");
     seatBasic.classList.add("invisible");
+
+    basicSeatBtns.forEach((basicSeatBtn, index) => {
+        if (basicSeatBtn.classList.contains("sky-btn")) {
+            basicSeatBtn.classList.remove("sky-btn");
+        }
+    })
+
+    lockerBtns.forEach((lockerBtn, index) => {
+        if (lockerBtn.classList.contains("sky-btn")) {
+            lockerBtn.classList.remove("sky-btn");
+        }
+    })
+
 }
 
 // 일반석만 조회
@@ -96,68 +114,249 @@ nomal.onclick = () => {
     seatSpecial.classList.add("invisible");
     lockerManage.classList.add("invisible");
     seatBasic.classList.remove("invisible");
+
+
+    specialSeatBtns.forEach((specialSeatBtn, index) => {
+        if (specialSeatBtn.classList.contains("sky-btn")) {
+            specialSeatBtn.classList.remove("sky-btn");
+        }
+    })
+
+    lockerBtns.forEach((lockerBtn, index) => {
+        if (lockerBtn.classList.contains("sky-btn")) {
+            lockerBtn.classList.remove("sky-btn");
+        }
+    })
+
+
 }
 
 // 사물함만 조회
 locker.onclick = () => {
-    alert("사물함");
     lockeruserList();
+    alert("사물함");
     seatSpecial.classList.add("invisible");
     lockerManage.classList.remove("invisible");
     seatBasic.classList.add("invisible");
 
+
+    basicSeatBtns.forEach((basicSeatBtn, index) => {
+        if (basicSeatBtn.classList.contains("sky-btn")) {
+            basicSeatBtn.classList.remove("sky-btn");
+        }
+    })
+
+    specialSeatBtns.forEach((specialSeatBtn, index) => {
+        if (specialSeatBtn.classList.contains("sky-btn")) {
+            specialSeatBtn.classList.remove("sky-btn");
+        }
+    })
+
+
 }
 
-// const seatBtns = document.querySelectorAll(".seat-btn");
-
-// seatBtns.forEach((seatBtn, index) => {
-//     seatBtn.onclick = () => {
-//          seatBtn.classList.toggle("selected-seat");
-//          seatBtn.classList.toggle("seatborder");
-//     }
-// });
-
-// const repairBtn = document.querySelector(".repair-btn");
-
-// repairBtn.onclick = () => {
-//     seatBtns.forEach((seatBtn, index) => {
-//         if (seatBtn.classList.contains("selected-seat")) {
-//              seatBtn.classList.add("repaire-seat");
-//              seatBtn.classList.remove("seatborder");
-//         } else if (seatBtn.classList.contains("repaire-seat")) {
-//             seatBtn.classList.remove("repaire-seat");
-//             seatBtn.classList.remove("seatborder");
-//         }
-
-//     })
-// }
 
 
-const basicSeatBtns = document.querySelectorAll(".basic-seat-btn");
-const specialSeatBtns = document.querySelectorAll(".special-seat-btn");
-const lockerBtns = document.querySelectorAll(".locker-btn");
 
-basicSeatBtns.forEach((basicBtn, index) => {
-    basicBtn.onclick = () => {
-        console.log(basicBtn.textContent);
-        basicBtn.classList.toggle("selected-seat");
-        basicBtn.classList.toggle("seatborder");
+
+$('.seat-content button').click(function () {
+
+    if ($(this).hasClass('sky-btn') == true) {
+        $(this).removeClass('sky-btn');
+
+    } else if ($(this).hasClass('org-btn') == true) {
+        $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
+
     }
+    else {
+        $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
+
+    }
+
 })
-specialSeatBtns.forEach((specialSeatBtn, index) => {
-    specialSeatBtn.onclick = () => {
-        console.log(specialSeatBtn.textContent);
-        specialSeatBtn.classList.toggle("selected-seat");
-        specialSeatBtn.classList.toggle("seatborder");
+
+
+
+
+
+// 유지보수 버튼 클릭시
+const repairBtn = document.querySelector(".repair-btn");
+
+let repairSeat = null;
+
+repairBtn.onclick = () => {
+    const seatBtns = document.querySelectorAll(".seat-btn");
+
+    seatBtns.forEach((seatBtn, index) => {
+
+        // 일반석
+        if (seatBtn.classList.contains("basic-seat-btn")) {
+            if (seatBtn.classList.contains("sky-btn")) {
+                repairSeat = {
+                    seat_id: seatBtn.textContent,
+                    seat_category: "basic"
+                }
+                console.log(repairSeat);
+            }
+        } else if (seatBtn.classList.contains("special-seat-btn")) {
+            if (seatBtn.classList.contains("sky-btn")) {
+                repairSeat = {
+                    seat_id: seatBtn.textContent,
+                    seat_category: "reserved"
+                }
+                console.log(repairSeat);
+            }
+        } else if (seatBtn.classList.contains("locker-btn")) {
+            if (seatBtn.classList.contains("sky-btn")) {
+                repairSeat = {
+                    seat_id: seatBtn.textContent,
+                    seat_category: "locker"
+                }
+                console.log(repairSeat);
+            }
+        }
+
+    })
+    // 업데이트해야함
+
+    // 좌석 종류로 나누기
+    if (repairSeat.seat_category == "basic") {
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/admin/repairbasic",
+            contentType: "application/json",
+            data: repairSeat.seat_id,
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+                alert("일반석 유지보수 성공");
+                console.log(repairSeat);
+                location.reload();
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        })
+        console.log(repairSeat);
+    } else if (repairSeat.seat_category == "reserved") {
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/admin/repairreserved",
+            contentType: "application/json",
+            data: repairSeat.seat_id,
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+                alert("지정석 유지보수 성공");
+                console.log(repairSeat);
+                location.reload();
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        })
+        console.log(repairSeat);
+
+    } else if (repairSeat.seat_category == "locker") {
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/admin/repairlocker",
+            contentType: "application/json",
+            data: repairSeat.seat_id,
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+                alert("사물함 유지보수 성공");
+                console.log(repairSeat);
+                location.reload();
+            },
+            error: (error) => {
+                console.log(error);
+            }
+
+        })
+        console.log(repairSeat);
     }
-})
-lockerBtns.forEach((lockerBtn, index) => {
-    lockerBtn.onclick = () => {
-        console.log(lockerBtn.textContent);
-        lockerBtn.classList.toggle("selected-seat");
-        lockerBtn.classList.toggle("seatborder");
+
+    // 이미 유지보수중인 좌석 선택후 유지보수 버튼 클릭시
+
+
+
+}
+
+// 강제퇴장 버튼 
+const exitBtn = document.querySelector(".exit-btn");
+
+exitBtn.onclick = () => {
+    const seatBtns = document.querySelectorAll(".seat-btn");
+
+    seatBtns.forEach((seatBtn, index) => {
+
+        if (seatBtn.classList.contains("basic-seat-btn")) {
+            if (seatBtn.classList.contains("sky-btn")) {
+                repairSeat = {
+                    seat_id: seatBtn.textContent,
+                    seat_category: "basic"
+                }
+                console.log(repairSeat);
+            }
+        } else if (seatBtn.classList.contains("special-seat-btn")) {
+            if (seatBtn.classList.contains("sky-btn")) {
+                repairSeat = {
+                    seat_id: seatBtn.textContent,
+                    seat_category: "reserved"
+                }
+                console.log(repairSeat);
+            }
+        } else if (seatBtn.classList.contains("locker-btn")) {
+            if (seatBtn.classList.contains("sky-btn")) {
+                repairSeat = {
+                    seat_id: seatBtn.textContent,
+                    seat_category: "locker"
+                }
+                console.log(repairSeat);
+            }
+        }
+
+    })
+
+    if (repairSeat.seat_category == "basic") {
+
+        $.ajax({
+            async: false,
+            type: "delete",
+            url: "/api/admin/exitbasic",
+            data: repairSeat.seat_id,
+            dataType: "json",
+            success: (response) => {
+                console.log(response);
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        })
+
+
+
+    } else if (repairSeat.seat_category == "reserved") {
+
+    } else if (repairSeat.seat_category == "locker") {
+
     }
-});
+
+
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -229,7 +428,7 @@ function loadSeat() {
         dataType: "json",
         success: (response) => {
             console.log(response);
-            alert("일반좌석 불러오기");
+            // alert("일반좌석 불러오기");
             responseData = response.data;
             userload(responseData);
         },
@@ -239,68 +438,68 @@ function loadSeat() {
     })
 }
 function userload(responseData) {
-    for(i = 0; i < responseData.length; i++) {
-        if (document.getElementById('Os1').innerText == responseData[i].seat_id){
+    for (i = 0; i < responseData.length; i++) {
+        if (document.getElementById('Os1').innerText == responseData[i].seat_id) {
             Os1.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os2').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os2').innerText == responseData[i].seat_id) {
             Os2.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os3').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os3').innerText == responseData[i].seat_id) {
             Os3.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os4').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os4').innerText == responseData[i].seat_id) {
             Os4.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os5').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os5').innerText == responseData[i].seat_id) {
             Os5.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os6').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os6').innerText == responseData[i].seat_id) {
             Os6.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os7').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os7').innerText == responseData[i].seat_id) {
             Os7.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os8').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os8').innerText == responseData[i].seat_id) {
             Os8.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os9').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os9').innerText == responseData[i].seat_id) {
             Os9.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os10').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os10').innerText == responseData[i].seat_id) {
             Os10.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os11').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os11').innerText == responseData[i].seat_id) {
             Os11.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os12').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os12').innerText == responseData[i].seat_id) {
             Os12.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os13').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os13').innerText == responseData[i].seat_id) {
             Os13.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os14').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os14').innerText == responseData[i].seat_id) {
             Os14.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os15').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os15').innerText == responseData[i].seat_id) {
             Os15.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os16').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os16').innerText == responseData[i].seat_id) {
             Os16.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os17').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os17').innerText == responseData[i].seat_id) {
             Os17.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os18').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os18').innerText == responseData[i].seat_id) {
             Os18.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os19').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os19').innerText == responseData[i].seat_id) {
             Os19.classList.remove("org-btn");
         }
-        else if (document.getElementById('Os20').innerText == responseData[i].seat_id){
+        else if (document.getElementById('Os20').innerText == responseData[i].seat_id) {
             Os20.classList.remove("org-btn");
         }
-        
+
 
     }
 }
@@ -311,7 +510,7 @@ function seatuserList() {
         type: "get",
         url: "/api/seat/check/seatuser",
         success: (response) => {
-            alert("지정석");
+            // alert("지정석");
             console.log(response.data);
             responseData = response.data;
             seatuserload(responseData);
@@ -323,65 +522,65 @@ function seatuserList() {
     });
 }
 function seatuserload(responseData) {
-    for(i = 0; i < responseData.length; i++) {
-        if (document.getElementById('SOs1').innerText == responseData[i].reserved_seat_id){
+    for (i = 0; i < responseData.length; i++) {
+        if (document.getElementById('SOs1').innerText == responseData[i].reserved_seat_id) {
             SOs1.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs2').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs2').innerText == responseData[i].reserved_seat_id) {
             SOs2.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs3').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs3').innerText == responseData[i].reserved_seat_id) {
             SOs3.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs4').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs4').innerText == responseData[i].reserved_seat_id) {
             SOs4.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs5').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs5').innerText == responseData[i].reserved_seat_id) {
             SOs5.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs6').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs6').innerText == responseData[i].reserved_seat_id) {
             SOs6.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs7').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs7').innerText == responseData[i].reserved_seat_id) {
             SOs7.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs8').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs8').innerText == responseData[i].reserved_seat_id) {
             SOs8.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs9').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs9').innerText == responseData[i].reserved_seat_id) {
             SOs9.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs10').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs10').innerText == responseData[i].reserved_seat_id) {
             SOs10.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs11').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs11').innerText == responseData[i].reserved_seat_id) {
             SOs11.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs12').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs12').innerText == responseData[i].reserved_seat_id) {
             SOs12.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs13').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs13').innerText == responseData[i].reserved_seat_id) {
             SOs13.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs14').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs14').innerText == responseData[i].reserved_seat_id) {
             SOs14.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs15').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs15').innerText == responseData[i].reserved_seat_id) {
             SOs15.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs16').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs16').innerText == responseData[i].reserved_seat_id) {
             SOs16.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs17').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs17').innerText == responseData[i].reserved_seat_id) {
             SOs17.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs18').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs18').innerText == responseData[i].reserved_seat_id) {
             SOs18.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs19').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs19').innerText == responseData[i].reserved_seat_id) {
             SOs19.classList.remove("org-btn");
         }
-        else if (document.getElementById('SOs20').innerText == responseData[i].reserved_seat_id){
+        else if (document.getElementById('SOs20').innerText == responseData[i].reserved_seat_id) {
             SOs20.classList.remove("org-btn");
         }
 
@@ -394,7 +593,7 @@ function lockeruserList() {
         type: "get",
         url: "/api/seat/check/locker",
         success: (response) => {
-            alert("사물함");
+            // alert("사물함");
             console.log(response.data);
             responseData = response.data;
             lockeruserload(responseData);
@@ -406,90 +605,90 @@ function lockeruserList() {
     });
 }
 function lockeruserload(responseData) {
-    for(i = 0; i < responseData.length; i++) {
-        if (document.getElementById('AL01').innerText == responseData[i].locker_id){
+    for (i = 0; i < responseData.length; i++) {
+        if (document.getElementById('AL01').innerText == responseData[i].locker_id) {
             AL01.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL02').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL02').innerText == responseData[i].locker_id) {
             AL02.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL03').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL03').innerText == responseData[i].locker_id) {
             AL03.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL04').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL04').innerText == responseData[i].locker_id) {
             AL04.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL05').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL05').innerText == responseData[i].locker_id) {
             AL05.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL06').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL06').innerText == responseData[i].locker_id) {
             AL06.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL07').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL07').innerText == responseData[i].locker_id) {
             AL07.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL08').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL08').innerText == responseData[i].locker_id) {
             AL08.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL09').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL09').innerText == responseData[i].locker_id) {
             AL09.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL10').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL10').innerText == responseData[i].locker_id) {
             AL10.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL11').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL11').innerText == responseData[i].locker_id) {
             AL11.classList.remove("org-btn");
         }
-        else if (document.getElementById('AL12').innerText == responseData[i].locker_id){
+        else if (document.getElementById('AL12').innerText == responseData[i].locker_id) {
             AL12.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL01').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL01').innerText == responseData[i].locker_id) {
             BL01.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL02').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL02').innerText == responseData[i].locker_id) {
             BL02.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL03').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL03').innerText == responseData[i].locker_id) {
             BL03.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL04').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL04').innerText == responseData[i].locker_id) {
             BL04.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL05').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL05').innerText == responseData[i].locker_id) {
             BL05.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL06').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL06').innerText == responseData[i].locker_id) {
             BL06.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL07').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL07').innerText == responseData[i].locker_id) {
             BL07.classList.remove("org-btn");
         }
-        else if (document.getElementById('BL08').innerText == responseData[i].locker_id){
+        else if (document.getElementById('BL08').innerText == responseData[i].locker_id) {
             BL08.classList.remove("org-btn");
-        }else if (document.getElementById('BL09').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('BL09').innerText == responseData[i].locker_id) {
             BL09.classList.remove("org-btn");
-        }else if (document.getElementById('BL10').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('BL10').innerText == responseData[i].locker_id) {
             BL10.classList.remove("org-btn");
-        }else if (document.getElementById('BL11').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('BL11').innerText == responseData[i].locker_id) {
             BL11.classList.remove("org-btn");
-        }else if (document.getElementById('BL12').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('BL12').innerText == responseData[i].locker_id) {
             BL12.classList.remove("org-btn");
         }
-        else if (document.getElementById('CL01').innerText == responseData[i].locker_id){
+        else if (document.getElementById('CL01').innerText == responseData[i].locker_id) {
             CL01.classList.remove("org-btn");
         }
-        else if (document.getElementById('CL02').innerText == responseData[i].locker_id){
+        else if (document.getElementById('CL02').innerText == responseData[i].locker_id) {
             CL02.classList.remove("org-btn");
         }
-        else if (document.getElementById('CL03').innerText == responseData[i].locker_id){
+        else if (document.getElementById('CL03').innerText == responseData[i].locker_id) {
             CL03.classList.remove("org-btn");
-        }else if (document.getElementById('CL04').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('CL04').innerText == responseData[i].locker_id) {
             CL04.classList.remove("org-btn");
-        }else if (document.getElementById('CL05').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('CL05').innerText == responseData[i].locker_id) {
             CL05.classList.remove("org-btn");
-        }else if (document.getElementById('CL06').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('CL06').innerText == responseData[i].locker_id) {
             CL06.classList.remove("org-btn");
-        }else if (document.getElementById('CL07').innerText == responseData[i].locker_id){
+        } else if (document.getElementById('CL07').innerText == responseData[i].locker_id) {
             CL07.classList.remove("org-btn");
         }
 

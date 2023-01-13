@@ -86,6 +86,33 @@ public class AdminServicelmpl implements AdminService {
         return adminRepository.loadUserInfoList(user_phone);
     }
 
+    @Override
+    public int repairBasicSeat(String seat_id) throws Exception {
+
+        System.out.println(seat_id);
+
+        return adminRepository.repairBasicSeat(seat_id);
+    }
+
+    @Override
+    public int repairReservedSeat(String seat_id) throws Exception {
+
+
+        return adminRepository.repairReservedSeat(seat_id);
+    }
+
+    @Override
+    public int repairLocker(String seat_id) throws Exception {
+
+
+        return adminRepository.repairLocker(seat_id);
+    }
+
+    @Override
+    public int exitBasicSeat(String seat_id) throws Exception {
+
+        return adminRepository.exitBasicSeat(seat_id);
+    }
 
 
     public List<SalesList> salesList(int user_id) throws Exception {
