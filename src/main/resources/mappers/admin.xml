@@ -98,6 +98,7 @@
         WHERE
         user_phone = #{user_phone};
     </update>
+
     <update id="usertime" parameterType="integer">
         update
             user_mst
@@ -136,6 +137,39 @@
             user_mst
         set
             user_update_date= #{now};
+    </update>
+    <update id="repairBasicSeat">
+        UPDATE
+            seat_mst
+        SET
+            user_id = -1
+        WHERE
+            seat_id = #{seat_id};
+    </update>
+    <update id="repairReservedSeat">
+        UPDATE
+            reserved_seat_mst
+        SET
+            user_id = -1
+        WHERE
+            reserved_seat_id = #{seat_id};
+    </update>
+    <update id="repairLocker">
+        UPDATE
+            locker_mst
+        SET
+            user_id = -1
+        WHERE
+            locker_id = #{seat_id};
+    </update>
+    <update id="exitBasicSeat">
+        UPDATE
+            seat_mst
+        SET
+            user_id = 0
+        WHERE
+            seat_id = #{seat_id};
+
     </update>
 
     <select id="loadUserInfoList" resultType="com.Gosk.GoskProject20221221.domain.Admin.UserInfoList">

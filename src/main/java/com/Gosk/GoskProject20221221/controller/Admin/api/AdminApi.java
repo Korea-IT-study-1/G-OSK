@@ -7,6 +7,7 @@ import com.Gosk.GoskProject20221221.service.Admin.AdminService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +58,29 @@ public class AdminApi {
         return ResponseEntity.ok(new CMRespDto<>(1, "제품 리스트 불러오기 완료", adminService.salesList(principalDetails.getUser().getUser_id())));
     }
 
-    @GetMapping("/loadseat")
-    public ResponseEntity<?> loadSeat() throws Exception{
 
+    @PutMapping("repairbasic")
+    public ResponseEntity<?> repairBasicSeat(@RequestBody String seat_id) throws Exception{
+
+        System.out.println(seat_id);
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairBasicSeat(seat_id)));
+    }
+
+    @PutMapping("repairreserved")
+    public ResponseEntity<?> repairReservedSeat(@RequestBody String seat_id) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairReservedSeat(seat_id)));
+    }
+
+
+    @PutMapping("repairlocker")
+    public ResponseEntity<?> repairLocker(@RequestBody String seat_id) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairLocker(seat_id)));
+    }
+
+
+    @DeleteMapping("exitbasic")
+    public ResponseEntity<?> exitBasicSeat(@RequestBody String seat_id) throws Exception{
         return ResponseEntity.ok(new CMRespDto<>(1, "success", null));
     }
     @PutMapping("/usertime")
@@ -72,5 +93,6 @@ public class AdminApi {
     public ResponseEntity<?> userday() throws Exception{
         return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.userday()));
     }
+
 
 }

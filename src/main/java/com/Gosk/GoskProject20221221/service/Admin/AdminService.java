@@ -21,8 +21,18 @@ public interface AdminService {
 
     public List<UserInfoList> loadUserInfoList(String user_phone) throws Exception;
 
+
     public boolean usertime(int user_id) throws Exception;
 
     public Object userday() throws Exception;
+
+    public int repairBasicSeat(String seat_id) throws Exception;
+
+    public int repairReservedSeat(String seat_id) throws Exception;
+
+    public int repairLocker(String seat_id) throws Exception;
+
+    public int exitBasicSeat(String seat_id) throws Exception;
+
 
 }
