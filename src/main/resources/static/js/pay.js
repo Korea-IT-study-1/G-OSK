@@ -187,7 +187,7 @@ function setSeat() {
 
             setSeatinfo = {
                 seat_id: localStorage.getItem("seatnum"),
-                paytime: timechange((localStorage.getItem("paytime").replace("시간", "")) * 3600)
+                paytime: (localStorage.getItem("paytime").replace("시간", "")) * 3600
             }
 
             $.ajax({

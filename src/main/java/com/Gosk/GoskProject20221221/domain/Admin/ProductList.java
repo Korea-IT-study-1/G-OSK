@@ -11,12 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductList {
+
+    public int id;
     public String pdname; //제품명
     public String time; //시간
     public String price; //가격
 
     public PdListRespDto toRespDto(){
         return PdListRespDto.builder()
+                .id(id)
                 .pdname(pdname)
                 .time(time)
                 .price(price)

@@ -15,43 +15,63 @@
         <!-- header -->
         <div class="popup-back invisible">
             <div class="popup">
-                <select name="seat-select" id="seat-select">
+                <select name="seat-select" id="seat-select" onchange="changeSelection()">
+                    <option value="">등록상품 자리</option>
                     <option value="normal">일반석</option>
                     <option value="reserved">지정석</option>
+                    <option value="locker">사물함</option>
                 </select>
-                <select name="time-select" id="time-select">
-                    <option value="oneday">원데이</option>
+                <select name="time-select" id="time-select" onchange="changePdname()">
+                    <option value="">등록상품 시간</option>
+                    <!-- <option value="oneday">원데이</option>
                     <option value="time">시간권</option>
-                    <option value="day">기간권</option>
+                    <option value="day">기간권</option> -->
                 </select>
-                <input type="text" id="product-name" placeholder="상품이름" onfocus="this.placeholder=''"
-                    onblur="this.placeholder='상품이름'">
-                <input type="text" id="product-price" placeholder="가격" onfocus="this.placeholder=''"
-                    onblur="this.placeholder='가격'">
+
+                <div class = "pdname">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="product-name" placeholder="상품이름" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='상품이름'">
+                    <p></p>
+                </div>
+
+                <div class = "pdprice">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="product-price" placeholder="가격" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='가격'">
+                    <p>원</p>
+                </div>
 
                 <div class="popup-btns">
                     <button class="btn gray-btn popup-register-btn">등록</button>
-                    <button class="btn org-btn close-btn">닫기</button>
+                    <button class="btn org-btn popup-close-btn">닫기</button>
                 </div>
             </div>
         </div>
         <div class="popup-back2 invisible">
             <div class="popup2">
-                <select name="" id="">
-                    <option value="">수정상품 자리</option>
-                    <option value="">일반석</option>
-                    <option value="">지정석</option>
+                <select name="seat-select2" id="seat-select2" disabled>
+                    <!-- <option value="">수정상품 자리</option>
+                    <option value="normal">일반석</option>
+                    <option value="reserved">지정석</option>
+                    <option value="locker">사물함</option> -->
                 </select>
-                <select name="" id="">
-                    <option value="">수정상품 시간</option>
-                    <option value="">원데이</option>
-                    <option value="">시간권</option>
-                    <option value="">기간권</option>
+                <select name="time-select2" id="time-select2" disabled>
+                    <!-- <option value="">수정상품 시간</option> -->
+                    <!-- <option value="oneday">원데이</option>
+                    <option value="time">시간권</option>
+                    <option value="day">기간권</option> -->
                 </select>
-                <input type="text" placeholder="수정상품 이름" onfocus="this.placeholder=''"
-                    onblur="this.placeholder='수정상품이름'">
-                <input type="text" placeholder="수정상품 가격" onfocus="this.placeholder=''"
-                    onblur="this.placeholder='수정상품가격'">
+
+                <div class = "pdnameupd">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="수정상품 이름" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='수정상품이름'">
+                    <p></p>
+                </div>
+
+                <div class = "pdpriceupd">
+                    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="수정상품 가격" onfocus="this.placeholder=''"
+                        onblur="this.placeholder='수정상품가격'">
+                    <p>원</p>
+                </div>
 
                 <div class="popup2-btns">
                     <button class="btn gray-btn popup2-update-btn">수정</button>
@@ -82,8 +102,9 @@
         <section class="admin-container">
             <div class="product-category">
                 <ul>
-                    <li class="reserved">지정석</li>
+                    <li class="reserved org-li">지정석</li>
                     <li class="nomal">일반석</li>
+                    <li class="locker">사물함</li>
                 </ul>
             </div>
             <table>
@@ -103,7 +124,7 @@
                 </tr>
             </table>
             <div class="table-container">
-                <table class="prouct-table">
+                <table class="product-table">
                     <colgroup>
                         <col width="19%">
                         <col width="20%">

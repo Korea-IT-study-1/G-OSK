@@ -102,6 +102,7 @@
         WHERE
             user_id = #{user_id};
     </update>
+
     <update id="setLocker" parameterType="com.Gosk.GoskProject20221221.domain.Locker">
         UPDATE
             locker_mst
