@@ -112,8 +112,7 @@ public class AdminApi {
 
     @PostMapping("/upd/pdoverlapchk")
     public ResponseEntity<?> UpdOverlapChk(@RequestBody UpdOverlapChkReqDto updOverlapChkReqDto) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인",
-                adminService.getUpdOverlapChk(updOverlapChkReqDto)));
+        return ResponseEntity.ok(new CMRespDto<>(1,"이용권 리스트 중복 확인", adminService.getUpdOverlapChk(updOverlapChkReqDto)));
     }
 
     @PostMapping("/listinsert")

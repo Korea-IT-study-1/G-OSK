@@ -39,7 +39,7 @@ function changeSelection(){
             $("#time-select").append("<option value='day'>기간권</option>");
         }
 
-        changePdname(name);
+        changePdname();
     }
 }
 

@@ -1,4 +1,40 @@
 
+//로그인 시 사용하는 이용권 확인
+$(function(){
+    $('.login-btn').click(function(){
+    
+        if (!UserPayChk(localStorage.getItem("time"))){
+            alert("이용권이 없습니다");
+        } else {
+            alert("아직 사용중인 이용권이 존재합니다!!");
+            location.replace("/logout");
+        }
+
+    })
+
+    function UserPayChk(item){
+        let bool;
+
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "/api/index/userpaychk",
+            contentType: "application/json",
+            data: JSON.stringify({ item: item }),
+            dataType: "json",
+            success: (response) => {
+                alert("사용자 이용권 중복 검사 완료");
+                bool = response.data;
+            },
+            error: (error) => {
+                alert("사용자 이용권 중복 검사 실패");
+                console.log(error);
+            }
+        });
+    
+        return bool;
+    }
+})
 
 $('.login-keybord > button').click(function () {
     var phoneIdInput = $(".phone-id").val();

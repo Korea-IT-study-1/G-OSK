@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Gosk.GoskProject20221221.repository.IndexRepository">
+
+    <select id="getUserPayChk" parameterType="com.Gosk.GoskProject20221221.domain.UserPayChk"
+            resultType="boolean">
+
+            SELECT
+                cast(ifnull((SELECT receipt_onoff FROM receipt_mst
+                WHERE user_id = #{user_id} AND receipt_kinds not in ('locker')
+                ORDER BY receipt_id DESC LIMIT 1 ),0) as unsigned) as receipt_onoff
+            FROM
+                receipt_mst
+
+            UNION ALL
+
+            SELECT
+                0 as receipt_onoff
+            FROM
+                receipt_mst
+            LIMIT 1
+
+<!--        <choose>-->
+
+<!--            <when test = "#{timename} == 'locker'">//조건1-->
+<!--                SELECT-->
+<!--                    ifnull((SELECT receipt_onoff FROM receipt_mst-->
+<!--                    WHERE user_id = #{user_id} AND receipt_kinds in (#{timename})-->
+<!--                    ORDER BY receipt_id DESC LIMIT 1 ),0) as receipt_onoff-->
+<!--                FROM-->
+<!--                    receipt_mst-->
+
+<!--                UNION ALL-->
+
+<!--                SELECT-->
+<!--                    0 as receipt_onoff-->
+<!--                FROM-->
+<!--                    receipt_mst-->
+<!--                LIMIT 1-->
+<!--            </when>-->
+
+<!--&lt;!&ndash;            <when test = "time == 'in'">//조건2&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </when>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <when test = "time == 'out'">//조건3&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </when>&ndash;&gt;-->
+
+<!--            <otherwise>-->
+
+<!--                SELECT-->
+<!--                    ifnull((SELECT receipt_onoff FROM receipt_mst-->
+<!--                    WHERE user_id = #{user_id} AND receipt_kinds not in (#{timename})-->
+<!--                    ORDER BY receipt_id DESC LIMIT 1 ),0) as receipt_onoff-->
+<!--                FROM-->
+<!--                receipt_mst-->
+
+<!--                UNION ALL-->
+
+<!--                SELECT-->
+<!--                    0 as receipt_onoff-->
+<!--                FROM-->
+<!--                    receipt_mst-->
+<!--                LIMIT 1-->
+
+<!--            </otherwise>-->
+
+<!--        </choose>-->
+
+    </select>
+
+</mapper>
