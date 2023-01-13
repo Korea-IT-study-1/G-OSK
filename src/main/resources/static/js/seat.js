@@ -44,6 +44,47 @@ const SOs19 = document.querySelector(".SOs19");
 const SOs20 = document.querySelector(".SOs20");
 
 
+function nullList() {
+    $.ajax({
+        async: false,
+        type: "get",
+        url: "/api/inout",
+        success: (response) => {
+            console.log(response.data);
+            responseData1 = response.data;
+            responseData = responseData1[responseData1.length - 1];
+            console.log(responseData);
+            if(localStorage.getItem("time") == "in"){
+                if(responseData.seat_id == null && responseData.reserved_seat_id == null){
+                    userList();
+                }else {
+                    alert("좌석이 있습니다.");
+                    location.replace("/logout");
+                }  
+            }else if(localStorage.getItem("time") == "seatmove") {
+                if(responseData.seat_id != null || responseData.reserved_seat_id != null){
+                    userList();
+                }else {
+                    alert("좌석이 없어서 불가능 합니다.");
+                    location.replace("/logout");
+                }
+            }else {
+                if(responseData.receipt_onoff == 0) {
+                    userList();
+                }else {
+                    alert("사용중인 이용권이 있습니다.");
+                    location.replace("/logout");
+                }
+            }
+              
+        },
+        error: (error) => {
+            alert("유저 정보 가져오기 실패");
+            console.log(response.data);
+            console.log(error);
+        },
+    });
+}
 
 // ----------------------------일반석 유저정보 불러오기-------------------------------------------
 function userList() {
@@ -53,9 +94,11 @@ function userList() {
         url: "/api/seat/check/user",
         success: (response) => {
             alert("일반석 유저정보 불러오기")
+            
             console.log(response.data);
             responseData = response.data;
             userload(responseData);
+
         },
         error: (error) => {
             alert("입실 퇴실 in 실패");
@@ -823,5 +866,5 @@ logOutBtn.onclick = () => {
 
 //페이지가 실행될 때
 window.onload = () => {
-    userList();
+    nullList();
 }

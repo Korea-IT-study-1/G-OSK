@@ -17,6 +17,7 @@ public class User {
     private int timeminute;
     private int timesecond;
     private int user_id;
+    private int receipt_onoff;
     private int role_id;
     private int receipt_time;
     private int receipt_day;
@@ -26,6 +27,7 @@ public class User {
     private String reserved_num;
     private String locker_num;
     private String user_phone;
+    private int flag;
     private String receipt_kinds;
     private String user_pw;
     private String role;

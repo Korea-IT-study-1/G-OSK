@@ -9,14 +9,19 @@ function getuserList() {
         type: "get",
         url: "/api/inout",
         success: (response) => {
-            alert("유저 정보 가져오기 성공")
             console.log(response.data);
             responseData1 = response.data;
             responseData = responseData1[responseData1.length - 1];
             console.log(responseData);
-            if(responseData.receipt_kinds == "commuter_time" || responseData.receipt_kinds == "commuter_day"){
-                userload(responseData);
+            if(responseData.seat_id != null || responseData.reserved_seat_id != null){
+                if(responseData.receipt_kinds == "commuter_time" || responseData.receipt_kinds == "commuter_day"){
+                    userload(responseData);
+                }
+            }else {
+                alert("좌석이 없습니다.");
+                location.replace("/logout");
             }
+            
             
         },
         error: (error) => {
