@@ -3,6 +3,7 @@ package com.Gosk.GoskProject20221221.service.Admin;
 import com.Gosk.GoskProject20221221.domain.Admin.UserInfoList;
 import com.Gosk.GoskProject20221221.domain.Admin.SalesList;
 import com.Gosk.GoskProject20221221.domain.User;
+import com.Gosk.GoskProject20221221.dto.NowChangeReqDto;
 import com.Gosk.GoskProject20221221.dto.admin.*;
 
 import java.util.List;
@@ -42,4 +43,6 @@ public interface AdminService {
     public boolean getPayListInsert(OverlapChkReqDto overlapChkReqDto) throws Exception;
 
     public boolean getPayListUpdate(UpdPayListReqDto updPayListReqDto) throws Exception;
+
+    public boolean nowchange(NowChangeReqDto nowChangeReqDto) throws Exception;
 }

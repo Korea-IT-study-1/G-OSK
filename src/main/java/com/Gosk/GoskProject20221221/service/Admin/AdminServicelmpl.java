@@ -1,13 +1,8 @@
 package com.Gosk.GoskProject20221221.service.Admin;
 
-import com.Gosk.GoskProject20221221.domain.Admin.UserInfoList;
-import com.Gosk.GoskProject20221221.domain.Admin.ProductList;
-import com.Gosk.GoskProject20221221.domain.Admin.SalesList;
+import com.Gosk.GoskProject20221221.domain.Admin.*;
 import com.Gosk.GoskProject20221221.domain.User;
-import com.Gosk.GoskProject20221221.domain.Admin.DelPayList;
-import com.Gosk.GoskProject20221221.domain.Admin.OverlapChk;
-import com.Gosk.GoskProject20221221.domain.Admin.UpdOverlapChk;
-import com.Gosk.GoskProject20221221.domain.Admin.UpdPayList;
+import com.Gosk.GoskProject20221221.dto.NowChangeReqDto;
 import com.Gosk.GoskProject20221221.dto.admin.*;
 import com.Gosk.GoskProject20221221.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -217,6 +212,23 @@ public class AdminServicelmpl implements AdminService {
             return result;
         }
     }
+    @Override
+    public boolean nowchange(NowChangeReqDto nowChangeReqDto) throws Exception {
+        NowChange nowChange = nowChangeReqDto.toNowChangeEntity();
+        if(nowChangeReqDto.getProduct().equals("nomal") == true) {
+            boolean result =  adminRepository.nowchange_nomal(nowChange);
+            return result;
+        }else if(nowChangeReqDto.getProduct().equals("special") == true) {
+            boolean result = adminRepository.nowchange_special(nowChange);
+            return result;
+        }
+        else{
+            boolean result = adminRepository.nowchange_locker(nowChange);
+            return result;
+        }
+
+    }
+
 
     @Override
     public boolean getPayListInsert(OverlapChkReqDto overlapChkReqDto) throws Exception {
@@ -265,5 +277,6 @@ public class AdminServicelmpl implements AdminService {
             return result;
         }
     }
+
 
 }

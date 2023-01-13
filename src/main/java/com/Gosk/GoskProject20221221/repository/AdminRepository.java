@@ -1,6 +1,7 @@
 package com.Gosk.GoskProject20221221.repository;
 
 import com.Gosk.GoskProject20221221.domain.Admin.*;
+import com.Gosk.GoskProject20221221.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
@@ -71,5 +72,10 @@ public interface AdminRepository {
     public boolean getUpdOverlapChk_commuter_day(UpdOverlapChk updOverlapChk);
     public boolean getUpdOverlapChk_reserved(UpdOverlapChk updOverlapChk);
     public boolean getUpdOverlapChk_locker(UpdOverlapChk updOverlapChk);
+
+    //자리변경 관리자
+    public boolean nowchange_nomal(NowChange nowChange);
+    public boolean nowchange_special(NowChange nowChange);
+    public boolean nowchange_locker(NowChange nowChange);
 
 }

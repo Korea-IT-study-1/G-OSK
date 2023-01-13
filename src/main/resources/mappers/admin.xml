@@ -467,5 +467,71 @@
         WHERE
             locker_price_id = #{id}
     </update>
+    <update id="nowchange_nomal">
+        UPDATE
+            seat_mst
+        SET
+            user_id = 0
+        WHERE
+            user_id = #{todayval};
+        UPDATE
+            seat_mst
+        SET
+            user_id = #{todayval}
+        WHERE
+            seat_id = #{change};
+
+        UPDATE
+        user_mst
+        SET
+        user_out = #{change}
+        WHERE
+        user_id = #{todayval};
+    </update>
+    <update id="nowchange_special">
+        UPDATE
+            seat_mst
+        SET
+            user_id = 0
+        WHERE
+            user_id = #{todayval};
+
+        UPDATE
+            seat_mst
+        SET
+            user_id = #{todayval}
+        WHERE
+            seat_id = #{change};
+
+        UPDATE
+        user_mst
+        SET
+        user_out = #{change}
+        WHERE
+        user_id = #{todayval};
+
+    </update>
+    <update id="nowchange_locker">
+        UPDATE
+            seat_mst
+        SET
+            user_id = 0
+        WHERE
+            user_id = #{todayval};
+
+        UPDATE
+            seat_mst
+        SET
+            user_id = #{todayval}
+        WHERE
+            seat_id = #{change};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = #{change}
+        WHERE
+            user_id = #{todayval};
+    </update>
 
 </mapper>

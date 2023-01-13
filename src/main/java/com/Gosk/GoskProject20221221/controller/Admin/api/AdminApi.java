@@ -3,6 +3,7 @@ package com.Gosk.GoskProject20221221.controller.Admin.api;
 
 import com.Gosk.GoskProject20221221.domain.User;
 import com.Gosk.GoskProject20221221.dto.CMRespDto;
+import com.Gosk.GoskProject20221221.dto.NowChangeReqDto;
 import com.Gosk.GoskProject20221221.dto.admin.*;
 import com.Gosk.GoskProject20221221.service.Admin.AdminService;
 import com.Gosk.GoskProject20221221.service.auth.PrincipalDetails;
@@ -124,5 +125,10 @@ public class AdminApi {
     @PutMapping("/listupdate")
     public ResponseEntity<?> PayListUpdate(@RequestBody UpdPayListReqDto updPayListReqDto) throws Exception{
         return ResponseEntity.ok(new CMRespDto<>(1,"관리자 이용권 리스트 수정 완료", adminService.getPayListUpdate(updPayListReqDto)));
+    }
+
+    @PutMapping("/nowchange")
+    public ResponseEntity<?> nowchange(@RequestBody NowChangeReqDto nowChangeReqDto) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.nowchange(nowChangeReqDto)));
     }
 }

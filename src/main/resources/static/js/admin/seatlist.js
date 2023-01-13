@@ -352,18 +352,6 @@ exitBtn.onclick = () => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // 자리이동 팝업 띄우기
 
 const moveBtn = document.querySelector(".move-btn");
@@ -386,7 +374,40 @@ closeBtn.onclick = () => {
 
 // 이동 팝업에서 변경버튼 클릭시
 popupRegisterBtn.onclick = () => {
-    alert("변경");
+    ListInsData = null;
+
+    ListInsData = {
+        product: $("#ctg option:selected").val(),
+        change: $("#ctg_nm option:selected").text(),
+
+        today: $("#ctg_nm2 option:selected").text(),
+        todayval: $("#ctg_nm2 option:selected").val()
+    }
+    if($("#ctg option:selected").val() != "none"){
+        $.ajax({
+            async: false,
+            type: "put",
+            url: "/api/admin/nowchange",
+            contentType: "application/json",
+            data: JSON.stringify(ListInsData),
+            dataType: "json",
+            success: (response) => {
+                alert("변경완료 확인해봥~");
+                location.reload();
+    
+                // $('.popup-close-btn').click();
+                // $('.table-container table tr').remove();
+                // pageload();
+            },
+            error: (error) => {
+                // alert("이용권 등록 실패");
+                console.log(error);
+            }
+        });
+    }else {
+        alert("선택하세요");
+    }
+
 }
 
 
@@ -397,43 +418,127 @@ selCate.onchange = () => {
 
 function categoryList(sVal) {
 
+    let junho = {}
     if (sVal == "") {
-        num = new Array("소분류");
+        num = new Array("변경좌석");
         vnum = new Array("");
 
     } else if (sVal == "special") {
-        // $.ajax({
-        //     async: false,
-        //     type: "get",
-        //     url: "/api/seat/check/seatuser",
-        //     success: (response) => {
-        //         alert("지정석");
-        //         console.log(response.data);
-        //         responseData = response.data;
-        //         seatmoveload(responseData);
-        //     },
-        //     error: (error) => {
-        //         alert("지정석 사용중 불러오기 실패");
-        //         console.log(error);
-        //     },
-        // });
+        $.ajax({
+            async: false,
+            type: "get",
+            url: "/api/seat/check/seatuser",
+            success: (response) => {
+                alert("지정석");
+                console.log(response.data);
+                responseData = response.data;
+                // seatmoveload(responseData);
+            },
+            error: (error) => {
+                alert("지정석 사용중 불러오기 실패");
+                console.log(error);
+            },
+        });
         selList.innerHTML = "";
-        for (let i = 0; 0 < responseData.length; i++) {
-            selList.innerHTML += `
-            <option value="${i}">${i}</option>
+        for (let i = 0; i < responseData.length; i++) {
+            console.log(responseData.length);
+            if(responseData[i].user_id == 0) {
+                console.log(responseData[i]);
+                selList.innerHTML += `
+                <option value="${responseData[i].user_id}">${responseData[i].reserved_seat_id}</option>
             `;
+            } 
         }
         selList2.innerHTML = "";
-        for (let i = 0; i < 3; i++) {
-            selList2.innerHTML += `
-                <option value="2">DATA</option>
+        for (let i = 0; i < responseData.length; i++) {
+            
+            if(responseData[i].user_id != 0 && responseData[i].user_id != -1){
+                selList2.innerHTML += `
+                <option value="${responseData[i].user_id}">${responseData[i].reserved_seat_id}</option>
             `;
+            }
+            
         }
+
     } else if (sVal == "nomal") {
+        $.ajax({
+            async: false,
+            type: "get",
+            url: "/api/seat/check/user",
+            success: (response) => {
+                alert("일반석");
+                console.log(response.data);
+                responseData = response.data;
+                // seatmoveload(responseData);
+            },
+            error: (error) => {
+                alert("지정석 사용중 불러오기 실패");
+                console.log(error);
+            },
+        });
+        selList.innerHTML = "";
+        for (let i = 0; i < responseData.length; i++) {
+            console.log(responseData.length);
+            if(responseData[i].user_id == 0) {
+                console.log(responseData[i]);
+                selList.innerHTML += `
+                <option value="${responseData[i].user_id}">${responseData[i].seat_id}</option>
+            `;
+            } 
+        }
+        selList2.innerHTML = "";
+        for (let i = 0; i < responseData.length; i++) {
+            
+            if(responseData[i].user_id != 0 && responseData[i].user_id != -1){
+                selList2.innerHTML += `
+                <option value="${responseData[i].user_id}">${responseData[i].seat_id}</option>
+            `;
+            }
+            
+        }
 
     } else if (sVal == "locker") {
+        
+        $.ajax({
+            async: false,
+            type: "get",
+            url: "/api/seat/check/locker",
+            success: (response) => {
+                alert("사물함");
+                console.log(response.data);
+                responseData = response.data;
+                // seatmoveload(responseData);
+            },
+            error: (error) => {
+                alert("지정석 사용중 불러오기 실패");
+                console.log(error);
+            },
+        });
+        selList.innerHTML = "";
+        for (let i = 0; i < responseData.length; i++) {
+            console.log(responseData.length);
+            if(responseData[i].user_id == 0) {
+                console.log(responseData[i]);
+                selList.innerHTML += `
+                <option value="${responseData[i].user_id}">${responseData[i].locker_id}</option>
+            `;
+
+            } 
+        }
+        selList2.innerHTML = "";
+        for (let i = 0; i < responseData.length; i++) {
+            
+            if(responseData[i].user_id != 0 && responseData[i].user_id != -1){
+                selList2.innerHTML += `
+                <option value="${responseData[i].user_id}">${responseData[i].locker_id}</option>
+            `;
+            }
+            
+        }
 
     }
+    
+
 }
 // ----------------------------일반석 유저정보 불러오기-------------------------------------------
 function loadSeat() {
