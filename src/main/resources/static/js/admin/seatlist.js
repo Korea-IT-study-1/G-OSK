@@ -175,6 +175,24 @@ $('.seat-content button').click(function () {
 
 })
 
+$('.AL button').click(function () {
+
+    $('.BL button').removeClass('sky-btn');
+    $('.CL button').removeClass('sky-btn');
+})
+
+$('.BL button').click(function () {
+
+    $('.AL button').removeClass('sky-btn');
+    $('.CL button').removeClass('sky-btn');
+})
+
+$('.CL button').click(function () {
+
+    $('.BL button').removeClass('sky-btn');
+    $('.AL button').removeClass('sky-btn');
+})
+
 
 
 
@@ -188,7 +206,6 @@ repairBtn.onclick = () => {
     const seatBtns = document.querySelectorAll(".seat-btn");
 
     seatBtns.forEach((seatBtn, index) => {
-
         // 일반석
         if (seatBtn.classList.contains("basic-seat-btn")) {
             if (seatBtn.classList.contains("sky-btn")) {
@@ -216,6 +233,20 @@ repairBtn.onclick = () => {
             }
         }
 
+
+    })
+
+    responseData.forEach(data => {
+        if (data.seat_id == repairSeat.seat_id) {
+            repairSeat.user_id = data.user_id;
+            return false;
+        } else if (data.reserved_seat_id == repairSeat.seat_id) {
+            repairSeat.user_id = data.user_id;
+            return false;
+        } else if (data.locker_id == repairSeat.seat_id) {
+            repairSeat.user_id = data.user_id;
+        }
+
     })
     // 업데이트해야함
 
@@ -226,11 +257,14 @@ repairBtn.onclick = () => {
             type: "put",
             url: "/api/admin/repairbasic",
             contentType: "application/json",
-            data: repairSeat.seat_id,
+            data: JSON.stringify({
+                seat_id: repairSeat.seat_id,
+                user_id: repairSeat.user_id
+            }),
             dataType: "json",
             success: (response) => {
                 console.log(response);
-                alert("일반석 유지보수 성공");
+                alert("일반석 유지보수 설정 성공");
                 console.log(repairSeat);
                 location.reload();
             },
@@ -245,11 +279,14 @@ repairBtn.onclick = () => {
             type: "put",
             url: "/api/admin/repairreserved",
             contentType: "application/json",
-            data: repairSeat.seat_id,
+            data: JSON.stringify({
+                seat_id: repairSeat.seat_id,
+                user_id: repairSeat.user_id
+            }),
             dataType: "json",
             success: (response) => {
                 console.log(response);
-                alert("지정석 유지보수 성공");
+                alert("지정석 유지보수 설정 성공");
                 console.log(repairSeat);
                 location.reload();
             },
@@ -265,11 +302,14 @@ repairBtn.onclick = () => {
             type: "put",
             url: "/api/admin/repairlocker",
             contentType: "application/json",
-            data: repairSeat.seat_id,
+            data: JSON.stringify({
+                seat_id: repairSeat.seat_id,
+                user_id: repairSeat.user_id
+            }),
             dataType: "json",
             success: (response) => {
                 console.log(response);
-                alert("사물함 유지보수 성공");
+                alert("사물함 유지보수 설정 성공");
                 console.log(repairSeat);
                 location.reload();
             },
@@ -323,31 +363,96 @@ exitBtn.onclick = () => {
 
     })
 
+    responseData.forEach(data => {
+        if (data.seat_id == repairSeat.seat_id) {
+            repairSeat.user_id = data.user_id;
+            return false;
+        } else if (data.reserved_seat_id == repairSeat.seat_id) {
+            repairSeat.user_id = data.user_id;
+            return false;
+        } else if (data.locker_id == repairSeat.seat_id) {
+            repairSeat.user_id = data.user_id;
+        }
+    })
+
     if (repairSeat.seat_category == "basic") {
 
-        $.ajax({
-            async: false,
-            type: "delete",
-            url: "/api/admin/exitbasic",
-            data: repairSeat.seat_id,
-            dataType: "json",
-            success: (response) => {
-                console.log(response);
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        })
+        console.log(repairSeat);
 
+        if (repairSeat.user_id != -1) {
+
+            $.ajax({
+                async: false,
+                type: "put",
+                url: "/api/admin/exitbasic",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    seat_id: repairSeat.seat_id,
+                    user_id: repairSeat.user_id
+                }),
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                    alert("일반석 강제퇴장 성공");
+                    location.reload();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            })
+        }
 
 
     } else if (repairSeat.seat_category == "reserved") {
 
+        console.log(repairSeat);
+        if (repairSeat.user_id != -1) {
+
+            $.ajax({
+                async: false,
+                type: "put",
+                url: "/api/admin/exitreserved",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    seat_id: repairSeat.seat_id,
+                    user_id: repairSeat.user_id
+                }),
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                    alert("지정석 강제퇴장 성공");
+                    location.reload();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            })
+        }
     } else if (repairSeat.seat_category == "locker") {
 
+        console.log(repairSeat);
+        if (repairSeat.user_id != -1) {
+            $.ajax({
+                async: false,
+                type: "put",
+                url: "/api/admin/exitlocker",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    seat_id: repairSeat.seat_id,
+                    user_id: repairSeat.user_id
+                }),
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                    alert("사물함 강제퇴장 성공");
+                    location.reload();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            })
+        }
     }
-
-
 
 }
 

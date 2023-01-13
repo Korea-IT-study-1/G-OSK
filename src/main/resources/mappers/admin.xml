@@ -142,29 +142,50 @@
         set
             user_update_date= #{now};
     </update>
-    <update id="repairBasicSeat">
+    <update id="repairBasicSeat" parameterType="hashmap">
         UPDATE
             seat_mst
         SET
-            user_id = -1
+            user_id = if(user_id = -1, '0', '-1')
         WHERE
             seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = null
+        WHERE
+            user_id = #{user_id};
     </update>
     <update id="repairReservedSeat">
         UPDATE
             reserved_seat_mst
         SET
-            user_id = -1
+            user_id = if(user_id = -1, '0', '-1')
         WHERE
             reserved_seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = null
+        WHERE
+            user_id = #{user_id};
     </update>
     <update id="repairLocker">
         UPDATE
             locker_mst
         SET
-            user_id = -1
+            user_id = if(user_id = -1, '0', '-1')
         WHERE
             locker_id = #{seat_id};
+
+<!--        UPDATE-->
+<!--            user_mst-->
+<!--        SET-->
+<!--            user_out = null-->
+<!--        WHERE-->
+<!--            user_id = #{user_id};-->
     </update>
     <update id="exitBasicSeat">
         UPDATE
@@ -173,6 +194,37 @@
             user_id = 0
         WHERE
             seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = null
+        WHERE
+            user_id = #{user_id};
+
+    </update>
+    <update id="exitReservedSeat">
+        UPDATE
+            reserved_seat_mst
+        SET
+            user_id = 0
+        WHERE
+            reserved_seat_id = #{seat_id};
+
+        UPDATE
+            user_mst
+        SET
+            user_out = null
+        WHERE
+            user_id = #{user_id};
+    </update>
+    <update id="exitLocker">
+        UPDATE
+            locker_mst
+        SET
+            user_id = 0
+        WHERE
+            locker_id = #{seat_id};
 
     </update>
 
@@ -533,5 +585,6 @@
         WHERE
             user_id = #{todayval};
     </update>
+
 
 </mapper>

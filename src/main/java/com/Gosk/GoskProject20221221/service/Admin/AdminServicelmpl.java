@@ -105,32 +105,42 @@ public class AdminServicelmpl implements AdminService {
         return now;
     }
     @Override
-    public int repairBasicSeat(String seat_id) throws Exception {
+    public int repairBasicSeat(Map<String, Object> map) throws Exception {
 
-        System.out.println(seat_id);
 
-        return adminRepository.repairBasicSeat(seat_id);
+        return adminRepository.repairBasicSeat(map);
     }
 
     @Override
-    public int repairReservedSeat(String seat_id) throws Exception {
+    public int repairReservedSeat(Map<String, Object> map) throws Exception {
 
 
-        return adminRepository.repairReservedSeat(seat_id);
+        return adminRepository.repairReservedSeat(map);
     }
 
     @Override
-    public int repairLocker(String seat_id) throws Exception {
+    public int repairLocker(Map<String, Object> map) throws Exception {
 
 
-        return adminRepository.repairLocker(seat_id);
+        return adminRepository.repairLocker(map);
     }
 
     @Override
-    public int exitBasicSeat(String seat_id) throws Exception {
+    public int exitBasicSeat(Map<String, Object> map) throws Exception {
 
-        return adminRepository.exitBasicSeat(seat_id);
+        return adminRepository.exitBasicSeat(map);
     }
+
+    @Override
+    public int exitReservedSeat(Map<String, Object> map) throws Exception {
+        return adminRepository.exitReservedSeat(map);
+    }
+
+    @Override
+    public int exitLocker(Map<String, Object> map) throws Exception {
+        return adminRepository.exitLocker(map);
+    }
+
 
     @Override
     public List<SalesList> salesList(int user_id) throws Exception {

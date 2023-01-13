@@ -29,13 +29,17 @@ public interface AdminRepository {
 
     public int userday(String now) throws Exception;
 
-    public int repairBasicSeat(String seat_id) throws Exception;
+    public int repairBasicSeat(Map<String, Object> map) throws Exception;
 
-    public int repairReservedSeat(String seat_id) throws Exception;
+    public int repairReservedSeat(Map<String, Object> map) throws Exception;
 
-    public int repairLocker(String seat_id) throws Exception;
+    public int repairLocker(Map<String, Object> map) throws Exception;
 
-    public int exitBasicSeat(String seat_id) throws Exception;
+    public int exitBasicSeat(Map<String, Object> map) throws Exception;
+
+    public int exitReservedSeat(Map<String, Object> map) throws Exception;
+    public int exitLocker(Map<String, Object> map) throws Exception;
+
     public List<ProductList> getLockerList(Map<String, Object> map) throws Exception;
 
     //이용권 등록
@@ -73,9 +77,11 @@ public interface AdminRepository {
     public boolean getUpdOverlapChk_reserved(UpdOverlapChk updOverlapChk);
     public boolean getUpdOverlapChk_locker(UpdOverlapChk updOverlapChk);
 
+
     //자리변경 관리자
     public boolean nowchange_nomal(NowChange nowChange);
     public boolean nowchange_special(NowChange nowChange);
     public boolean nowchange_locker(NowChange nowChange);
+
 
 }

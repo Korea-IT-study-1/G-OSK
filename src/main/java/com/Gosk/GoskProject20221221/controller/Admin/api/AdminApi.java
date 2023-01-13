@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Slf4j
 @RequestMapping("/api/admin")
 @RestController
@@ -63,29 +65,62 @@ public class AdminApi {
 
 
     @PutMapping("repairbasic")
-    public ResponseEntity<?> repairBasicSeat(@RequestBody String seat_id) throws Exception{
+    public ResponseEntity<?> repairBasicSeat(@RequestBody Map<String, Object> map) throws Exception{
 
-        System.out.println(seat_id);
+        System.out.println(map.get("seat_id"));
+        System.out.println(map.get("user_id"));
 
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairBasicSeat(seat_id)));
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairBasicSeat(map)));
     }
 
     @PutMapping("repairreserved")
-    public ResponseEntity<?> repairReservedSeat(@RequestBody String seat_id) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairReservedSeat(seat_id)));
+    public ResponseEntity<?> repairReservedSeat(@RequestBody Map<String, Object> map) throws Exception{
+
+        System.out.println(map.get("seat_id"));
+        System.out.println(map.get("user_id"));
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairReservedSeat(map)));
     }
 
 
     @PutMapping("repairlocker")
-    public ResponseEntity<?> repairLocker(@RequestBody String seat_id) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairLocker(seat_id)));
+    public ResponseEntity<?> repairLocker(@RequestBody Map<String, Object> map) throws Exception{
+
+        System.out.println(map.get("seat_id"));
+        System.out.println(map.get("user_id"));
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.repairLocker(map)));
     }
 
 
-    @DeleteMapping("exitbasic")
-    public ResponseEntity<?> exitBasicSeat(@RequestBody String seat_id) throws Exception{
-        return ResponseEntity.ok(new CMRespDto<>(1, "success", null));
+    @PutMapping("exitbasic")
+    public ResponseEntity<?> exitBasicSeat(@RequestBody Map<String, Object> map) throws Exception{
+
+        System.out.println(map.get("seat_id"));
+        System.out.println(map.get("user_id"));
+
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.exitBasicSeat(map)));
     }
+
+
+    @PutMapping("exitreserved")
+    public ResponseEntity<?> exitReservedSeat(@RequestBody Map<String, Object> map) throws Exception{
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.exitReservedSeat(map)));
+    }
+
+
+    @PutMapping("exitlocker")
+    public ResponseEntity<?> exitLocker(@RequestBody Map<String, Object> map) throws Exception{
+
+        System.out.println(map.get("seat_id"));
+        System.out.println(map.get("user_id"));
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "success", adminService.exitLocker(map)));
+    }
+
+
     @PutMapping("/usertime")
     public ResponseEntity<?> usertime(@RequestBody int user_id) throws Exception{
 

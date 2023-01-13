@@ -78,6 +78,10 @@
 
         FROM
             seat_mst
+
+<!--        WHERE-->
+<!--            user_id= 0 OR user_id=-1;-->
+
     </select>
     <select id="seatuser" resultType="com.Gosk.GoskProject20221221.domain.Seat">
         SELECT
@@ -94,5 +98,9 @@
             user_id
         FROM
             locker_mst
+
+<!--        WHERE-->
+<!--            user_id= 0 OR user_id=-1;-->
+
     </select>
 </mapper>
