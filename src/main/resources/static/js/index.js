@@ -54,40 +54,27 @@ setInterval(function () {
         url: "/api/admin/loaduserlist",
         dataType: "json",
         success: (response) => {
-            // alert("인덱스 유저정보 가져오기 성공");
             responseData = response.data;
-            console.log(responseData);
-            
-            // goodList(responseData);
             userList(responseData);
 
         },
         error: (error) => {
-            // alert("인덱스 유저정보 가져오기 실패");
             console.log(error);
         },
 
     });
 }, 1000);
 
-// getClock();    // 현재 시간이 바로 뜨도록
-// setInterval(getClock, 1000);    //1초 간격으로 getClock() 메서드 실행
 // 현재시간으로 변경
 setInterval(function () {
     $.ajax({
         async: false,
         type: "put",
         url: "/api/admin/userday",
-        // data: responseData,
         dataType: "json",
         success: (response) => {
-            // alert("인덱스 현재시간 시간변경 유저정보 가져오기 성공");
-            responseData = response.data;
-            console.log(responseData);
-            // userList();
         },
         error: (error) => {
-            // alert("인덱스 유저정보 가져오기 실패");
             console.log(error);
         },
     }); 
@@ -119,9 +106,9 @@ function userList(responseData) {
 
     responseData.forEach((user, index) => {
         if (user.user_create_date != null) {
-            junho1 = user.user_create_date.substring(0, user.user_create_date.lastIndexOf(":"));
-            junho2 = user.user_update_date.substring(0, user.user_update_date.lastIndexOf(":"));
-            if(junho1  == junho2) {
+            end_time = user.user_create_date.substring(0, user.user_create_date.lastIndexOf(":"));
+            now_time = user.user_update_date.substring(0, user.user_update_date.lastIndexOf(":"));
+            if(end_time  == now_time) {
                 $.ajax({
                     async: false,
                     type: "put",
@@ -130,14 +117,8 @@ function userList(responseData) {
                     data: JSON.stringify(user.user_id),
                     dataType: "json",
                     success: (response) => {
-                        // alert("인덱스 유저정보 가져오기 성공");
-                        responseData = response.data;
-                        console.log(responseData);
-                        // userList();
-            
                     },
                     error: (error) => {
-                        // alert("인덱스 유저정보 가져오기 실패");
                         console.log(error);
                     },
             

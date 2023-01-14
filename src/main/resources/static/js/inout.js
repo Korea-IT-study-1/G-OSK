@@ -5,30 +5,20 @@ function inList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
+            console.log(response.data);
+            responseData1 = response.data;
+            responseData = responseData1[responseData1.length - 1];
             if (localStorage.getItem("time") == "in") {
-                alert("입실 in성공");
-                console.log(response.data);
-                responseData1 = response.data;
-                responseData = responseData1[responseData1.length - 1];
+                // 사용중인 영수증
                 console.log(responseData);
-                junholist();
+                inday();
             } else if (localStorage.getItem("time") == "out") {
+                timetime =responseData.user_update_date.replace(/T/g, ' ');
+                timetime = timetime.split(/[.]/,1);
                 if(localStorage.getItem("commuter_out") == "out") {
-                    responseData1 = response.data;
-                    responseData = responseData1[responseData1.length - 1];
-                    timetime =responseData.user_update_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    timetime = timetime.split(/[.]/,1);
-                    console.log(timetime);
-                    console.log(responseData);
                     alert("퇴실in 성공");
                     outload(responseData);
                 }else if(localStorage.getItem("time") == "out") {
-                    responseData1 = response.data;
-                    responseData = responseData1[responseData1.length - 1];
-                    timetime =responseData.user_update_date.replace(/T/g, ' ');
-                    console.log(timetime);
-                    timetime = timetime.split(/[.]/,1);
                     outload(responseData);
                 }
                 
@@ -51,9 +41,8 @@ function outList() {
         dataType: "json",
 
         success: (response) => {
-            alert("퇴실퇴실 성공");
+            alert("이용권퇴실 성공");
             responseData = response.data;
-            console.log("준호 짱짱맨:")
             console.log(responseData);
             inList();
         },
@@ -64,21 +53,15 @@ function outList() {
         },
     });
 }
-
-function junholist() {
-    // console.log();
+// 
+function inday() {
     $.ajax({
         async: false,
         type: "put",
         url: "/api/inout/day",
         contentType: 'application/json',
         dataType: "json",
-        // data: JSON.stringify(goodtime),
         success: (response) => {
-            alert("시간 보내기 성공");
-            responseData2 = response.data.replace(/T/g, ' ');
-            responseData2 = responseData2.split(/[.]/, 1);
-            console.log(responseData2);
             inininList();
         },
         error: (error) => {
@@ -96,7 +79,6 @@ function inininList() {
         url: "/api/inout",
         dataType: "json",
         success: (response) => {
-
             responseData1 = response.data;
             responseData = responseData1[responseData1.length - 1];
             timetime = responseData.user_update_date.replace(/T/g, ' ');
@@ -104,7 +86,9 @@ function inininList() {
             timetime = timetime.split(/[.]/, 1);
             console.log(responseData);
             if (localStorage.getItem("time") == "in") {
-                alert("입실입실성공");
+                endDay=responseData.user_create_date.replace(/T/g, ' ');
+                endDay = endDay.split(/[.]/, 1);
+                alert("입실성공");
                 inload(responseData);
             } else if (localStorage.getItem("time") == "out") {
                 alert("퇴실성공");
@@ -119,8 +103,7 @@ function inininList() {
 }
 
 function inload(responseData) {
-    // onsole.log(responseData);
-    const inoutBody = document.querySelector(".junho11");
+    const inoutBody = document.querySelector(".inout");
     if (responseData.receipt_time == 0) {
         week = responseData.user_date.replace(/T/g, ' ');
         week = week.split(/[.]/, 1);
@@ -157,6 +140,7 @@ function inload(responseData) {
         var hour = parseInt(user_time/3600);
         var min = parseInt((user_time%3600)/60);
         var sec = user_time%60;
+
         inoutBody.innerHTML += `
         <header class="inout-header">
         <i class="fa-solid fa-check"></i>
@@ -176,7 +160,7 @@ function inload(responseData) {
                 </li>
                 <li class="close">
                     <p><i class="fa-regular fa-calendar-xmark"></i>종료일자</p>
-                    <span>${responseData2}<span>
+                    <span>${endDay}<span>
                 </li>
                 <li>
                     <p><i class="fa-solid fa-chair"></i>입석좌석</p>
@@ -191,7 +175,7 @@ function inload(responseData) {
 
 function outload(responseData) {
 
-    const inoutBody = document.querySelector(".junho11");
+    const inoutBody = document.querySelector(".inout");
 
     if (responseData.receipt_time == 0) {
         if(localStorage.getItem("commuter_out") == "out") {
@@ -261,10 +245,12 @@ function outload(responseData) {
         }
         
     } else if (responseData.receipt_time != 0) {
+        // 남은시간 계산
         user_time =responseData.user_time;
         var hour = parseInt(user_time/3600);
         var min = parseInt((user_time%3600)/60);
         var sec = user_time%60;
+
         if(localStorage.getItem("commuter_out") == "out") {
             inoutBody.innerHTML += `
                 <header class="inout-header">
@@ -332,23 +318,21 @@ function outload(responseData) {
     }
 
 }
-
-
 window.onload = () => {
     if (localStorage.getItem("time") == "in") {
         inList();
     } else if (localStorage.getItem("time") == "out") {
         if(localStorage.getItem("commuter_out") == "out"){
+            //일반퇴실
             outList();
         }else if(localStorage.getItem("commuter_out") == "delete") {
+            //이용권종료
             inList();
         }
         
     }
 
 };
-
-
 const logOutBtn = document.querySelector(".logout-btn");
 
 logOutBtn.onclick = () => {

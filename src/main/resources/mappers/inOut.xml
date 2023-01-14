@@ -36,6 +36,7 @@
             user_update_date=#{now}
         WHERE
             user_id = #{user_id};
+        
     </update>
     <update id="inoutcheck" parameterType="com.Gosk.GoskProject20221221.domain.User">
         update

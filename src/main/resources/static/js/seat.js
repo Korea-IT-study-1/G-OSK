@@ -50,10 +50,9 @@ function nullList() {
         type: "get",
         url: "/api/inout",
         success: (response) => {
-            console.log(response.data);
             responseData1 = response.data;
             responseData = responseData1[responseData1.length - 1];
-            console.log(responseData);
+            // 중복 체크
             if(localStorage.getItem("time") == "in"){
                 if(responseData.seat_id == null && responseData.reserved_seat_id == null){
                     userList();
@@ -668,7 +667,6 @@ function getList() {
                 seatspecial.classList.add("invisible");
                 special.classList.remove("sky-btn");
                 basic.classList.add("sky-btn");
-                // hidden_btn(localStorage.getItem("time"));
             } else if (responseData.receipt_kinds == "reserved_seat") {
                 alert("지정석 입석");
                 $('.basic').hide();
@@ -676,9 +674,7 @@ function getList() {
                 seatspecial.classList.remove("invisible");
                 seatbasic.classList.add("invisible");
                 basic.classList.remove("sky-btn");
-                special.classList.add("sky-btn");
-                // hidden_btn(localStorage.getItem("time"));
-                
+                special.classList.add("sky-btn");            
             }
 
         },
@@ -689,15 +685,17 @@ function getList() {
     });
 }
 
-//선택한 좌석 클릭 시 버튼색깔 변경 및 좌석 이름 표시
+//선택한 좌석 클릭 시 버튼색깔 변경 및 좌석 이름 표시, org gray 버튼선택 불가능
 $('.seat-content button').click(function () {
     if ($(this).hasClass('org-btn') == false) {
-        if ($(this).hasClass('sky-btn') == true) {
-            $(this).removeClass('sky-btn');
-            $(".seat-select-name").attr('value', "");
-        } else {
-            $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
-            $('.seat-select-name').attr('value', $(this).text());
+        if($(this).hasClass('gray-btn') == false) {
+            if ($(this).hasClass('sky-btn') == true) {
+                $(this).removeClass('sky-btn');
+                $(".seat-select-name").attr('value', "");
+            } else {
+                $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
+                $('.seat-select-name').attr('value', $(this).text());
+            }
         }
     } else {
         $(this).addClass('sky-btn').siblings().removeClass('sky-btn');
@@ -705,9 +703,8 @@ $('.seat-content button').click(function () {
     }
     if (localStorage.getItem("time") == "in") {
         const seatInput = document.querySelector(".seat-select-name");
-        const inoutButton = document.querySelector(".junho");
-        // const user_id = localStorage.id;
-        // console.log(user_id)
+        const inoutButton = document.querySelector(".next");
+
         let userData = {}
 
         userData = seatInput.value
@@ -737,9 +734,7 @@ $('.seat-content button').click(function () {
     }
     else if (localStorage.getItem("time") == "seatmove") {
         const seatInput = document.querySelector(".seat-select-name");
-        const inoutButton = document.querySelector(".junho");
-        // const user_id = localStorage.id;
-        // console.log(user_id)
+        const inoutButton = document.querySelector(".next");
         let userData = {}
 
         userData = seatInput.value
