@@ -43,7 +43,8 @@
             user_mst
         set
             user_time=null,
-            user_date=null
+            user_date=null,
+            user_create_date=null
         WHERE
             user_id = #{user_id};
 

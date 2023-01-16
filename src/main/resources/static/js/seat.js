@@ -51,30 +51,36 @@ function nullList() {
         url: "/api/inout",
         success: (response) => {
             responseData1 = response.data;
+            console.log(response.data);
             responseData = responseData1[responseData1.length - 1];
             // 중복 체크
-            if(localStorage.getItem("time") == "in"){
-                if(responseData.seat_id == null && responseData.reserved_seat_id == null){
-                    userList();
+            if(response.data.length == 0) {
+                userList();
+            }else{
+                if(localStorage.getItem("time") == "in"){
+                    if(responseData.seat_id == null && responseData.reserved_seat_id == null){
+                        userList();
+                    }else {
+                        alert("좌석이 있습니다.");
+                        location.replace("/logout");
+                    }  
+                }else if(localStorage.getItem("time") == "seatmove") {
+                    if(responseData.seat_id != null || responseData.reserved_seat_id != null){
+                        userList();
+                    }else {
+                        alert("좌석이 없어서 불가능 합니다.");
+                        location.replace("/logout");
+                    }
                 }else {
-                    alert("좌석이 있습니다.");
-                    location.replace("/logout");
-                }  
-            }else if(localStorage.getItem("time") == "seatmove") {
-                if(responseData.seat_id != null || responseData.reserved_seat_id != null){
-                    userList();
-                }else {
-                    alert("좌석이 없어서 불가능 합니다.");
-                    location.replace("/logout");
-                }
-            }else {
-                if(responseData.receipt_onoff == 0) {
-                    userList();
-                }else {
-                    alert("사용중인 이용권이 있습니다.");
-                    location.replace("/logout");
+                    if(responseData.receipt_onoff == 0) {
+                        userList();
+                    }else {
+                        alert("사용중인 이용권이 있습니다.");
+                        location.replace("/logout");
+                    }
                 }
             }
+            
               
         },
         error: (error) => {
