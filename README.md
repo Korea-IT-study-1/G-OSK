@@ -42,6 +42,11 @@
 <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 
+# DATABASE ERD
+
+<img width="1042" alt="KakaoTalk_20230116_164601825" src="https://user-images.githubusercontent.com/93910053/212624341-a8a9b57c-4696-4128-916f-8a2eabc27638.png">
+
+
 # 구현한 주요기능
 
 + 관리자 페이지
@@ -215,41 +220,99 @@
 ```
 
 ![화면 캡처 2023-01-16 154318](https://user-images.githubusercontent.com/93910053/212614781-22202c1b-20c9-4480-b2f2-2c03577c55a7.png)
+
 ![화면 캡처 2023-01-16 154343](https://user-images.githubusercontent.com/93910053/212614827-f1eac128-c952-490b-a570-357f3d6e2e88.png)
+
 ![화면 캡처 2023-01-16 154405](https://user-images.githubusercontent.com/93910053/212614830-1147a35a-f4b2-48fc-9836-95682133937b.png)
+
 ```
 등록시 지정석/원데이/정액권을 선택할수 있고 상품에 맞춰 시간 가격을 설정할 수 있습니다.
 ```
 
 ![화면 캡처 2023-01-16 154748](https://user-images.githubusercontent.com/93910053/212614990-4ff94b2e-2c8a-44a2-b8ab-070e6a58f584.png)
+
 ```
 등록시 보이는 화면입니다.
+```
 
 >(회원관리)관리자 페이지
 
 ![화면 캡처 2023-01-16 154839](https://user-images.githubusercontent.com/93910053/212615382-7c7a90f1-0225-49be-9eed-99665d2774ba.png)
+
 ```
 회원관리 페이지는 수정/삭제가 가능하고 내정보를 클릭하면 이용권구매내역을 확인할 수 있습니다.
 ```
 
 ![화면 캡처 2023-01-16 154859](https://user-images.githubusercontent.com/93910053/212615584-ec30a3a5-8010-4946-adf1-a71e715a505f.png)
+
 ```
 내정보 클릭시 보이는 구매내역입니다.
 ```
 
 ![화면 캡처 2023-01-16 154915](https://user-images.githubusercontent.com/93910053/212615798-35933158-ccca-4b97-b1e7-02115d1aa4a8.png)
+
 ```
 수정버튼 클릭시 전화번호/비밀번호를 변경할 수 있습니다.
 ```
 
 ![화면 캡처 2023-01-16 155452](https://user-images.githubusercontent.com/93910053/212616046-b978abe0-0268-489f-a0e2-ae8d4ff4fc3e.png)
+
 ```
 010-0000-0000을 삭제버튼을 클릭했을때 전화번호가 안보이는것을 확일할 수 있는 화면입니다.
 ```
 
+>(좌석관리)관리자 페이지
+
+![화면 캡처 2023-01-16 155622](https://user-images.githubusercontent.com/93910053/212620439-d8d744ab-eb99-4e1c-bd7b-5f324b1db805.png)
+```
+좌석관리 페이지는 유지보수/자리이동/강제퇴장이 가능합니다.
+```
+![화면 캡처 2023-01-16 162304](https://user-images.githubusercontent.com/93910053/212620563-7db4caef-2db6-4584-9192-67dde3ed26e7.png)
+![화면 캡처 2023-01-16 162327](https://user-images.githubusercontent.com/93910053/212620565-509c2fc1-66a9-4eb3-b289-19a1f695d048.png)
+
+```
+자리이동 클릭시 일반석/지정석/정액권을 선택해서
+이동좌석은 현재 사용중인 좌석이 나타나고
+변경좌석은 유지보수/사용중좌석을 제외한 좌석이 나타납니다.
+```
+
+![화면 캡처 2023-01-16 163242](https://user-images.githubusercontent.com/93910053/212622175-f902757b-01c5-4b5f-9053-11668ee6b0bc.png)
+```
+유지보수는 좌석 선택하고 유지보수를 클릭하면됩니다.
+```
+
+![화면 캡처 2023-01-16 163258](https://user-images.githubusercontent.com/93910053/212622298-e1bb962f-119e-4c55-aa84-f5d91dd02283.png)
+```
+유지보수 성공하면 변경된 것을 확인할 수 있는 화면입니다.
+그리고 사용좌석을 선택후 강제퇴장을 누르면 강제퇴장이 됩니다.
+```
+
+![화면 캡처 2023-01-16 163652](https://user-images.githubusercontent.com/93910053/212622652-d3c0f73a-e00a-4878-8fb7-09530fa46242.png)
+```
+강제퇴장 성공하면 변경된 것을 확인할 수 있는 화면입니다.
+```
+
+>(매출조회)관리자 페이지
+
+![화면 캡처 2023-01-16 164002](https://user-images.githubusercontent.com/93910053/212623218-66c993b2-ad7f-423b-83f8-1dacbb7eb45f.png)
+```
+매출조회는 전체매출조회/시간매출조회/상품목록조회 기능이 있습니다.
+```
+
+![화면 캡처 2023-01-16 164338](https://user-images.githubusercontent.com/93910053/212623827-edf575d7-260b-43bb-8d4c-fad897ce30f0.png)
+```
+시간매출조회시 나타나는 화면입니다.
+```
+
+![화면 캡처 2023-01-16 164356](https://user-images.githubusercontent.com/93910053/212623832-660d819f-2b56-4e50-911d-0eb3e65b4e75.png)
+```
+상품목록조회시 나타나는 화면입니다
+```
+
+# 팀프로젝트 장점
 
 
-
+# 팀 프로젝트 소감
 
 
 
