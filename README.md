@@ -67,7 +67,7 @@
 
 # 프로젝트 배포 및  사이트
 + [참조 사이트] https://gosk.co.kr/default/g_library/glibrary_sub2.php?sub=02
-+ [프로젝트 사이트](http://43.200.236.80:8000/index)
++ [프로젝트 사이트](http://43.200.236.80:8005/index)
 
 프로젝트 사이트가 없고 참조 사이트를 통해 제작했습니다.
 
